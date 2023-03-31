@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node build/index.ts",
+    "start": "node build/app.ts",
     "dev": "nodemon src/app.ts",
     "build": "tsc -p ."
   },
@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@types/body-parser": "^1.19.2",
+    "@types/cookie-parser": "^1.4.3",
     "@types/cors": "^2.8.13",
     "@types/mongoose": "^5.11.97",
     "body-parser": "^1.20.2",
@@ -29,6 +30,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
     "mongoose": "^7.0.2",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.21"

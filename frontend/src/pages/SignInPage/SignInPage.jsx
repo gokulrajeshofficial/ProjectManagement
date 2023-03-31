@@ -1,7 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 function SignInPage() {
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    
 
   }
   return (
@@ -42,14 +44,14 @@ function SignInPage() {
               <div className="grid grid-flow-row mt-4 gap-y-3">
                 <button
                   type="button"
-                  className="flex items-center  bg-gradient-to-t from-white to-white  hover:from-purple-600 hover:to-purple-900 hover:text-white  justify-center w-full p-3 border border-black rounded-md focus:ring-2
+                  className="flex items-center  bg-gradient-to-t from-white to-white hover:from-fuchsia-600 hover:to-purple-900 hover:text-white  justify-center w-full p-3 border border-black rounded-md focus:ring-2
                    focus:ring-offset-1 focus:ring-violet-600">
                    <img src='https://freesvg.org/img/1534129544.png' width={25}/>
                   <p className='-mt-1 ml-2 font-sans font-semibold'>Sign in with Google</p>
                 </button>
                 <button
                   type="button"
-                  className="flex items-center  bg-gradient-to-t from-white to-white  hover:from-purple-600 hover:to-purple-900 hover:text-white  justify-center w-full p-3 border border-gray-600 rounded-md focus:ring-2 focus:ring-offset-1 focus:ring-violet-600 "
+                  className="flex items-center  bg-gradient-to-t from-white to-white  hover:from-fuchsia-600 hover:to-purple-900 hover:text-white  justify-center w-full p-3 border border-gray-600 rounded-md focus:ring-2 focus:ring-offset-1 focus:ring-violet-600 "
                 >
                   <svg fill="#000000"
                     className='w-5 h-5 fill-current'
@@ -109,7 +111,7 @@ function SignInPage() {
                 </Link>
                 </div>
                 <div className="mt-6">
-                  <button onClick={handleSubmit} className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
+                  <button onClick={handleSubmit} className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md  hover:to-purple-700 hover:bg-gradient-to-t hover:from-fuchsia-700 focus:outline-none focus:bg-purple-600">
                     Login / Sigin
                   </button>
                 </div>

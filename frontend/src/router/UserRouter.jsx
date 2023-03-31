@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import LandingPage from '../pages/LandingPage/LandingPage'
-import RegisterPage from '../pages/RegisterPage/RegisterPage'
+import RegisterEmailPage from '../pages/RegisterEmailPage/RegisterEmailPage'
 import SignInPage from '../pages/SignInPage/SignInPage'
 
 function UserRouter() {
@@ -9,7 +9,7 @@ function UserRouter() {
         <Routes>
             <Route exact path='/' element={<LandingPage />} />
             <Route exact path='/login' element={<SignInPage />} />
-            <Route exact path='/register' element={<RegisterPage />} />
+            <Route exact path='/register' element={<RegisterEmailPage />} />
         </Routes>
     )
 }

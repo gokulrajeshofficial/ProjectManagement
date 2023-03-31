@@ -1,19 +1,33 @@
 import express ,{Application,Request,Response,NextFunction} from 'express'
-import cors from 'cors' 
-import bodyParser from 'body-parser'
-import dotenv from 'dotenv'
-import morgan from 'morgan'
-import userRouter from './api/routes/userRouters/usersAuth'
-import adminRouter from './api/routes/adminRouter/adminRouter'
-dotenv.config()
+
+import dbConnection from './frameworks/database/mongoDb/connection';
+import expressConfig from './frameworks/webserver/expressConfig';
+import errorHandlingMidlleware from './frameworks/webserver/middlewares/errorHandlingMiddleware';
+import routes from './frameworks/webserver/routes';
+import serverConfig from './frameworks/webserver/server';
+import AppError from './utils/appError';
+
 const app : Application = express()
-const port  = process.env.PORT ;
 
-app.use('/',userRouter)
-app.use('/admin' , adminRouter)
-app.use(express.json())
-app.use(bodyParser.urlencoded({extended:true}))
+//connectDB
+dbConnection()
+//Config setting for exppress 
+expressConfig(app)
 
-app.listen(3000 , ()=>{
-    console.log(`Connected on the port ${port}`)
-})
+//Routes for each end point
+routes(app)
+
+app.use(errorHandlingMidlleware)
+
+ // catch 404 and forward to error handler
+ app.all('*', (req,res,next:NextFunction) => {
+    next(new AppError('Not found', 404));
+});
+
+// Start the server 
+serverConfig(app)
+
+
+ 
+
+
