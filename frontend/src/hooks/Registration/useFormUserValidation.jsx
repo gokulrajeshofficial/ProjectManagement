@@ -35,13 +35,14 @@ const useFormUserValidation = (userData) => {
                 break;
             };
             case 'email': {
+                var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i;
                 if (!value) {
                     error = "E-mail is Required"
                 }
-                // }else if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]]+\.[A-Z]{2,}$/i.test(value.email))
-                // {
-                //     error ="E-mail address is invalid"
-                // }
+                else if(!validRegex.test(value))
+                {
+                    error ="E-mail address is invalid"
+                }
                 break;
             };
             case 'phone': {
@@ -81,6 +82,7 @@ const useFormUserValidation = (userData) => {
 
     }
     const handleNext = () => {
+        let flag = 0
         for (const key in errors) {
             if (errors.hasOwnProperty(key)) {
                 // console.log(`${key}: ${errors[key].length}`);
@@ -93,13 +95,18 @@ const useFormUserValidation = (userData) => {
 
         for (const key in userData) {
             if (userData.hasOwnProperty(key)) {
-                // console.log(`${key}: ${userData[key].length}`);
+                validation(key , userData[key])
                 if (userData[key].length == 0) {
-                    return false
+                    flag = 1;
                 }
             }
         }
+        if(flag == 1)
+        {
+            return false
+        }else{
         return true
+        }
 
     }
 

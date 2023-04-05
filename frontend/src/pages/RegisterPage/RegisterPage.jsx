@@ -1,20 +1,20 @@
 import React, { useState, useRef, useEffect } from 'react'
-import Stepper from './components/Stepper/Stepper'
+import Stepper from '../../components/RegisterPageComponents//Stepper/Stepper'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import Account from './components/Steps/Account'
-import Workspace from './components/Steps/Workspace'
-import Invite from './components/Steps/Invite'
+import Account from '../../components/RegisterPageComponents/Steps/Account'
+import Workspace from '../../components/RegisterPageComponents/Steps/Workspace'
+import Invite from '../../components/RegisterPageComponents/Steps/Invite'
+import Complete from '../../components/RegisterPageComponents/Steps/Complete';
 
 //custom hooks validation
 import useFormUserValidation from '../../hooks/Registration/useFormUserValidation'
 import useWorkspaceValidation from '../../hooks/Registration/useWorkspaceValidation';
-import Complete from './components/Steps/Complete';
 
 
-function RegisterPage() {
+function RegisterPage({email}) {
     const [currentStep, setCurrentStep] = useState(1);
     const [userData, setUserData] = useState({
         fname: "",
@@ -23,7 +23,7 @@ function RegisterPage() {
         company: "",
         password: "",
         repeat_password: "",
-        email: ""
+        email
     });                                                                                   // userDetails
     const [workspaceCreation, setWorkspaceCreation] = useState({ workspaceName: "" })   // WorkSpace Details
     const [inviteList, setInviteList] = useState([])                                   //Invite Details
@@ -49,7 +49,7 @@ function RegisterPage() {
             case 3:
                 return <Invite inviteList={inviteList} setInviteList={setInviteList} />;
             case 4:
-                return <Complete userData  workspaceCreation  inviteList  />
+                return <Complete userData={userData}  workspaceCreation={workspaceCreation}  inviteList={inviteList}  />
             default:
         }
     };
@@ -108,7 +108,7 @@ function RegisterPage() {
                             </span> </h2>
 
                     </header>
-                    <div className='  mt-10  items-center  rounded-3xl shadow-2xl shadow-purple-500 p-2 py-'>
+                    <div className='bg-white  mt-10  items-center  rounded-3xl shadow-2xl shadow-purple-500 p-2 py-'>
                         <div className='text-center'>
                             <h1 className='text-transparent tracking-wide font-ubuntu
                   md:text-2xl text-l bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600' >Registeration Page</h1>

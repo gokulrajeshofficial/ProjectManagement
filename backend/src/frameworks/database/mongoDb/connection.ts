@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import dotenvConfig from '../../../dotenvConfig'
 
 import  dbOptions  from '../../../types/connectionInterface'
 const dbOption : dbOptions = {
@@ -7,7 +8,7 @@ const dbOption : dbOptions = {
     useUnifiedTopology: true
 }
  const dbConnection = () => {
-    mongoose.connect('mongodb://0.0.0.0:27017/PheonixTrek' ).then(() => {
+    mongoose.connect(dotenvConfig.mongoDbUrl ).then(() => {
         console.log("Connection has been established")
     }).catch((err) => {
         console.error(err)

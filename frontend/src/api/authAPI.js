@@ -5,22 +5,35 @@ const authAPI = ()=>{
 
    const registerAPI = (sendObject)=>{
       try{
-    axiosConfig.post('/auth/register',sendObject)
+     axiosConfig.post('/auth/register',sendObject)
       }catch(err){
+   
          console.log(err)
       }
    }
 
+   const loginApi = async (credentails)=>{
+      try{
+        return  await axiosConfig.post('/auth/login',credentails)
+        }catch(err)
+        {
+  
+            throw Error(`${err.response.data.message}`)
+        }
+   } 
+
    
    const verifyEmailId = (email)=>{
       try{
-      axiosConfig.post('/auth/verifyEmailId',{email})
+       return axiosConfig.post('/auth/verifyEmailId',{email})
       }catch(err)
       {
          console.log(err)
       }
    }
-   return {registerAPI  , verifyEmailId }
+
+
+   return {registerAPI , loginApi  , verifyEmailId }
 }
 
 export default authAPI

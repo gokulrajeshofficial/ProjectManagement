@@ -1,6 +1,6 @@
 import React from 'react'
-import MainNavBar from './components/MainNavbar/MainNavBar'
-import LandingPageContent from './components/LandingPageContent'
+import MainNavBar from '../../components/LandingPageComponents/MainNavbar/MainNavBar'
+import LandingPageContent from '../../components/LandingPageComponents/LandingPageContent'
 import { useNavigate } from 'react-router-dom'
 
 function LandingPage() {

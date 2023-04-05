@@ -1,27 +1,67 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import useFormSigninValidation from '../../hooks/Signin/useFormSigninValidation'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import authAPI from '../../api/authAPI'; 
 function SignInPage() {
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    
 
+  const [credentials, setCredentials] = useState({
+    email: "",
+    password: "",
+  })
+  
+
+
+  const { validation  , OnSubmitValidation} = useFormSigninValidation(credentials )
+
+  const handleOnChange = (e) => {
+    let { name, value } = e.target
+    value = value.trim()
+    setCredentials((prev) => ({ ...prev, [name]: value }))
+    validation(name , value )
+  }
+    const ToastifyOptions = {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+  }
+  const handleSubmit = async(e) => {
+    e.preventDefault()
+    const status = await OnSubmitValidation( toast , ToastifyOptions)
+    if(status){
+      try {
+        const user  = await authAPI().loginApi(credentials);
+        console.log("success,",user);
+      } catch (error) {
+    
+         toast(error.toString() ,ToastifyOptions)
+      }
+     
+    }
+ 
   }
   return (
-    <div className='lg:min-h-screen flex justify-center items-center  lg:p-15 p-3 '  >
+    <div className='lg:min-h-screen flex justify-center items-center  lg:p-15 sm:p-3 '  >
       <div className='container   lg:p-5'>
         <div className=' text-center mb-5 w-full '>
           <h2 className='font-lily font-extrabold  text-transparent tracking-wide 
                  lg:text-4xl text-2xl bg-clip-text bg-gradient-to-l from-purple-600 to-pink-600 inline-flex
                  '>Welcome back  to &nbsp;<span>
-                  <div className='flex'>
-                    <div>
-                      <img src="./LOGO.png" className='-mt-3' width={70}  alt="" srcset="" />
-                    </div>
-              <div className='text-left'>
-                <h1 className='font-extrabold font-logo leading-10 text-transparent tracking-wide 
+              <div className='flex'>
+                <div>
+                  <img src="./LOGO.png" className='-mt-3' width={70} alt="" srcSet="" />
+                </div>
+                <div className='text-left'>
+                  <h1 className='font-extrabold font-logo leading-10 text-transparent tracking-wide 
                   text-2xl bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600'>Phoenix  </h1>
-                <h1 className='text-black font-logo text-l leading-3'>Trek</h1>
-              </div>
+                  <h1 className='text-black font-logo text-l leading-3'>Trek</h1>
+                </div>
               </div>
             </span> </h2>
 
@@ -46,7 +86,7 @@ function SignInPage() {
                   type="button"
                   className="flex items-center  bg-gradient-to-t from-white to-white hover:from-fuchsia-600 hover:to-purple-900 hover:text-white  justify-center w-full p-3 border border-black rounded-md focus:ring-2
                    focus:ring-offset-1 focus:ring-violet-600">
-                   <img src='https://freesvg.org/img/1534129544.png' width={25}/>
+                  <img src='https://freesvg.org/img/1534129544.png' width={25} />
                   <p className='-mt-1 ml-2 font-sans font-semibold'>Sign in with Google</p>
                 </button>
                 <button
@@ -58,7 +98,7 @@ function SignInPage() {
                     viewBox="0 0 512 512"
                     xmlns="http://www.w3.org/2000/svg">
                     <path d="M458.4741,112H265V62.41A31.3815,31.3815,0,0,0,233.5879,31H62.4077A31.3806,31.3806,0,0,0,31,62.41V449.59A31.4379,31.4379,0,0,0,62.4077,481h171.18A31.4388,31.4388,0,0,0,265,449.59V292H458.4771A22.5231,22.5231,0,0,0,481,269.4771V134.5259A22.5257,22.5257,0,0,0,458.4741,112ZM125.5,50.08h45a11.25,11.25,0,0,1,0,22.5h-45a11.25,11.25,0,0,1,0-22.5Zm44.9956,411.7651h-45a11.25,11.25,0,1,1,0-22.5h45a11.25,11.25,0,0,1,0,22.5ZM245.1982,420.25H50.7974V91.75H245.1982V112H125.3149A22.3149,22.3149,0,0,0,103,134.3149V269.6641A22.3357,22.3357,0,0,0,125.3359,292H166v36.1489a11.1221,11.1221,0,0,0,18.9868,7.8643L229,292h16.1982Zm-24.39-210.06a11.3086,11.3086,0,0,1,4.14,15.39,11.198,11.198,0,0,1-15.39,4.14L195.25,221.44V238a11.25,11.25,0,0,1-22.5,0V221.44L158.437,229.72a11.198,11.198,0,0,1-15.39-4.14,11.3164,11.3164,0,0,1,4.14-15.39L161.5,202l-14.313-8.28a11.2689,11.2689,0,0,1,11.25-19.5293L172.75,182.47V166a11.25,11.25,0,0,1,22.5,0v16.47l14.3086-8.2793a11.2689,11.2689,0,0,1,11.25,19.5293L206.5,202Zm108,0a11.3086,11.3086,0,0,1,4.14,15.39,11.198,11.198,0,0,1-15.39,4.14L303.25,221.44V238a11.25,11.25,0,0,1-22.5,0V221.44L266.437,229.72a11.198,11.198,0,0,1-15.39-4.14,11.3164,11.3164,0,0,1,4.14-15.39L269.5,202l-14.313-8.28a11.2689,11.2689,0,0,1,11.25-19.5293L280.75,182.47V166a11.25,11.25,0,0,1,22.5,0v16.47l14.3086-8.2793a11.2689,11.2689,0,0,1,11.25,19.5293L314.5,202Zm108,0a11.3086,11.3086,0,0,1,4.14,15.39,11.198,11.198,0,0,1-15.39,4.14L411.25,221.44V238a11.25,11.25,0,0,1-22.5,0V221.44L374.437,229.72a11.198,11.198,0,0,1-15.39-4.14,11.3164,11.3164,0,0,1,4.14-15.39L377.5,202l-14.313-8.28a11.2689,11.2689,0,0,1,11.25-19.5293L388.75,182.47V166a11.25,11.25,0,0,1,22.5,0v16.47l14.3086-8.2793a11.2689,11.2689,0,0,1,11.25,19.5293L422.5,202Z" />
-                    
+
                   </svg>
                   <p className='-mt-1 ml-2 font-sans font-semibold'>Sign in with OTP</p>
                 </button>
@@ -69,49 +109,47 @@ function SignInPage() {
               </div>
 
 
-              <form className="mt-6">
-                <div className="">
+              <form className="mt-6" onSubmit={handleSubmit}>
+                <div className="mb-4">
                   <label
-                    for="email"
+                    htmlFor="email"
                     className="block lg:text-sm2 text-sm font-semibold text-white" >Email</label>
-                  <input
-                    type="email"
-                    placeholder='E-mail'
+                  <input name='email'
+                    type="text"
+                    placeholder='E-mail' onChange={handleOnChange}
                     className="block w-full px-4 py-2 mt-2 text-white bg-purple-800
                      border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
-                  <p className='lg:h-8 h-5'></p>
                 </div>
 
-                <div className="">
+                <div className="mb-5">
                   <label
-                    for="password"
+                    htmlFor="password"
                     className="block lg:text-sm2 text-sm font-semibold text-white"
                   >
                     Password
                   </label>
-                  <input
-                    type="password"
+                  <input name='password'
+                    type="password"  onChange={handleOnChange}
                     placeholder='Password'
                     className="block w-full px-4 py-2 mt-2 text-white bg-purple-800 border rounded-md
                      focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
-                  <p className='lg:h-8 h-5'></p>
 
                 </div>
                 <div className='grid grid-flow-col'>
-                <div className='flex'>
-                  <input type='checkbox' required ></input>
-                  <div className=' ml-2'>
-                  <label className='text-white'>I agree to the terms and conditions of Pheonix trek</label>
+                  <div className='flex'>
+                    <input type='checkbox' required ></input>
+                    <div className=' ml-2'>
+                      <label className='text-white'>I agree to the terms and conditions of Pheonix trek</label>
+                    </div>
                   </div>
-                </div>
-                <Link className="text-xs ml-5 text-gray-200 hover:underline hover:text-white">
-                  Forget Password?
-                </Link>
+                  <Link className="text-xs ml-5 text-gray-200 hover:underline hover:text-white">
+                    Forget Password?
+                  </Link>
                 </div>
                 <div className="mt-6">
-                  <button onClick={handleSubmit} className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md  hover:to-purple-700 hover:bg-gradient-to-t hover:from-fuchsia-700 focus:outline-none focus:bg-purple-600">
+                  <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md  hover:to-purple-700 hover:bg-gradient-to-t hover:from-fuchsia-700 focus:outline-none focus:bg-purple-600">
                     Login / Sigin
                   </button>
                 </div>
@@ -137,6 +175,7 @@ function SignInPage() {
 
         </div>
       </div>
+      <ToastContainer/>
     </div>
   )
 }

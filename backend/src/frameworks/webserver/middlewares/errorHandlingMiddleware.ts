@@ -7,6 +7,7 @@ const errorHandlingMidlleware=(err:AppError, req:Request, res:Response, next: Ne
     if (err.statusCode === 404) {
         res.status(err.statusCode).json({ errors: err.status, errorMessage: err.message })
     } else {
+        console.log(err.message)
         res.status(err.statusCode).json({
             status: err.status,
             message: err.message

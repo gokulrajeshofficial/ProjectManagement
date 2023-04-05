@@ -1,17 +1,29 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import authAPI from '../../api/authAPI'
+import ValidateEmail from '../../hooks/emailValidations'
+import RegisterPage from '../RegisterPage/RegisterPage'
 
 function RegisterEmailPage() {
     const { verifyEmailId } = authAPI()
     
     const [email , setEmail] = useState("")
     const [error , setError] = useState("")
-
+    const [proceed , setProceed] = useState(false)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const status = await verifyEmailId(email);
+        const {status , errMessage} =  ValidateEmail(email)
+
+        if(status)
+        {
+            const verification = await verifyEmailId(email);
+            console.log(verification.data)
+            verification.data == true ?  setProceed(verification.data) : setError("This email has already been registered")
+        
+        }else{
+            setError(errMessage)
+        }
         
     }
 
@@ -21,6 +33,9 @@ function RegisterEmailPage() {
 
     }
     return (
+        <>
+        {
+        proceed == true ?  <RegisterPage email={email}/>  :
         <div className='lg:min-h-screen flex justify-center items-center  lg:p-15 p-3 '  >
             <div className='container   lg:p-5'>
                 <div className=' text-center mb-5 w-full '>
@@ -67,18 +82,18 @@ function RegisterEmailPage() {
                                 <div className="absolute px-5 bg-white">Or</div>
                             </div>
 
-                            <form className="mt-6">
-                                <div className="">
+                            <form className="lg:mt-6 mt-2" onSubmit={handleSubmit }>
+                                <div className="lg:mb-10 mb-4">
                                     <label
                                         htmlFor="email"
                                         className="block lg:text-sm2 text-sm font-semibold text-white" >Email</label>
                                     <input
-                                        type="email"
+                                        type="text"
                                         placeholder='E-mail' onChange={handleOnChange}
                                         className="block w-full px-4 py-2 mt-2 text-white bg-purple-800
                    border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                     />
-                                    <p className='lg:h-8 h-5 text-red-600'>{error}</p>
+                                    <p className=' text-red-500  font-bold inline-block'>{error}</p>
                                 </div>
 
                                 <div className='grid grid-flow-col'>
@@ -90,7 +105,7 @@ function RegisterEmailPage() {
                                     </div>
                                 </div>
                                 <div className="mt-6">
-                                    <button onClick={handleSubmit} className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:to-purple-700 hover:bg-gradient-to-t hover:from-fuchsia-700 focus:outline-none focus:bg-purple-900 ">
+                                    <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:to-purple-700 hover:bg-gradient-to-t hover:from-fuchsia-700 focus:outline-none focus:bg-purple-900 ">
                                         Register / Sigup
                                     </button>
                                 </div>
@@ -113,6 +128,8 @@ function RegisterEmailPage() {
                 </div>
             </div>
         </div>
+         }
+      </>
     )
 }
 
