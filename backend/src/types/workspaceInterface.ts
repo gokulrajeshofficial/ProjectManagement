@@ -1,5 +1,11 @@
+import { ObjectId } from "mongoose";
 
 
 export interface WorkspaceInterface{
-    workspaceName : string
+    workspaceName : string ;
+    theme? : string ; 
+    createdBy? : string ;
+    sharedUsers? : [string];
+    invitedUsers? : [string];
+    date? : Date;
 }

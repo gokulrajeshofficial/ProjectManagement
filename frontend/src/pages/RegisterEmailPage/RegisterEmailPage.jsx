@@ -17,9 +17,15 @@ function RegisterEmailPage() {
 
         if(status)
         {
-            const verification = await verifyEmailId(email);
-            console.log(verification.data)
-            verification.data == true ?  setProceed(verification.data) : setError("This email has already been registered")
+            try{
+                const verification = await verifyEmailId(email);
+                console.log(verification.data)
+                verification.data == true ?  setProceed(verification.data) : ""
+
+            } catch(error) {
+                setError(error.err)
+            }
+
         
         }else{
             setError(errMessage)
@@ -93,7 +99,7 @@ function RegisterEmailPage() {
                                         className="block w-full px-4 py-2 mt-2 text-white bg-purple-800
                    border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                     />
-                                    <p className=' text-red-500  font-bold inline-block'>{error}</p>
+                                    <p className=' text-yellow-400 bg-transparent  px-2 mt-1 ml-2   font-bold inline-block'>{error}</p>
                                 </div>
 
                                 <div className='grid grid-flow-col'>

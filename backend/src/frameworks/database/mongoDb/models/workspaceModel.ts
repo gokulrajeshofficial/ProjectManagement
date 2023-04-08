@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
-const ObjectId  = new mongoose.Types.ObjectId
-const userSchema = new mongoose.Schema({
+const ObjectId  =  mongoose.Types.ObjectId
+const workspaceSchema = new mongoose.Schema({
     workspaceName : {
         type : String,
         required : true
@@ -11,10 +11,10 @@ const userSchema = new mongoose.Schema({
     },
     Date : {
         type : Date ,
-        default : new Date()
+        default : Date.now
     },
     sharedUsers : {
-        type : [ObjectId] 
+        type : [String] 
     },
     invitedUsers : {
         type : [String]
@@ -23,6 +23,6 @@ const userSchema = new mongoose.Schema({
 })
 // userSchema.index({ email : 1 }) 
 
-const userModel = mongoose.model('userDetails' , userSchema)
+const workspaceModel = mongoose.model('workspace' , workspaceSchema)
 
-export default userModel ; 
+export default workspaceModel ; 

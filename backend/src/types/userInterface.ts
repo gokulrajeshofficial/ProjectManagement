@@ -6,9 +6,8 @@ export interface UserInterface {
     lname? : string ;
     company? : string ;
     password : string ;
+    phone? : string;
     email : string;
     verified? : boolean;
-
-    
 }
 

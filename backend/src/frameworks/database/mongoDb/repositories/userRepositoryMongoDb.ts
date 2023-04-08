@@ -3,7 +3,7 @@ import userModel from "../models/userModel"
 
 
 export default function userRepositoryMongoDb(){
-    const findByEmail = async(email : string)=>{
+    const findByEmail  = async(email : string)=>{
         const user : UserInterface | null = await userModel.findOne({'email' : email})
         return user
     }

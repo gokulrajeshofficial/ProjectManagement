@@ -4,7 +4,7 @@ function MainNavBar({loginHandle , registerHandle}) {
     const [open, setOpen] = useState(false)
     return (
         <Fragment>
-            <header className=' sticky top-0  py-2 bg-gradient-to-l to-black via-gray-900 from-purple-600 '>
+            <header className=' sticky top-0  py-2 bg-gradient-to-l to-black via-gray-900 from-purple-600 z-20'>
                 <div className='flex items-center justify-between xl:max-w-7xl xl:mx-auto max-w-full px-[4%] flex-wrap w-full'>
                     <div className='flex items-center'>
                         <img src="/LOGO.png" width={60} />

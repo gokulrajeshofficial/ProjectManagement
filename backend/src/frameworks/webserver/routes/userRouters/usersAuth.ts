@@ -4,6 +4,10 @@ import userRepositoryMongoDb from '../../../database/mongoDb/repositories/userRe
 import userRepository from '../../../../application/repositories/userDbRepository';
 import { authServiceInterface } from '../../../../application/services/authServiceInterface';
 import { authService } from '../../../service/authService';
+import workspaceRepository from '../../../../application/repositories/workspaceRepository';
+import workspaceDbRepository from '../../../database/mongoDb/repositories/workspaceDbRepository';
+
+
 const router = express.Router();
 
 const controller = userAuthController(
@@ -11,6 +15,8 @@ const controller = userAuthController(
      userRepository ,
      authService,
      authServiceInterface ,
+     workspaceRepository , 
+     workspaceDbRepository
       )
 //-------------------------Verify User--------------------------//
 router.post('/verifyEmailId',controller.emailVerification);

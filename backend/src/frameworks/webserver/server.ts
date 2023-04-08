@@ -1,5 +1,5 @@
 import dotenvConfig from "../../dotenvConfig"
-import express , {Application} from "express"
+import   {Application} from "express"
 
 const serverConfig = (app : Application)=>{
     const port = dotenvConfig.port

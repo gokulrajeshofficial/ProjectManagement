@@ -8,15 +8,21 @@ import { UserInterface } from '../../types/userInterface'
 import { WorkspaceInterface } from '../../types/workspaceInterface'
 import { AuthService } from '../../frameworks/service/authService'
 import { typeofAuthServiceInterface } from '../../application/services/authServiceInterface'
+import { typeofWorkspaceRepository } from '../../application/repositories/workspaceRepository'
+import { typeOfWorkspaceDbRepository } from '../../frameworks/database/mongoDb/repositories/workspaceDbRepository'
+
 
 const userAuthController = (
     userRepositoryMongoDb: typeOfUserRepositoryMongoDb,
     userRepository: typeOfUserRepository,
     authService: AuthService,
-    authServiceInterface:  typeofAuthServiceInterface
+    authServiceInterface:  typeofAuthServiceInterface,
+    workspaceRepository: typeofWorkspaceRepository , 
+    workspaceDbRepository : typeOfWorkspaceDbRepository
 ) => {
 
     const userDbRepository = userRepository(userRepositoryMongoDb())
+    const workspaceRepo  = workspaceRepository(workspaceDbRepository())
     const authServices = authServiceInterface(authService())
 
 
@@ -31,12 +37,12 @@ const userAuthController = (
 
     const userRegister = asyncHandler(async (req: Request, res: Response) => {
         let userData: UserInterface = req.body.userData
-        let workspaceCreation: WorkspaceInterface = req.body.workspaceCreation
-        let inviteList: [] = req.body.inviteList;
-        const response = await registerUser(userData, workspaceCreation, inviteList, userDbRepository , authServices)
+        let workspaceDetails: WorkspaceInterface  = req.body.workspaceCreation
+        let inviteList: [string]  = req.body.inviteList;
+        workspaceDetails.invitedUsers = inviteList
+        console.log(userData , workspaceDetails)
+        const response = await registerUser(userData, workspaceDetails, userDbRepository , authServices , workspaceRepo)
         res.json(response)
-
-
     })
 
 

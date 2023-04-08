@@ -9,14 +9,22 @@ export const authServiceInterface = (service : ReturnType<AuthService>)=>{
     const comparePassword = (password : string , encryptPassword : string)=>{
         return service.comparePassword(password , encryptPassword)
     }
-    const generateToken = (payload : string ) =>{
-        return service.generateToken(payload)
+    const generateAccessToken = (payload : string ) =>{
+        return service.generateAccessToken(payload)
+    }
+    const generateRefreshToken = (payload : string ) =>{
+        return service.generateRefreshToken(payload)
+    }
+    const verifyRefreshToken = (token : string)=>{
+        return service.verifyRefreshToken(token)
     }
 
     return {
         encryptPassword , 
         comparePassword , 
-        generateToken
+        generateAccessToken , 
+        generateRefreshToken , 
+        verifyRefreshToken
     }
 }
 

@@ -3,15 +3,15 @@ import { UserInterface } from "../../../types/userInterface";
 import { WorkspaceInterface } from "../../../types/workspaceInterface";
 import AppError from "../../../utils/appError"
 import {typeOfUserRepository} from "../../repositories/userDbRepository"
+import { typeofWorkspaceRepository } from "../../repositories/workspaceRepository";
 import { typeofAuthServiceInterface } from "../../services/authServiceInterface";
+import { workspaceCreation } from "../workSpace/worksSpace";
 
 
 export const isEmailValid = async( email : string , userDbRepository : ReturnType<typeOfUserRepository> )=>{
     email = email.toLowerCase();
     const user : UserInterface | null  = await userDbRepository.findByEmail(email)
-
     if(user){
-        return false
         throw new AppError("E-mail already exists", HttpStatus.UNAUTHORIZED)
     }
     return true 
@@ -20,15 +20,20 @@ export const isEmailValid = async( email : string , userDbRepository : ReturnTyp
 
 export const registerUser = async(
     userData : UserInterface , 
-    workspaceCreation : WorkspaceInterface , 
-    inviteList : [] , userDbRepository : ReturnType<typeOfUserRepository>, 
-    authServices : ReturnType<typeofAuthServiceInterface>)=>{
+    workspaceDetails : WorkspaceInterface  , 
+    userDbRepository : ReturnType<typeOfUserRepository>, 
+    authServices : ReturnType<typeofAuthServiceInterface>,
+    workspaceRepo : ReturnType<typeofWorkspaceRepository>)=>{
+
     userData.email = userData.email.toLowerCase() 
     userData.password  = await authServices.encryptPassword(userData.password )
     const user = await userDbRepository.addUser(userData) 
-    // workspaceCreation.workspaceName    = workspaceCreation.workspaceName.trim()
-    // const workspace = await createWorkspace
-    console.log(user)
+    
+    const workspace  = await workspaceCreation(workspaceDetails , user._id.toString() , workspaceRepo)
+    // const generatedLink = await generateLink(user._id.toString());
+
+    // const mailResponse = await sendVerifyMail(user .email, generatedLink); 
+    return {user , workspace   }
 
 
 }
@@ -39,7 +44,7 @@ export const loginUser = async(email : string ,
     authServices : ReturnType<typeofAuthServiceInterface>)=>{   
 
         const user : UserInterface | null  = await userDbRepository.findByEmail(email)
-
+        console.log(user)
         if(!user){
            throw new AppError("this user does't exist" , HttpStatus.UNAUTHORIZED)
         }else{ 
@@ -47,11 +52,11 @@ export const loginUser = async(email : string ,
         if(!authenticate){
             throw new AppError("Sorry , Password entered is incorrect" , HttpStatus.UNAUTHORIZED)
         }
-        const {_id}= user
-        const userId = _id
-        console.log(user)
-        const token = authServices.generateToken(userId as string) 
-        return {  user , token  ,  }
+        
+        const token = await authServices.generateAccessToken(user._id as string) 
+        const refreshToken = await authServices.generateAccessToken(user._id as string) 
+        console.log(token , refreshToken)
+        return {  user , token  , refreshToken }
     }
 
 

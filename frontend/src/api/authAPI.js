@@ -3,12 +3,12 @@ import axiosConfig from '../config/axiosConfig'
 
 const authAPI = ()=>{
 
-   const registerAPI = (sendObject)=>{
+   const registerAPI = async(sendObject)=>{
       try{
-     axiosConfig.post('/auth/register',sendObject)
+      return  await axiosConfig.post('/auth/register',sendObject)
       }catch(err){
    
-         console.log(err)
+         throw Error(`${err.response.data.message}`)
       }
    }
 
@@ -17,18 +17,18 @@ const authAPI = ()=>{
         return  await axiosConfig.post('/auth/login',credentails)
         }catch(err)
         {
-  
+
             throw Error(`${err.response.data.message}`)
         }
    } 
 
    
-   const verifyEmailId = (email)=>{
+   const verifyEmailId = async(email)=>{
       try{
-       return axiosConfig.post('/auth/verifyEmailId',{email})
+       return await axiosConfig.post('/auth/verifyEmailId',{email})
       }catch(err)
       {
-         console.log(err)
+         throw { err : err.response.data.message}
       }
    }
 

@@ -2,74 +2,156 @@ import React, { Fragment } from 'react'
 
 function LandingPageContent() {
     return (
-        <Fragment >
+            <div className='w-full bg-white '>
+                        <Fragment >
 
-            <section className='flex items-center justify-between xl:max-w-7xl xl:mx-auto max-w-full px-[2%] flex-wrap w-full shadow-2xl bg-white '>
-                <div className='lg:w-1/2  w-full lg:h-80 container '>
-                    <h1 className='lg:text-6xl text-4xl font-extrabold lg:mt-0 mt-10  font-ubuntu text-transparent tracking-normal 
-                bg-clip-text bg-gradient-to-l from-purple-800 to-pink-900'>One app to control<span className='lg:text-5xl text-3xl'> and manage everything</span> </h1>
-                    <p className='font-lily md:text-xl text-l mt-5'>Create a project and manage your team with just a single app .Create meetings , assign tasks .</p>
-                </div>
-                <div className='lg:w-1/2  w-full bg-yellow-500  '>
-                    <img src="/pageContentRightImage.gif" alt="" srcset="" />
-                </div>
+<section className=' flex  items-center justify-between xl:max-w-7xl xl:mx-auto max-w-full px-[2%] flex-wrap w-full  '>
+    <div className='lg:w-1/2  w-full lg:h-80 container grid gap-y-5 md:gap-y-8'>
+        <h1 className='lg:text-6xl text-4xl font-extrabold lg:mt-0 mt-10  font-ubuntu text-transparent tracking-normal 
+    bg-clip-text bg-gradient-to-l from-purple-800 to-pink-900 leading-none'>One app to control<span className='lg:text-5xl text-3xl'> and manage everything</span> </h1>
+        <p className='font-semibold  md:text-xl text-l mt-8'>Create a project and manage your team with just a single app .Create meetings , assign tasks .</p>
 
 
-            </section>
-            <section className='flex items-center justify-center xl:max-w-7xl xl:mx-auto 
-             max-w-full px-[2%] flex-wrap w-full shadow-2xl p-5 bg-gradient-to-t from-purple-600 to-black'>
-                <div className='lg:w-2/4  w-full'>
-                    <h1 className='text-xl font-bold font-ubuntu  lg:float-right text-center text-white'>Get started with Pheonix with </h1>
+        <section className='my-5'>
+            <form>
+                <div class="relative">
+                    <input type="search" id="search" class="block w-full p-3.5 pl-10 text-sm text-fuchsia-900 border border-purple-300 rounded-lg bg-purple-50 focus:ring-purple-500 focus:border-fuchsia-500" placeholder="Enter your email" />
+                    <button type="submit" class="text-white absolute right-0 top-0 bg-gradient-to-r from-purple-600 to-pink-600   focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm2 px-5 py-3 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">Get started</button>
                 </div>
-                <div className='lg:w-2/4 w-full flex justify-center'>
-                    <button className='bg-fuchsia-800 hover:bg-pink-800 text-white font-bold text-l py-2 px-6 rounded inline-flex items-center font-logo'>
-                        <svg
-                            id="Capa_1"
-                            xmlns="http://www.w3.org/2000/svg"
-                            xmlnsXlink="http://www.w3.org/1999/xlink"
-                            className='w-7 h-7 mr-3'
-                            viewBox="0 0 363.579 363.579"
-                            style={{
-                                enableBackground: "new 0 0 363.579 363.579",
-                            }}
-                            xmlSpace="preserve">
-                            <g>
-                                <path d="M360.082,175.411l-82.42-57.744c-1.413-0.99-2.725-1.514-4.249-1.514c-3.307,0-6.413,2.512-6.413,7.313v34.323H161.436 c-4.963,0-9.436,4.167-9.436,9.13v29.75c0,4.963,4.474,9.12,9.436,9.12H267v34.341c0,4.801,3.108,7.659,6.415,7.659 c0.001,0-0.119,0-0.119,0c1.524,0,3.018-0.696,4.43-1.687l82.384-57.826c2.213-1.55,3.467-3.922,3.468-6.432 C363.579,179.335,362.296,176.962,360.082,175.411z" />
-                                <path d="M297.943,261.789c-1.384,0-2.678,1.072-2.698,1.092l-20.005,14.014c-0.173,0.114-4.24,2.852-4.24,7.896 c0,1.403,0,5.185,0,7H29v-219h242c0,0,0,4.938,0,6.75c0,4.085,3.98,6.981,4.154,7.105l21.664,15.178 c0.032,0.021,0.795,0.521,1.674,0.521c1.145,0,2.508-0.769,2.508-4.429V65.841c0-12.926-10.126-23.052-23.052-23.052H24.052 C10.79,42.79,0,53.131,0,65.841v230.896l0,0c0,13.036,11.012,24.049,24.048,24.052c0.001,0,0.002,0,0.004,0h0h253.896h0 c0.002,0,0.003,0,0.005,0C290.662,320.787,301,309.998,301,296.738V267.79C301,262.83,299.338,261.789,297.943,261.789z  M299.97,98.723c0.016-0.254,0.03-0.514,0.03-0.809C300,98.179,299.988,98.452,299.97,98.723z M299.92,99.24 c0.008-0.066,0.018-0.125,0.025-0.194C299.938,99.112,299.928,99.175,299.92,99.24z M300,296.738 C300,296.738,300,296.738,300,296.738L300,296.738L300,296.738z M299.989,267.147c0.007,0.216,0.011,0.432,0.011,0.643 C300,267.565,299.995,267.355,299.989,267.147z M299.975,266.811c0.002,0.039,0.005,0.079,0.007,0.119 C299.98,266.888,299.977,266.851,299.975,266.811z" />
-                            </g>
-                        </svg>
-                        Register Here</button>
-                </div>
-            </section>
-            <section className='container flex-wrap flex items-center justify-between xl:max-w-7xl xl:mx-auto bg-white
-             max-w-full'>
-                <div className='py-6'>
-                    <h3 className='block w-full text-center font-ubuntu my-14 text-xl 
-                '>Work made easy with  &nbsp;<span>
-                            <h1 className='font-extrabold font-logo leading-10 text-transparent tracking-wide 
-  text-2xl bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 inline-block'>Phoenix&nbsp;</h1>
-                            <span className='text-black font-logo text-l leading-3'>Trek</span>
-                        </span>
-                    </h3>
-                    <img className="w-full lg:px-56 px-20" src="./fullWidthImage.gif" alt="" srcset="" />
-                </div>
+            </form>
+
+        </section>
+    </div>
+    <div className='lg:w-1/2  w-full bg-yellow-500  '>
+        <img src="/pageContentRightImage.gif" alt="" srcset="" />
+    </div>
 
 
+</section>
 
-                <div className='md:w-2/3 w-full  p-5 flex justify-center items-center'>
-                    <div className=' bg-purple-700 w-full p-5 rounded-xl'>
-                        <h3 className='font-logo text-xl text-white'>About</h3>
-                        <p className='text-white'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                            <br />
-                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.                        </p>
-                    </div>
-                </div>
-                <div className='md:w-1/3 w-full '>
-                    <img src="./ContentPageGif2.avif" alt="" sizes="" srcset="" />
-                </div>
-            </section>
+<section>
+<h3 className='block w-full text-center font-ubuntu my-14 md:text-3xl text-l 
+    '>Work made easy with  &nbsp;<span>
+                <h1 className='font-extrabold font-logo leading-10 text-transparent tracking-wide 
+ bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 inline-block md:text-5xl text-3xl'>Phoenix&nbsp;</h1>
+                <span className='text-black font-logo md:text-3xl text-xl leading-3'>Trek</span>
+            </span>
+        </h3>
+</section>
+<section className=' px-7 md:grid grid-cols-2 p-5 gap-8 bg-gradient-to-r from-pink-300 to-purple-400 rounded-xl  w-full xl:max-w-7xl xl:mx-auto max-w-full md:px-[2%] '>
+    <div className='flex justify-center'>
+     <img src="./sideImage.avif" alt=""  className='rounded-xl'/>   
+    </div>
+    <div>
+        <h1 class="mb-4 py-5  font-extrabold leading-none tracking-tight text-fuchsia-800 text-xl lg:text-3xl  font-ubuntu">Manage Task</h1>
+    <div className='text-xl font-serif text-purple-900 '>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero dolorem atque quasi maiores non! Aut, aperiam? Itaque voluptate sint eveniet fugit harum repudiandae labore perspiciatis, assumenda numquam expedita consequatur quasi qui vitae. Facere, reiciendis! Fugit incidunt libero animi perspiciatis necessitatibus, voluptatum sapiente autem voluptate voluptas itaque cum neque esse placeat.
+    </div>
+    </div>
+</section>
+<h1 class="mb-4 text-center m-10 py-5 text-4xl font-extrabold leading-none tracking-tight text-fuchsia-800 md:text-xl lg:text-5xl  dark:text-white">Manage Task BiG Heading</h1>
 
-        </Fragment>
+<section className='container flex-wrap flex items-center justify-between xl:max-w-7xl xl:mx-auto bg-white
+ max-w-full'>
+
+    <div className='py-6'>
+        <img className="w-full lg:px-56 px-20" src="./fullWidthImage.gif" alt="" srcset="" />
+    </div>
+
+<section className=' px-7 md:grid grid-cols-2 p-5 gap-8 bg-purple-700 rounded-xl mb-8 w-full xl:max-w-7xl xl:mx-auto max-w-full md:px-[2%] '>
+    <div>
+        <h1 class="mb-4 py-5 text-4xl font-extrabold leading-none tracking-tight  md:text-xl lg:text-5xl text-white">Manage Task</h1>
+    <div className='text-xl font-serif text-pink-200 '>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero dolorem atque quasi maiores non! Aut, aperiam? Itaque voluptate sint eveniet fugit harum repudiandae labore perspiciatis, assumenda numquam expedita consequatur quasi qui vitae. Facere, reiciendis! Fugit incidunt libero animi perspiciatis necessitatibus, voluptatum sapiente autem voluptate voluptas itaque cum neque esse placeat.
+    </div>
+    </div>
+    <div className='flex justify-center items-center'>
+     <img src="./sideImage.avif" alt=""  className='rounded-xl'/>   
+    </div>
+</section>
+
+</section>
+<footer>
+    
+<footer class="bg-gray-900 text-white">
+    <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+        <div class="md:flex md:justify-between">
+          <div class="mb-6 md:mb-0">
+              <a href="https://flowbite.com/" class="flex items-center">
+                  <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="FlowBite Logo" />
+                  <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">Flowbite</span>
+              </a>
+          </div>
+          <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+              <div>
+                  <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase ">Resources</h2>
+                  <ul class="text-gray-600 dark:text-gray-400 font-medium">
+                      <li class="mb-4">
+                          <a href="https://flowbite.com/" class="hover:underline">Flowbite</a>
+                      </li>
+                      <li>
+                          <a href="https://tailwindcss.com/" class="hover:underline">Tailwind CSS</a>
+                      </li>
+                  </ul>
+              </div>
+              <div>
+                  <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Follow us</h2>
+                  <ul class="text-gray-600 dark:text-gray-400 font-medium">
+                      <li class="mb-4">
+                          <a href="https://github.com/themesberg/flowbite" class="hover:underline ">Github</a>
+                      </li>
+                      <li>
+                          <a href="https://discord.gg/4eeurUVvTy" class="hover:underline">Discord</a>
+                      </li>
+                  </ul>
+              </div>
+              <div>
+                  <h2 class="mb-6 text-sm font-semibold  uppercase text-white">Legal</h2>
+                  <ul class="text-gray-600 dark:text-gray-400 font-medium">
+                      <li class="mb-4">
+                          <a href="#" class="hover:underline">Privacy Policy</a>
+                      </li>
+                      <li>
+                          <a href="#" class="hover:underline">Terms &amp; Conditions</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+      <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+      <div class="sm:flex sm:items-center sm:justify-between">
+          <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>. All Rights Reserved.
+          </span>
+          <div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
+              <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+                  <span class="sr-only">Facebook page</span>
+              </a>
+              <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" /></svg>
+                  <span class="sr-only">Instagram page</span>
+              </a>
+              <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" /></svg>
+                  <span class="sr-only">Twitter page</span>
+              </a>
+              <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+                  <span class="sr-only">GitHub account</span>
+              </a>
+              <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c5.51 0 10-4.48 10-10S17.51 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z" clip-rule="evenodd" /></svg>
+                  <span class="sr-only">Dribbble account</span>
+              </a>
+          </div>
+      </div>
+    </div>
+</footer>
+
+</footer>
+
+</Fragment>
+            </div>
     )
 }
 
