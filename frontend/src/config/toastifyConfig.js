@@ -12,7 +12,7 @@ export const LoginError = (msg)=>{
         progress: undefined,
         theme: "dark",
     }
-    toast()
+    toast(msg ,ToastifyOptions )
 
 }
 

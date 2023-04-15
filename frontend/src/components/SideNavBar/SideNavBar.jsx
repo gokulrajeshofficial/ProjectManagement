@@ -1,75 +1,73 @@
 import React, { useState } from "react";
-import { HiMenuAlt3 } from "react-icons/hi";
+import { AiFillLeftCircle, AiFillHome } from "react-icons/ai";
 import { MdOutlineDashboard } from "react-icons/md";
 import { RiSettings4Line } from "react-icons/ri";
 import { TbReportAnalytics } from "react-icons/tb";
+
 import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
 import { FiMessageSquare, FiFolder, FiShoppingCart } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function SideNavBar() {
-    const menus = [
-        { name: "dashboard", link: "/", icon: MdOutlineDashboard },
-        { name: "user", link: "/", icon: AiOutlineUser },
-        { name: "messages", link: "/", icon: FiMessageSquare },
-        { name: "analytics", link: "/", icon: TbReportAnalytics, margin: true },
-        { name: "File Manager", link: "/", icon: FiFolder },
-        { name: "Cart", link: "/", icon: FiShoppingCart },
-        { name: "Saved", link: "/", icon: AiOutlineHeart, margin: true },
-        { name: "Setting", link: "/", icon: RiSettings4Line },
-      ];
-      const [open, setOpen] = useState(true);
-      return (
-        <section className="flex gap-6">
-          <div
-            className={`bg-[#0e0e0e] min-h-screen ${
-              open ? "w-72" : "w-16"
-            } duration-500 text-gray-100 px-4`}
-          >
-            <div className="py-3 flex justify-end">
-              <HiMenuAlt3
-                size={26}
-                className="cursor-pointer"
-                onClick={() => setOpen(!open)}
-              />
-            </div>
-            <div className="mt-4 flex flex-col gap-4 relative">
-              {menus?.map((menu, i) => (
-                <Link
-                  to={menu?.link}
-                  key={i}
-                  className={` ${
-                    menu?.margin && "mt-5"
-                  } group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
-                >
-                  <div>{React.createElement(menu?.icon, { size: "20" })}</div>
-                  <h2
-                    style={{
-                      transitionDelay: `${i + 3}00ms`,
-                    }}
-                    className={`whitespace-pre duration-500 ${
-                      !open && "opacity-0 translate-x-28 overflow-hidden"
-                    }`}
-                  >
-                    {menu?.name}
-                  </h2>
-                  <h2
-                    className={`${
-                      open && "hidden"
-                    } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
-                  >
-                    {menu?.name}
-                  </h2>
-                </Link>
-              ))}
-            </div>
+  const menus = [
+    { name: "Home", link: "/home", icon: AiFillHome, },
+    { name: "Dashboard", link: "/dashboard", icon: MdOutlineDashboard },
+    { name: "Messages", link: "/messages", icon: FiMessageSquare },
+    { name: "Projects", link: "/projects", icon: TbReportAnalytics, margin: true },
+    { name: "Workspace", link: "/workspace", icon: FiFolder },
+    { name: "User", link: "/", icon: AiOutlineUser , margin: true},
+    { name: "Setting", link: "/", icon: RiSettings4Line , },
+  ];
+  const [open, setOpen] = useState(true);
+  return (
+    <section className=" flex gap-6  ">
+      <div
+        className={` ${open ? "w-60 " : "w-20 "
+          } bg-gradient-to-bl from-purple-900  to-pink-500 min-h-screen p-5   relative duration-500`}
+      >
+        <AiFillLeftCircle
+          className={`absolute text-white bg-purple-900 rounded-full cursor-pointer -right-4 top-20 w-10 h-10  
+             ${!open && "rotate-180"}`}
+          onClick={() => setOpen(!open)}
+        />
+        <div className="flex gap-x-2 items-center">
+          <img
+            src="./LOGO.png"
+            className={`cursor-pointer w-14 duration-500 ${open && "rotate-[360deg]"
+              }`}
+          />
+
+          <div className={`text-white origin-left mt-4  duration-200  ${!open && "scale-0"
+            }`}>
+            <h1 className='font-extrabold leading-5 font-logo text-transparent tracking-wide 
+                 text-l bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500'>Phoenix  </h1>
+            <h1 className='text-white font-logo text-sm2'>Trek</h1>
           </div>
-          <div className="m-3 text-xl text-gray-900 font-semibold">
-            REACT TAILWIND
-          </div>
-        </section>
-      );
-    
+        </div>
+        <div className=" flex justify-center items-center">
+        <ul className="pt-16">
+          {menus.map((menu, index) => (
+            <li  key={index} >
+              <hr className={`${menu.margin ? "my-5 " : "hidden"} `}></hr>
+            <NavLink to={menu.link}
+             
+              className={`flex mt-1 px-4 p-2 cursor-pointer hover:bg-gradient-to-b hover:from-purple-600 hover:to-pink-500 hover:text-white rounded-md  text-gray-300 text-sm2 items-center gap-x-4 
+                `}
+            >
+{React.createElement(menu?.icon, { size: "24" })}
+              <span className={`${!open && "hidden"} origin-left duration-500 text`}>
+                {menu.name}
+              </span>
+            </NavLink>
+            </li>
+          ))}
+        </ul>
+        </div>
+      </div>
+    </section>
+
+  );
+
 }
 
 export default SideNavBar

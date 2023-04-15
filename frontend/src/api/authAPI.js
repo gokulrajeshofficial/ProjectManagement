@@ -18,7 +18,18 @@ const authAPI = ()=>{
         }catch(err)
         {
 
-            throw Error(`${err.response.data.message}`)
+         throw { err : err.response.data.message}
+        }
+   } 
+
+   
+   const googleLoginApi = async (email)=>{
+      try{
+         console.log(email)
+        return  await axiosConfig.post('/auth/google/login',email)
+        }catch(err)
+        {
+            throw {err : err.response.data.message}
         }
    } 
 
@@ -33,7 +44,7 @@ const authAPI = ()=>{
    }
 
 
-   return {registerAPI , loginApi  , verifyEmailId }
+   return {registerAPI , loginApi  , verifyEmailId , googleLoginApi}
 }
 
 export default authAPI

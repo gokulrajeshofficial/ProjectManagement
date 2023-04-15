@@ -24,6 +24,10 @@ router.post('/verifyEmailId',controller.emailVerification);
 router.post('/register',controller.userRegister);
 //------------------------User Signin ---------------------------//
 router.post('/login',controller.userLogin)
+//------------------------User Google Login ----------------------------//
+router.post('/google/login',controller.googleLogin)
+//------------------------User Login ----------------------------//
+router.post('/accessToken',controller.acessToken)
 
 
 export default router

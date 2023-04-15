@@ -6,6 +6,9 @@ export default function workspaceDbRepository(){
     const createWorkspace = async(workspaceDetails  : WorkspaceInterface)=>{
         return await workspaceModel.create(workspaceDetails)
     }
+    const getWorkspaces = async()=>{
+        return await workspaceModel.find({ })
+    }
 
 
     return {

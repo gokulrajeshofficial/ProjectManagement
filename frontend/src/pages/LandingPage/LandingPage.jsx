@@ -18,6 +18,7 @@ function LandingPage() {
         <MainNavBar loginHandle={loginHandle} registerHandle={registerHandle}/>
         <LandingPageContent registerHandle={registerHandle} />
         
+        
     </div>
   )
 }

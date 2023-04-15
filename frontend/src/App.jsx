@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import './App.css'
-import {BrowserRouter,Routes , Route} from 'react-router-dom'
-import UserRouter from './router/UserRouter'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import UserRouter from './router/AuthRouter'
+import WorkspaceRouter from './router/WorkspaceRouter'
+
 
 
 function App() {
@@ -10,7 +12,8 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-      <UserRouter/>
+        <UserRouter />
+        <WorkspaceRouter />
       </BrowserRouter>
     </div>
   )

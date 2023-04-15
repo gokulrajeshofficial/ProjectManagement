@@ -1,6 +1,7 @@
 
 import nodemailer from 'nodemailer'
 import dotenvConfig from '../../dotenvConfig';
+import fs from 'fs'
 
 let transporter = nodemailer.createTransport({
   host: dotenvConfig.nodemailer_host,
@@ -12,6 +13,10 @@ let transporter = nodemailer.createTransport({
   },
 });
 
+
+const html = fs.readFileSync('./src/frameworks/service/email.html', 'utf8')
+
+
 export const mailServiceNodeMailer = () => {
 
   const sendInviteLink = async(email: [string], link: string) => {
@@ -22,7 +27,7 @@ export const mailServiceNodeMailer = () => {
         to: email, // list of receivers
         subject: "Invite link to join workspace", // Subject line
         text: "Hello world?", // plain text body
-        html: "<b>Hello world?</b>", // html body
+        html: html
       });
 
 

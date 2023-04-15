@@ -15,6 +15,9 @@ export const authServiceInterface = (service : ReturnType<AuthService>)=>{
     const generateRefreshToken = (payload : string ) =>{
         return service.generateRefreshToken(payload)
     }
+    const verifyAccessToken = (token : string)=>{
+        return service.verifyAccessToken(token)
+    }
     const verifyRefreshToken = (token : string)=>{
         return service.verifyRefreshToken(token)
     }
@@ -24,6 +27,7 @@ export const authServiceInterface = (service : ReturnType<AuthService>)=>{
         comparePassword , 
         generateAccessToken , 
         generateRefreshToken , 
+        verifyAccessToken ,
         verifyRefreshToken
     }
 }

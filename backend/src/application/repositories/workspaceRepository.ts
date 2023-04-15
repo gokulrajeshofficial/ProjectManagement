@@ -7,6 +7,8 @@ const workspaceRepository = (repository : ReturnType<typeOfWorkspaceDbRepository
 
     const createWorkspace = async(workspaceDetails  : WorkspaceInterface)=>{return repository.createWorkspace(workspaceDetails)}
 
+    const getWorkspaces  = async() => { return repository}
+
     return { createWorkspace }
 }
 

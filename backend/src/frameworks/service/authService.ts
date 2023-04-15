@@ -18,21 +18,29 @@ export const authService = ()=>{
     }
 
     const generateAccessToken = async(payload : string)=>{
-        const token = await jwt.sign({payload}, dotenvConfig.access_token_key , {expiresIn:'20s'})
+        const token = await jwt.sign({payload}, dotenvConfig.access_token_key , {expiresIn:'30s'})
         return token
     }
 
     const generateRefreshToken = async(payload : string )=>{
-        const token = await jwt.sign({payload}, dotenvConfig.refresh_token_key , {expiresIn:"1w"})
+        console.log("user" , payload)
+        const token = await jwt.sign({payload}, dotenvConfig.refresh_token_key , {expiresIn:"12w"})
         return token
 
     }
 
     const verifyRefreshToken =async (token : string) => {
+        const response = await jwt.verify(token , dotenvConfig.refresh_token_key)
+        return response
+    }
 
-        return jwt.verify(token , dotenvConfig.refresh_token_key)
+    const verifyAccessToken =async (token : string) => {
+ 
+  
+       return jwt.verify(token , dotenvConfig.access_token_key)
         
     }
+
 
 
     return {
@@ -40,7 +48,8 @@ export const authService = ()=>{
         comparePassword , 
         generateAccessToken , 
         generateRefreshToken , 
-        verifyRefreshToken
+        verifyRefreshToken,
+        verifyAccessToken
     }
 }
 

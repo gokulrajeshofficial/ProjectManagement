@@ -54,13 +54,38 @@ export const loginUser = async(email : string ,
         }
         
         const token = await authServices.generateAccessToken(user._id as string) 
-        const refreshToken = await authServices.generateAccessToken(user._id as string) 
+        const refreshToken = await authServices.generateRefreshToken(user._id as string) 
         console.log(token , refreshToken)
         return {  user , token  , refreshToken }
     }
+}
 
 
+export const googleLoginUser = async(email : string  , userDbRepository : ReturnType<typeOfUserRepository>, authServices : ReturnType<typeofAuthServiceInterface>)=>{
 
+    const user : UserInterface | null  = await userDbRepository.findByEmail(email)
+
+    if(!user){
+       throw new AppError("this user does't exist" , HttpStatus.UNAUTHORIZED)
+    }else{ 
+        const token = await authServices.generateAccessToken(user._id as string) 
+        const refreshToken = await authServices.generateRefreshToken(user._id as string) 
+        console.log( refreshToken)
+        
+        return {  user , token  , refreshToken }
+
+    }
+}
+
+export const getAccessToken = async(refreshToken : string , userDbRepository : ReturnType<typeOfUserRepository>, authServices : ReturnType<typeofAuthServiceInterface> )=>{
+    const response  = await authServices.verifyRefreshToken(refreshToken)
+    if(typeof(response) != 'object')
+    {
+        throw new AppError(response , HttpStatus.UNAUTHORIZED)    
+    }
+    const accessToken =  await authServices.generateAccessToken(response.payload) 
+    console.log("New Access token" , accessToken)
+    return accessToken
 }
 
 
