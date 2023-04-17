@@ -14,8 +14,6 @@ function UserRouter() {
             <Route exact path='/register' element={<RegisterEmailPage />} />
 
             <Route exact path='/home' element={<HomePage />} />
-            {/* <Route exact path='/projects' element={<   />} /> */}
-            {/* <Route exact path='/workspace' element={<RegisterEmailPage />} /> */}
 
             
         </Routes>

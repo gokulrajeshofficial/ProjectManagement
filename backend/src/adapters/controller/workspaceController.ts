@@ -2,7 +2,8 @@
 import { typeOfWorkspaceDbRepository } from "../../frameworks/database/mongoDb/repositories/workspaceDbRepository"
 import { typeofWorkspaceRepository } from "../../application/repositories/workspaceRepository"
 import asyncHandler from "express-async-handler"
-import { Request, Response } from "express"
+import { Request, Response, response } from "express"
+import { getUserWorkspaces, workspaceCreation } from "../../application/useCases/workSpace/worksSpace"
 
 const workspaceController = (
     workspaceRepository : typeofWorkspaceRepository , 
@@ -15,12 +16,13 @@ const workspaceController = (
 
 
     })
+
     const getWorkspaces = asyncHandler(async(req : Request , res : Response)=>{
+        
         const userId = req.body.userId
-        console.log
-
-
-
+        console.log(userId)
+       const response = await getUserWorkspaces(userId , workSpaceDb)
+       res.json(response)
 
     })
 

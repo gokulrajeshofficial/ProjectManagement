@@ -1,17 +1,18 @@
 import useAxiosPrivate from "../hooks/useAxiosPrivate"
 
 
+const workspaceAPI = async()=>{
 
-const workspaceAPI =()=>{
-    const axiosPrivate = useAxiosPrivate()
-    
-    const getAllWorkspace = async()=>{
+   const axiosPrivate = useAxiosPrivate()
+   
+   const getAllWorkspace = async()=>{
         try{
+         console.log("Reached workspaceapi")
         
             return  await axiosPrivate.get('/api/workspaces')
             }catch(err){
          
-               throw Error(`${err.response.data.message}`)
+               throw {err : err.response.data?.message}
             }
          }
 

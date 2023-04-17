@@ -2,54 +2,82 @@ import React, { useEffect, useState } from 'react'
 import { AiOutlinePlusSquare } from 'react-icons/ai'
 import AccordionItem from './AccordionItem/AccordionItem'
 import workspaceAPI from '../../api/workspaceAPI'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate'
+import Modal from '../Modal/Modal'
+import CreateWorkspaceModal from './WorkspaceModal/CreateWorkspaceModal'
+
 
 function WorkspaceComponents() {
     const [open, setOpen] = useState(false)
+    const [ownWorkspace, setOwnWorkspace] = useState([])
+    const [sharedWorkspace, setSharedWorkspace] = useState([])
 
-    const toggle = (index) => {
-        if (open == index) {
-            return setOpen(null)
-        }
-        setOpen(index)
-
+    const [showWorkspace, setShowWorkspace] = useState(false)
+    const axiosPrivate = useAxiosPrivate()
+    const handleCreateButton = ()=>{
+        setShowWorkspace(true)
     }
 
     useEffect(() => {
-       const workspaces  =   workspaceAPI().getAllWorkspace()
+        const fetchData = async () => {
+            try {
+                 const response =  await workspaceAPI().getAllWorkspace()
+                // const response = await axiosPrivate.get('/api/workspaces')
+                console.log(response.data.userWorkspaces)
+                setOwnWorkspace(response.data.userWorkspaces)
+            } catch (error) {
+                console.log("Reached Error hh")
+                console.log(error)
+            }
+        }
 
-    })
+        fetchData()
 
-    const handleSubmit = () => {
+    }, [])
+
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
 
     }
     const handleChange = () => {
 
     }
 
+    //----------------------Accordion -------------------------------------
     const accordionData = [
         {
             title: "Own Workspaces ",
-            body: "Body"
+            body: ownWorkspace
         },
         {
             title: "Shared Workspaces ",
-            body: "Body 2"
+            body: sharedWorkspace
         },
 
     ]
+    const toggle = (index) => {
+        if (open == index) {
+            return setOpen(null)
+        }
+        setOpen(index)
+    }
+
+
 
 
     return (
-        <div className='p-10 w-full '>
+        <div className='p-10 w-full overflow-scroll h-screen'>
             <header>
                 <h1 className='font-lily text-l text-purple-700' >Workspace Options</h1>
                 <hr className='border-purple-400 mt-3 border-2 '></hr>
                 <div className='flex flex-wrap'>
-                    <button className='p-3 m-3 rounded-md text-white bg-purple-600 hover:bg-purple-400' ><span className='inline-flex  mr-1'> <AiOutlinePlusSquare /></span> New Workspace </button>
+                    <button onClick={handleCreateButton} className='p-3 m-3 rounded-md text-white bg-purple-600 hover:bg-purple-400' ><span className='inline-flex  mr-1'> <AiOutlinePlusSquare /></span> New Workspace </button>
                     <button className='p-3 m-3 rounded-md text-white bg-purple-600 hover:bg-purple-400' ><span className='inline-flex mr-1'> <AiOutlinePlusSquare /></span> Invite People </button>
                 </div>
             </header>
-            <section className='my-5 w-[50%]'>
+            <section className='my-5 lg:w-[50%] w-full'>
                 <form className='mb-5' onSubmit={handleSubmit}>
                     <div className="relative">
                         <input type="search" onChange={handleChange} id="search" className="block w-full p-3 pl-10 text-sm text-fuchsia-900 border border-purple-300 rounded-lg bg-purple-50 focus:ring-purple-500 focus:border-fuchsia-500" placeholder="Search for Workspace ..." />
@@ -57,15 +85,15 @@ function WorkspaceComponents() {
                     </div>
                 </form>
             </section>
-            <section className='grid  gap-y-4'>
+            <section className='grid  gap-y-4 mb-5'>
                 <div>
                     <h1 className='font-lily mt-10 text-l text-purple-700' >Workspace List</h1>
                     <hr className='border-purple-400 mt-3 border-2 '></hr>
                 </div>
-                <div className='px-[40px] w-[80%]'>
+                <div className='mx-[40px] md:w-[80%]'>
                     {
                         accordionData.map((data, index) => {
-                            return <AccordionItem key={index} open={open == index} title={data.title} desc={data.body} toggle={() => { toggle(index) }} />
+                            return <AccordionItem key={index} open={open == index} title={data.title} body={data.body} toggle={() => { toggle(index) }} />
                         })
                     }
 
@@ -104,6 +132,12 @@ function WorkspaceComponents() {
                     </ul>
                 </div>
             </div>
+            <Modal isVisible={showWorkspace} setShowModal={setShowWorkspace}>
+                <CreateWorkspaceModal />
+            </Modal>
+            {/* <Modal isVisible={showModal} setShowModal={setShowModal}>
+                <ForgotPassword />
+            </Modal> */}
         </div>
     )
 }

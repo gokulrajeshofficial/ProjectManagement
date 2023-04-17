@@ -44,7 +44,7 @@ function SideNavBar() {
             <h1 className='text-white font-logo text-sm2'>Trek</h1>
           </div>
         </div>
-        <div className=" flex justify-center items-center">
+        <div className=" flex justify-center items-center ">
         <ul className="pt-16">
           {menus.map((menu, index) => (
             <li  key={index} >

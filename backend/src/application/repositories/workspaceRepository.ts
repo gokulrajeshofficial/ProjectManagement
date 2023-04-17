@@ -7,9 +7,10 @@ const workspaceRepository = (repository : ReturnType<typeOfWorkspaceDbRepository
 
     const createWorkspace = async(workspaceDetails  : WorkspaceInterface)=>{return repository.createWorkspace(workspaceDetails)}
 
-    const getWorkspaces  = async() => { return repository}
+    const getUserWorkspaces  = async(userId :string) => { return repository.getUserWorkspaces(userId)}
 
-    return { createWorkspace }
+    const sharedUserWorkspaces = async()=>{}
+    return { createWorkspace , getUserWorkspaces }
 }
 
 export default workspaceRepository

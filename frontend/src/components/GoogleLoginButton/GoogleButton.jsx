@@ -1,5 +1,5 @@
 import React from 'react'
-import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios'
 import authAPI from '../../api/authAPI';
 import { useNavigate } from 'react-router-dom';
@@ -37,7 +37,7 @@ function GoogleButton({text ,    handleUserInfo}) {
                 <img src='https://freesvg.org/img/1534129544.png' width={25} />
                 <p className='-mt-1 ml-2 font-sans font-semibold'>{text}</p>
             </button>
-            {/* <GoogleLogin/> */}
+           
         </>
     )
 }

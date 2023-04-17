@@ -2,7 +2,7 @@ import express from 'express'
 import AppError from '../../../../utils/appError'
 import workspaceDbRepository from '../../../database/mongoDb/repositories/workspaceDbRepository'
 import workspaceRepository from '../../../../application/repositories/workspaceRepository'
-import workspaceController from '../../../../adapters/controller/wrokspaceController'
+import workspaceController from '../../../../adapters/controller/workspaceController'
 
 
 const router  = express.Router()

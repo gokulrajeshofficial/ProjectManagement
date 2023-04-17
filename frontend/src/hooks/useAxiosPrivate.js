@@ -6,18 +6,20 @@ import { useEffect } from "react"
 import useRefreshToken from "./useRefreshToken"
 
 function useAxiosPrivate() {
+  console.log("Reached useAxiosPrivate")
   const refresh = useRefreshToken()
 
     const accessToken = useSelector(userDetails)?.accessToken
+
     const axiosPrivate = axios.create({
         baseURL : "http://localhost:3000",
         withCredentials : true
     })
 
     useEffect(() => {
+ 
       const requestInterceptor = axiosPrivate.interceptors.request.use(
         (config)=>{
-          console.log("in config int");
             if(!config?.headers["Authorization"])
             {
                 config.headers["Authorization"] = `Bearer ${accessToken}`;
@@ -25,7 +27,9 @@ function useAxiosPrivate() {
             return config
         },
         (error)=>{
-            Promise.reject(error)
+
+          console.log(error , "error")
+          return  Promise.reject(error)
         }
       )
 
@@ -49,16 +53,17 @@ function useAxiosPrivate() {
             }
             return Promise.reject(error)
         }
-      )
-    return ()=>{
-      axiosPrivate.interceptors.request.eject(requestInterceptor)
-      axiosPrivate.interceptors.response.eject(responseInterceptor)
-    }
+      );
+
+    // return ()=>{
+    //   // axiosPrivate.interceptors.request.eject(requestInterceptor)
+    //   // axiosPrivate.interceptors.response.eject(responseInterceptor)
+    // }
 
     }, [accessToken , refresh])
+  
     return axiosPrivate
 
-  
 }
 
 export default useAxiosPrivate

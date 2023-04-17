@@ -5,7 +5,7 @@ import WorkspaceComponents from '../../components/WorkspaceComponents/WorkspaceC
 
 function WorkspacePage() {
   return (
-    <div className='flex overflow-hidden w-full '>
+    <div className='flex overflow-hidden w-full h-screen'>
       <SideNavBar />
 
       <div className='w-full flex-col'>

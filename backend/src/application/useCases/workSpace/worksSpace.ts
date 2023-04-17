@@ -17,3 +17,10 @@ export const workspaceCreation = async(workspaceDetails : WorkspaceInterface , u
 
     return workspace
 } 
+
+export const getUserWorkspaces = async(userId : string , workspaceRepo : ReturnType<typeofWorkspaceRepository>)=>{
+   const userWorkspaces = await  workspaceRepo.getUserWorkspaces(userId )
+//    const sharedWorkspaces = await workspaceRepo
+   return {userWorkspaces}
+
+}
