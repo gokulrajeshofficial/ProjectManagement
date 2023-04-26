@@ -2,7 +2,8 @@
 import nodemailer from 'nodemailer'
 import dotenvConfig from '../../dotenvConfig';
 import fs from 'fs'
-
+import ejs from 'ejs'; // import EJS library
+import { UserInterface } from '../../types/userInterface';
 let transporter = nodemailer.createTransport({
   host: dotenvConfig.nodemailer_host,
   port: 465,
@@ -14,13 +15,14 @@ let transporter = nodemailer.createTransport({
 });
 
 
-const html = fs.readFileSync('./src/frameworks/service/email.html', 'utf8')
 
 
 export const mailServiceNodeMailer = () => {
-
-  const sendInviteLink = async(email: [string], link: string) => {
+  
+  const sendInviteLink = async(email: string , workspaceOwner: UserInterface , encryptedEmail : string , workspaceId : string ) => {
     try {
+      const template = fs.readFileSync('./src/frameworks/service/mails/inviteLink.ejs', 'utf8');
+      const html = ejs.render(template, { workspaceOwner , email , encryptedEmail , workspaceId }); 
 
       const response  =  await transporter.sendMail({
         from: dotenvConfig.nodemailer_user, // sender address
@@ -28,7 +30,7 @@ export const mailServiceNodeMailer = () => {
         subject: "Invite link to join workspace", // Subject line
         text: "Hello world?", // plain text body
         html: html
-      });
+      }); 
 
 
       return "Email has been sent Successfully"
@@ -37,6 +39,9 @@ export const mailServiceNodeMailer = () => {
       throw { err }
     }
   }    
+
+
+  
   return{
     sendInviteLink
   }

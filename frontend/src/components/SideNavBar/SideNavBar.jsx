@@ -23,7 +23,7 @@ function SideNavBar() {
     <section className=" flex gap-6  ">
       <div
         className={` ${open ? "w-60 " : "w-20 "
-          } bg-gradient-to-bl from-purple-900  to-pink-500 min-h-screen p-5   relative duration-500`}
+          } bg-gradient-to-b from-purple-900  to-pink-500 min-h-screen p-5   relative duration-500`}
       >
         <AiFillLeftCircle
           className={`absolute text-white bg-purple-900 rounded-full cursor-pointer -right-4 top-20 w-10 h-10  
@@ -51,8 +51,10 @@ function SideNavBar() {
               <hr className={`${menu.margin ? "my-5 " : "hidden"} `}></hr>
             <NavLink to={menu.link}
              
-              className={`flex mt-1 px-4 p-2 cursor-pointer hover:bg-gradient-to-b hover:from-purple-600 hover:to-pink-500 hover:text-white rounded-md  text-gray-300 text-sm2 items-center gap-x-4 
-                `}
+              className={ ({ isActive }) =>
+              isActive ? `flex mt-1 px-4 p-2 cursor-pointer  text-white font-semibold rounded-md  text-sm2 items-center gap-x-4 
+              ` : `flex mt-1 px-4 p-2 cursor-pointer hover:bg-gradient-to-b hover:from-purple-600 hover:to-pink-500 hover:text-white rounded-md  text-gray-300 text-sm2 items-center gap-x-4 
+              ` }
             >
 {React.createElement(menu?.icon, { size: "24" })}
               <span className={`${!open && "hidden"} origin-left duration-500 text`}>

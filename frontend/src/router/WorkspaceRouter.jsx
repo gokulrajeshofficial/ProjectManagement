@@ -6,7 +6,8 @@ function WorkspaceRouter() {
     return (
         <Routes>
             <Route exact path='/workspace' element={<WorkspacePage />} />
-            {/* <Route exact path='/workspace/create' element={<LandingPage />} /> */}
+            <Route exact path='workspace/acceptInvite/:email/:workspaceId' element={useInvitation} />
+            {/* <Route exact path='/workspace/create' element={<LandingPage />} />
             {/* <Route exact path='/' element={<LandingPage />} /> */}
         </Routes>
 

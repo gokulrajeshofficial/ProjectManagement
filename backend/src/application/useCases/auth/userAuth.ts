@@ -29,7 +29,7 @@ export const registerUser = async(
     userData.password  = await authServices.encryptPassword(userData.password )
     const user = await userDbRepository.addUser(userData) 
     
-    const workspace  = await workspaceCreation(workspaceDetails , user._id.toString() , workspaceRepo)
+    const workspace  = await workspaceCreation(workspaceDetails , user._id.toString() , workspaceRepo , userDbRepository )
     // const generatedLink = await generateLink(user._id.toString());
 
     // const mailResponse = await sendVerifyMail(user .email, generatedLink); 

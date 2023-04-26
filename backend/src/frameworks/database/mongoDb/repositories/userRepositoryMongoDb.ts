@@ -13,10 +13,15 @@ export default function userRepositoryMongoDb(){
         return user
     }
 
+    const findById =   async(id : string)=>{
+        const user : UserInterface | null = await userModel.findById(id)
+        return user
+    }
+
 
 
     return {
-        findByEmail , addUser
+        findByEmail , addUser , findById
     }
     
 }

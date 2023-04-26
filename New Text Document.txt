@@ -1,4 +1,0 @@
-https://merlino.agency/blog/clean-architecture-in-express-js-applications
-VIPIN VARGHESE4:14 PM
-https://github.com/panagiop/node.js-clean-architecture
-https://github.com/royib/clean-architecture-node/tree/master/src

@@ -8,7 +8,7 @@ function Modal (props){
 
    }
   return (
-    <div className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center  '>
+    <div className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center overflow-scroll '>
         <div className=' bg-white rounded-xl grid grid-flow-row lg:w-[60%]'>
 
            <div className='w-full flex justify-between bg-gradient-to-b from-fuchsia-500 to-purple-800  px-2 p-2 rounded-t-xl'>
@@ -17,7 +17,10 @@ function Modal (props){
             </div> 
            <div className='container'>
 
-           {props.children}
+           {React.Children.map(props.children, (child) => {
+            // Pass the handleClose function as a prop to each child element
+            return React.cloneElement(child, { handleClose });
+          })}
             </div> 
         </div>
 

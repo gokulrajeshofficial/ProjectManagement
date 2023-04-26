@@ -1,10 +1,8 @@
 import useAxiosPrivate from "../hooks/useAxiosPrivate"
 
 
-const workspaceAPI = async()=>{
-
+function workspaceAPI(){
    const axiosPrivate = useAxiosPrivate()
-   
    const getAllWorkspace = async()=>{
         try{
          console.log("Reached workspaceapi")
@@ -15,10 +13,20 @@ const workspaceAPI = async()=>{
                throw {err : err.response.data?.message}
             }
          }
+   const createWorkspace = async(obj)=>{
+      try{
+         console.log("Reached workspace")
+         return await axiosPrivate.post('api/createWorkspace',obj)
+      }catch(error)
+      {
+         console.log(error , "Caught Error")
+      }
+   }
 
 
          return{
-            getAllWorkspace
+            getAllWorkspace,createWorkspace
+            
          }
 
 }

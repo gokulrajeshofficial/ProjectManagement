@@ -1,12 +1,18 @@
 import React, { useState } from 'react'
 import { TwitterPicker } from 'react-color';
+import { AiOutlineClose } from 'react-icons/ai'
 import ValidateEmail from '../../../hooks/emailValidations';
-function CreateWorkspaceModal() {
+import useWorkspaceValidation from '../../../hooks/Registration/useWorkspaceValidation'
+import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
+import workspaceAPI from '../../../api/workspaceAPI';
+function CreateWorkspaceModal({ handleClose, fetchData }) {
+    const privateAxios = useAxiosPrivate()
+
     const [workspaceCreation, setWorkspaceCreation] = useState({
         workspaceName: "",
         theme: "#9013FE"
     })
-
+    const { workspaceErrors, workspaceHandleNext } = useWorkspaceValidation(workspaceCreation)
     const [toggleName, setToggleName] = useState("workspace");
 
     const handleOnChange = (e) => {
@@ -22,6 +28,7 @@ function CreateWorkspaceModal() {
 
     const [mail, setMail] = useState("")
     const [error, setError] = useState("")
+    const [render, setRender] = useState(true)
     const [inviteList, setInviteList] = useState([])
     function handleOnClick() {
         const { errMessage, status } = ValidateEmail(mail)
@@ -39,6 +46,27 @@ function CreateWorkspaceModal() {
         setError("")
     }
 
+    const removeFromList = (index) => {
+        const arrayList = inviteList
+        arrayList.splice(index, 1)
+        setInviteList(arrayList)
+        setRender(!render)
+    }
+
+    const handleFinish = async () => {
+
+        try {
+            console.log("Reached workspace")
+            const response = await privateAxios.post('api/createWorkspace', { inviteList, workspace: workspaceCreation })
+            fetchData()
+            handleClose()
+        } catch (error) {
+            console.log(error, "Caught Error")
+        }
+
+
+    }
+
 
 
     return (
@@ -46,14 +74,14 @@ function CreateWorkspaceModal() {
             <h2 className="font-lily font-extrabold  text-transparent tracking-wide 
          lg:text-2xl  text-l bg-clip-text bg-gradient-to-l from-purple-600 to-pink-600 inline-flex">Workspace Creation </h2>
             <div className="flex justify-center">
-                <div className="max-w-3xl container lg:mt-14">
+                <div className="max-w-7xl container lg:mt-14">
                     <div className="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
 
                         <ul className=" text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg sm:flex dark:divide-gray-600 dark:text-gray-400" id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent" role="tablist">
-                            <li className="w-full ">
+                            <li className={`w-full  ${toggleName == 'workspace' ? "block" : "sm:block hidden"} `}>
                                 <button id="stats-tab" data-tabs-target="#stats" type="button" role="tab" aria-controls="stats" aria-selected="true" className="inline-block w-full p-4 rounded-tl-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Workspace</button>
                             </li>
-                            <li className="w-full">
+                            <li className={`w-full  ${toggleName == 'invite' ? "block" : "sm:block hidden"} `}>
                                 <button id="about-tab" data-tabs-target="#about" type="button" role="tab" aria-controls="about" aria-selected="false" className="inline-block w-full p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Invite People</button>
                             </li>
 
@@ -67,15 +95,16 @@ function CreateWorkspaceModal() {
                                         </label>
                                         <input value={workspaceCreation.workspaceName} name="workspaceName" onChange={handleOnChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="workspaceName" type="text" placeholder="Workspace Name" />
                                         <p className='text-center text-sm text-gray-500'>(This is usually your organization's name)</p>
+                                        <p className='text-red-500 '>{workspaceErrors.workspaceName}</p>
                                     </div>
                                     <div className='p-2'>
                                         <label className="block text-F-700 text-sm2 font-bold mb-4" htmlFor="workspaceName">
                                             Choose a theme for your Workspace
                                         </label>
-                                        <TwitterPicker color={workspaceCreation.theme} onChange={handleColorChange} />
+                                        <TwitterPicker className='w-full' color={workspaceCreation.theme} onChange={handleColorChange} />
                                         <div className='   mt-5'>
                                             <p className=''>Selected Color : </p>
-                                            <input name='theme' type="color" placeholder='' className='shadow   rounded w-full' value={workspaceCreation.theme} />
+                                            <input name='theme' type="color" placeholder='' className='shadow   rounded w-full' value={workspaceCreation.theme} disabled />
                                         </div>
                                     </div>
 
@@ -103,10 +132,10 @@ function CreateWorkspaceModal() {
                                             </form>
                                             <div className={`w-full mt-8 ${inviteList.length == 0 ? "hidden" : "block"} `}>
                                                 <label className='font-ubuntu text-sm2 text-fuchsia-600'>Invited list </label>
-                                                <ul className='lg:p-3 list-disc' >
+                                                <ul className='lg:p-3 list-disc flex' >
                                                     {
                                                         inviteList.map((elem, index) => {
-                                                            return (<l1 key={index} className="block m-2" >{elem}</l1>)
+                                                            return (<li key={index} className="block p-1 px-2 rounded-md bg-purple-500 text-white m-2 relative" >{elem}<span className='inline-block ml-2 relative top-1 cursor-pointer' onClick={() => { removeFromList(index) }}><AiOutlineClose /></span></li>)
                                                         })
 
                                                     }
@@ -123,7 +152,11 @@ function CreateWorkspaceModal() {
                         <div className='flex justify-between'>
 
                             <button onClick={() => { setToggleName("workspace") }} className={`p-3 m-3 rounded-md text-white bg-purple-600 hover:bg-purple-400`}>prev</button>
-                            <button onClick={() => { setToggleName("invite") }} className={`p-3 m-3 rounded-md text-white bg-purple-600 hover:bg-purple-400`}>next</button>
+                            <button onClick={() => {
+                                const response = workspaceHandleNext();
+                                response ? setToggleName("invite") : setRender(!render)
+                            }} className={`p-3 m-3 rounded-md text-white bg-purple-600 hover:bg-purple-400 ${toggleName == "invite" ? "hidden" : "block"}`}>Next</button>
+                            <button onClick={handleFinish} className={`p-3 m-3 rounded-md text-white bg-purple-600 hover:bg-purple-400 ${toggleName == "invite" ? "block" : "hidden"}`} >Finish</button>
                         </div>
                     </div>
 

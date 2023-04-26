@@ -5,6 +5,10 @@ const workspaceSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    theme : {
+        type : String ,
+
+    },
     createdBy : {
         type : ObjectId,
         required : true 
