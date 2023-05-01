@@ -5,6 +5,7 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import { userDetails } from '../../store/Slice/userDetails.slice'
 import Navbar from '../../components/Navbar/Navbar'
 import HomePageComponents from '../../components/HomePageComponents/HomePageComponents'
+import MobNav from '../../components/MobNav/MobNav'
 
 function HomePage() {
   const axiosPrivate = useAxiosPrivate()
@@ -15,7 +16,7 @@ function HomePage() {
   return (
     <div className='flex overflow-hidden w-full '>
       <SideNavBar />
-
+      <MobNav/>
       <div className='w-full flex-col'>
         <Navbar />
       <HomePageComponents/>

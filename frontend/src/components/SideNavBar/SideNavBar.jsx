@@ -20,7 +20,7 @@ function SideNavBar() {
   ];
   const [open, setOpen] = useState(true);
   return (
-    <section className=" flex gap-6  ">
+    <section className=" sm:flex gap-6 hidden  ">
       <div
         className={` ${open ? "w-60 " : "w-20 "
           } bg-gradient-to-b from-purple-900  to-pink-500 min-h-screen p-5   relative duration-500`}
@@ -52,8 +52,8 @@ function SideNavBar() {
             <NavLink to={menu.link}
              
               className={ ({ isActive }) =>
-              isActive ? `flex mt-1 px-4 p-2 cursor-pointer  text-white font-semibold rounded-md  text-sm2 items-center gap-x-4 
-              ` : `flex mt-1 px-4 p-2 cursor-pointer hover:bg-gradient-to-b hover:from-purple-600 hover:to-pink-500 hover:text-white rounded-md  text-gray-300 text-sm2 items-center gap-x-4 
+              isActive ? `flex mt-1 px-4 p-2 cursor-pointer  text-white font-semibold rounded-md  text-sm2 items-center gap-x-4 border-2  border-white
+              ` : `flex mt-1 px-4 p-2 cursor-pointer hover:bg-gradient-to-b hover:from-purple-600 hover:to-pink-500 hover:text-white rounded-md hover:border-white hover:border  text-gray-300 text-sm2 items-center gap-x-4 
               ` }
             >
 {React.createElement(menu?.icon, { size: "24" })}

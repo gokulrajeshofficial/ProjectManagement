@@ -24,7 +24,8 @@ module.exports = {
       'body': ['"Open Sans"', ],
       'logo': ['Alkatra', 'cursive'],
       'lily' : ['Lily Script One', 'cursive'],
-      'ubuntu' : ['Ubuntu', 'sans-serif']
+      'ubuntu' : ['Ubuntu', 'sans-serif'],
+       'bruno': ['Bruno Ace SC', 'cursive']
     },
     extend: {},
   },

@@ -8,14 +8,14 @@ function Modal (props){
 
    }
   return (
-    <div className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center overflow-scroll '>
-        <div className=' bg-white rounded-xl grid grid-flow-row lg:w-[60%]'>
+    <div className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm   flex justify-center  overflow-y-scroll '>
+        <div className=' grid-rows-2 lg:w-[60%] sm:my-auto my-2'>
 
-           <div className='w-full flex justify-between bg-gradient-to-b from-fuchsia-500 to-purple-800  px-2 p-2 rounded-t-xl'>
+           <div className='w-full flex justify-between bg-gradient-to-b  h-16 from-fuchsia-500 to-purple-800  px-2 p-2 rounded-t-xl'>
             <img className='w-10' src='./LOGO.png'/>
             <button onClick={handleClose} className='bg-fuchsia-400 p-2 px-4 rounded-md'><BiArrowBack /></button>
             </div> 
-           <div className='container'>
+           <div className='container  rounded-xl rounded-t-none bg-white'>
 
            {React.Children.map(props.children, (child) => {
             // Pass the handleClose function as a prop to each child element

@@ -7,7 +7,7 @@ import {  AiFillHome } from "react-icons/ai";
 import { MdOutlineDashboard } from "react-icons/md";
 import { RiSettings4Line } from "react-icons/ri";
 import { TbReportAnalytics } from "react-icons/tb";
-
+import {FaUserCircle} from "react-icons/fa"
 import { AiOutlineUser } from "react-icons/ai";
 import { FiMessageSquare, FiFolder } from "react-icons/fi";
 
@@ -54,15 +54,15 @@ export default function Navbar() {
 
 
   return (
-    <Disclosure as="nav" className="bg-[#bd83d7] py-1 w-full">
+    <Disclosure as="nav" className="bg-[#bd83d7] py-1 w-full ">
       {({ open }) => (
         <>
 
           <div className="mx-auto px-2 sm:px-6 lg:px-10  ">
-            <div className=" flex relative h-16 items-center justify-between">
+            <div className=" flex  relative h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-purple-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-purple-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -113,11 +113,12 @@ export default function Navbar() {
                   <div>
                     <Menu.Button className="flex rounded-full bg-purple-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
-                      <img
+                      {/* <img
                         className="h-8 w-8 rounded-full"
                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                         alt=""
-                      />
+                      /> */}
+                      <FaUserCircle  className="h-8 w-8 rounded-full bg-white"/>
                     </Menu.Button>
                   </div>
                   <Transition

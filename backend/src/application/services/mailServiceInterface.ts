@@ -5,7 +5,7 @@ import { UserInterface } from "../../types/userInterface"
 
 export const mailServiceRepo  = (repository:ReturnType<typeOfMailService> )=>{
 
-    const sendInviteLink = async (email: string, workspaceOwner : UserInterface , encryptedEmail : string , workspaceId : string ) => {return repository.sendInviteLink( email , workspaceOwner , encryptedEmail , workspaceId )  }
+    const sendInviteLink = async (email: string, workspaceOwner : UserInterface , encryptedEmail : string , workspaceId : string ) => {return await repository.sendInviteLink( email , workspaceOwner , encryptedEmail , workspaceId )  }
 
     return {
         sendInviteLink

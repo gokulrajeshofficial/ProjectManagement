@@ -57,7 +57,7 @@ function CreateWorkspaceModal({ handleClose, fetchData }) {
 
         try {
             console.log("Reached workspace")
-            const response = await privateAxios.post('api/createWorkspace', { inviteList, workspace: workspaceCreation })
+            const response = await privateAxios.post('api/workspace/createWorkspace', { inviteList, workspace: workspaceCreation })
             fetchData()
             handleClose()
         } catch (error) {

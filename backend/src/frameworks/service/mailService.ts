@@ -28,12 +28,11 @@ export const mailServiceNodeMailer = () => {
         from: dotenvConfig.nodemailer_user, // sender address
         to: email, // list of receivers
         subject: "Invite link to join workspace", // Subject line
-        text: "Hello world?", // plain text body
         html: html
       }); 
 
 
-      return "Email has been sent Successfully"
+      return  "Email has been sent Successfully"
     } catch (err) {
       console.log(err)
       throw { err }

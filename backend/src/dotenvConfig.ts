@@ -11,7 +11,10 @@ const dotenvConfig = {
     nodemailer_host : process.env.NODE_MAILER_HOST as string,
     nodemailer_port : process.env.NODE_MAILER_PORT || 465 as number,
     nodemailer_user : process.env.NODE_MAILER_USERNAME as string, 
-    nodemailer_pass : process.env.NODE_MAILER_PASSWORD as string
+    nodemailer_pass : process.env.NODE_MAILER_PASSWORD as string ,
+
+
+    crypto_secret : process.env.CRYPTO_SECRET_KEY as string
 
 
 }

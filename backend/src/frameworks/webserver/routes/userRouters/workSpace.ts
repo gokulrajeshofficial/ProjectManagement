@@ -20,10 +20,24 @@ const controller = workspaceController(
 //-------------------------------Workspace Creation -----------------------------------------//
 router.post('/createWorkspace',controller.createWorkspace)
 
+//-------------------------------Workspace Creation -----------------------------------------//
+router.patch('/acceptInvitation',controller.acceptInvitation)
+
+//-------------------------------Workspace Creation -----------------------------------------//
+router.patch('/rejectInvitation',controller.rejectInvitation)
+
 //-------------------------------Get all workspaces  -----------------------------------------//
-router.get('/workspaces',controller.getWorkspaces)
+router.get('/getallworkspaces',controller.getWorkspaces)
+
+//-------------------------------Workspace Members------------------------------------------//
+router.get('/members/:id' , controller.getMembers)
 
 //------------------------Get Details of a specific workspace--------------------------------//
 router.get('/workspace/:id', controller.getWorkspaceDetails) 
+
+//-------------------------------Invite Users ----------------------------------------------//
+router.post('/inviteUsers', controller.inviteUsers)
+
+
 
 export default router
