@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { AiOutlinePlusSquare } from 'react-icons/ai'
+import { ImUserPlus} from 'react-icons/im'
 import AccordionItem from './AccordionItem/AccordionItem'
 import workspaceAPI from '../../api/workspaceAPI'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
@@ -8,11 +9,8 @@ import CreateWorkspaceModal from './WorkspaceModal/CreateWorkspaceModal'
 import InviteListModal from './Invitelist/InviteListModal'
 
 
-function WorkspaceComponents({selectedWorkspace , setSelectedWorkspace}) {
+function WorkspaceComponents({ setSelectedWorkspace}) {
 
-
-    if(selectedWorkspace)return null
-    
     const [open, setOpen] = useState(false)
     const [ownWorkspace, setOwnWorkspace] = useState([])
     const [sharedWorkspace, setSharedWorkspace] = useState([])
@@ -79,7 +77,7 @@ function WorkspaceComponents({selectedWorkspace , setSelectedWorkspace}) {
                 <hr className='border-purple-400 mt-3 border-2 '></hr>
                 <div className='flex flex-wrap'>
                     <button onClick={handleCreateButton} className='p-3 m-3 rounded-md text-white bg-purple-600 hover:bg-fuchsia-700' ><span className='inline-block relative top-0.5 left-1 mr-2'> <AiOutlinePlusSquare /></span> New Workspace </button>
-                    <button onClick={handleInviteButton} className='p-3 m-3 rounded-md text-white bg-purple-600 hover:bg-fuchsia-700' ><span className='inline-block relative top-0.5 left-1 mr-2'> <AiOutlinePlusSquare /></span> Invite People </button>
+                    <button onClick={handleInviteButton} className='p-3 m-3 rounded-md text-white bg-purple-600 hover:bg-fuchsia-700' ><span className='inline-block relative top-0.5 left-1 mr-2'> <ImUserPlus /></span> Invite People </button>
                 </div>
             </header>
 

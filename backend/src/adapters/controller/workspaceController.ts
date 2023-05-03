@@ -79,12 +79,12 @@ const workspaceController = (
     //------------------------------Get Workspace Members -------------------------------------------//
 
     const getMembers = asyncHandler(async(req : Request , res : Response)=>{
-        console.log("Reached")
-        // const workspaceId = req.params.workspaceId
-        // const members  = await workspaceMembers(workspaceId , workSpaceDb , userDb )
+        console.log("Reached the controller")
+        const workspaceId = req.params.workspaceId
+        console.log(workspaceId)
+        const members  = await workspaceMembers(workspaceId , workSpaceDb , userDb )
+        res.json(members)
 
-        // res.json(members)
- 
     })
 
 

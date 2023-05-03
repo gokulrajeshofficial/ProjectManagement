@@ -8,12 +8,14 @@ import { authService } from "../../service/authService";
 const userAuthMiddleware = async(req : Request , res : Response , next : NextFunction)=>{
     const authHeader = req.headers['authorization'] 
     let token:string | null= null;
+    console.log("Reached the userAuth middleware")
     if(authHeader  && authHeader.startsWith('Bearer'))
     {
          token = authHeader.split(" ")[1]
          console.log(token , "Token displayed")
          try{
             const response :any = await authService().verifyAccessToken(token);
+            
             req.body.userId = response?.payload as string
             next()
         }catch(err){
@@ -23,7 +25,8 @@ const userAuthMiddleware = async(req : Request , res : Response , next : NextFun
         }
     }
     if(!token){
-        res.status(HttpStatus.UNAUTHORIZED).json({ err : "Unauthorized"} )
+        console.log("No token recieved")
+        res.status(HttpStatus.UNAUTHORIZED).json({ err : "User is Unauthorized , No token recieved"} )
     }
 
 

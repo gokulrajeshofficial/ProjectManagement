@@ -11,12 +11,15 @@ const workspaceRepository = (repository : ReturnType<typeOfWorkspaceDbRepository
 
     const getSharedWorkspaces = async(email : string)=>{  return await repository.getSharedWorkspaces(email)}
 
+    const inviteUser  = async(workspaceId : string , email : string )=>{ return await repository.inviteUser(workspaceId , email)}
+
     const getWorkspaceById = async(workspaceId  : string)=>{ return repository.getWorkspaceById(workspaceId)}
 
     const updateSharedUser = async(decryptedEmail : string , workspaceId : string )=>{ return repository.updateSharedUser(decryptedEmail , workspaceId ) }
 
     const getworkspaceMembers = async(workspaceId : string ) => { return repository.getworkspaceMembers(workspaceId)}
-    return { createWorkspace , getUserWorkspaces , getSharedWorkspaces , getWorkspaceById , updateSharedUser , getworkspaceMembers}
+
+    return { createWorkspace , getUserWorkspaces , getSharedWorkspaces , inviteUser , getWorkspaceById , updateSharedUser , getworkspaceMembers}
 }
 
 export default workspaceRepository

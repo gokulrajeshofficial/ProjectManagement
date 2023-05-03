@@ -15,8 +15,12 @@ function WorkspacePage() {
 
       <div className='w-full flex-col'>
         <Navbar />
-        <WorkspaceComponents selectedWorkspace={selectedWorkspace} setSelectedWorkspace={setSelectedWorkspace} />
-        <WorkspaceDetails selectedWorkspace={selectedWorkspace} setSelectedWorkspace={setSelectedWorkspace}/>
+        {
+          !selectedWorkspace ?   <WorkspaceComponents  setSelectedWorkspace={setSelectedWorkspace} /> :
+          <WorkspaceDetails selectedWorkspace={selectedWorkspace} setSelectedWorkspace={setSelectedWorkspace}/>
+        }
+      
+       
       </div>
     </div>
   )

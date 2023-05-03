@@ -30,14 +30,13 @@ router.patch('/rejectInvitation',controller.rejectInvitation)
 router.get('/getallworkspaces',controller.getWorkspaces)
 
 //-------------------------------Workspace Members------------------------------------------//
-router.get('/members/:id' , controller.getMembers)
+router.get('/members/:workspaceId' , controller.getMembers)
 
 //------------------------Get Details of a specific workspace--------------------------------//
 router.get('/workspace/:id', controller.getWorkspaceDetails) 
 
 //-------------------------------Invite Users ----------------------------------------------//
 router.post('/inviteUsers', controller.inviteUsers)
-
 
 
 export default router

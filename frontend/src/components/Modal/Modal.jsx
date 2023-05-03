@@ -15,8 +15,7 @@ function Modal (props){
             <img className='w-10' src='./LOGO.png'/>
             <button onClick={handleClose} className='bg-fuchsia-400 p-2 px-4 rounded-md'><BiArrowBack /></button>
             </div> 
-           <div className='container  rounded-xl rounded-t-none bg-white'>
-
+           <div className=' w-full  rounded-xl rounded-t-none bg-white'>
            {React.Children.map(props.children, (child) => {
             // Pass the handleClose function as a prop to each child element
             return React.cloneElement(child, { handleClose });

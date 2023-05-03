@@ -35,7 +35,7 @@ export const workspaceCreation = async (workspaceDetails: WorkspaceInterface, us
 }
 //----------------------------------------------- Accept invitation UseCase --------------------------------------------------//
 export const acceptInvitationUseCase = async (workspaceId: string, encryptedEmail: string, workspaceRepo: ReturnType<typeofWorkspaceRepository>, userDb: ReturnType<typeOfUserRepository>) => {
-
+   console.log("Reached accept Invitation")
    const workspace = await workspaceRepo.getWorkspaceById(workspaceId)
 
    if (!workspace) {
@@ -45,6 +45,7 @@ export const acceptInvitationUseCase = async (workspaceId: string, encryptedEmai
    const decryptedEmail = await cryService.decryption(encryptedEmail)
 
    if (workspace.invitedUsers.includes(decryptedEmail)) {
+      
       const updatedWorkspace = await workspaceRepo.updateSharedUser(decryptedEmail, workspaceId)
       const user = await userDb.findByEmail(decryptedEmail)
       if (user) {
@@ -55,6 +56,7 @@ export const acceptInvitationUseCase = async (workspaceId: string, encryptedEmai
          return response
       }
    } else {
+   
 
       if (workspace.sharedUsers.includes(decryptedEmail)) {
          const response = { status: true, msg: "User has been added" }
@@ -76,8 +78,9 @@ export const InviteUsers = async(workSpaceId: string, inviteList: [string] , wor
    if (inviteList?.length) {
       const getUser = await userDb.findById(userId)
 
-      
       await Promise.all(inviteList.map(async (email) => {
+         
+         const inviteDb = await workspaceRepo.inviteUser(workSpaceId , email)
          const encryptedEmail = await cryService.encryption(email)
          const response = await mailService.sendInviteLink(email, getUser as UserInterface, encryptedEmail, workSpaceId)
        }))

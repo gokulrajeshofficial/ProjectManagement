@@ -6,7 +6,7 @@ import useWorkspaceValidation from '../../../hooks/Registration/useWorkspaceVali
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import workspaceAPI from '../../../api/workspaceAPI';
 function CreateWorkspaceModal({ handleClose, fetchData }) {
-    const privateAxios = useAxiosPrivate()
+    const privateAxios = useAxiosPrivate() 
 
     const [workspaceCreation, setWorkspaceCreation] = useState({
         workspaceName: "",
@@ -66,8 +66,6 @@ function CreateWorkspaceModal({ handleClose, fetchData }) {
 
 
     }
-
-
 
     return (
         <div className="container flex-col  p-10">

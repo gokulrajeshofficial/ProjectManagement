@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import ValidateEmail from '../../../hooks/emailValidations'
+import { AiOutlineClose } from 'react-icons/ai'
 
 function Invite({ inviteList, setInviteList }) {
 
@@ -21,6 +22,12 @@ function Invite({ inviteList, setInviteList }) {
         setMail(e.target.value) 
         setError("")
     }
+    const removeFromList = (index) => {
+        const arrayList = inviteList
+        arrayList.splice(index, 1)
+        setInviteList(arrayList)
+        setRender(!render)
+    }
 
     return (
 
@@ -40,18 +47,18 @@ function Invite({ inviteList, setInviteList }) {
                         </div>
                         <p className='text-red-600'>{error}</p>
                     </form>
+
                     <div className={`w-full mt-8 ${inviteList.length == 0 ? "hidden" : "block"} `}>
-                        <label className='font-ubuntu text-sm2 text-fuchsia-600'>Invited list </label>
-                        <ul className='lg:p-3 list-disc' >
-                            {
-                                inviteList.map((elem, index) => {
-                                    return (<l1 key={index} className="block m-2" >{elem}</l1>)
-                                })
+                    <label className='font-ubuntu text-sm2 text-fuchsia-600'>Invited list </label>
+                    <ul className='lg:p-3 list-disc flex' >
+                        {
+                            inviteList.map((elem, index) => {
+                                return (<li key={index} className="block p-1 px-2 rounded-md bg-purple-500 text-white m-2" >{elem}<span className='inline-block ml-2 relative z-10 top-0.5 cursor-pointer' onClick={() => { removeFromList(index) }}><AiOutlineClose /></span></li>)
+                            })
 
-                            }
-                        </ul>
-
-                    </div>
+                        }
+                    </ul>
+                </div>
 
                 </div>
             </div>
