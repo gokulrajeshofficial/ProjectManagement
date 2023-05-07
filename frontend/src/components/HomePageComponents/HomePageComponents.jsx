@@ -2,7 +2,7 @@ import React from 'react'
 
 function HomePageComponents() {
   return (
-    <div className='w-full  l '>
+    <div className='w-full  '>
         HomePAGE Component
         
     </div>

@@ -36,9 +36,9 @@ function InviteListModal({ handleClose, ownWorkspace }) {
         setInviteList(arrayList)
         setRender(!render)
     }
-    useEffect(()=>{
+    useEffect(() => {
         !ownWorkspace.length ? setWorkspace(ownWorkspace._id) : ""
-    },[])
+    }, [])
 
 
     const handleSubmit = async () => {
@@ -61,33 +61,39 @@ function InviteListModal({ handleClose, ownWorkspace }) {
 
             <LogoLoader isVisible={loading} />
             <div className="container  justify-center  p-10">
-                <h2 className="font-lily font-extrabold  text-transparent tracking-wide 
+                <h2 className="font-lily font-extrabold mb-5 text-transparent tracking-wide 
  lg:text-2xl  text-l bg-clip-text bg-gradient-to-l from-purple-600 to-pink-600 inline-flex">Share Your Workspace</h2>
                 <div className="grid lg:grid-cols-2 gap-10 place-content-center">
                     <div className="max-w-3xl container lg:mt-14 ">
-                        
-                    { !ownWorkspace.length ? <>
-          
-               <label htmlFor="countries" className="block  mb-5 text-sm2  font-medium text-gray-900 dark:text-white">Invite new members for :  {ownWorkspace.workspaceName}</label>
 
-               </> 
+                        {!ownWorkspace.length ?
+                            <div className=' flex-col w-full h-full '>
+
+                                <label htmlFor="countries" className=" mb-5 text-sm2  font-medium text-gray-900 dark:text-white">Invite new members for :  </label>
                     
-                    :
-                    <>
-                        <label htmlFor="countries" className="block  mb-5 text-sm2  font-medium text-gray-900 dark:text-white"> Choose the workplace to which you can invite</label>
-                       <select onChange={(e) => { setWorkspace(e.target.value) }} id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            
-                            <option className='my-10' defaultValue hidden>Choose a workspace </option>
-                            {
-                                
-                                ownWorkspace.map((workspaces, index) => {
-                                    return (<option key={index} value={workspaces.id}>{workspaces.workspaceName}</option>)
-                                })
+                                <h1 className='text-center font-ubuntu text-base text-purple-700'> {ownWorkspace.workspaceName}</h1>
+                         
+                         
+                            </div>
 
-                            }
-                            
-                        </select>
-                        </>
+
+
+                            :
+                            <>
+                                <label htmlFor="countries" className="block  mb-5 text-sm2  font-medium text-gray-900 dark:text-white"> Choose the workplace to which you can invite</label>
+                                <select onChange={(e) => { setWorkspace(e.target.value) }} id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                                    <option className='my-10' defaultValue hidden>Choose a workspace </option>
+                                    {
+
+                                        ownWorkspace.map((workspaces, index) => {
+                                            return (<option key={index} value={workspaces.id}>{workspaces.workspaceName}</option>)
+                                        })
+
+                                    }
+
+                                </select>
+                            </>
                         }
                     </div>
                     <div className="max-w-3xl container lg:mt-14">

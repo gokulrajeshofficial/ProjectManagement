@@ -9,8 +9,8 @@ import MobNav from '../../components/MobNav/MobNav'
 
 function HomePage() {
   const axiosPrivate = useAxiosPrivate()
-  const selection = useSelector(userDetails)
-  console.log("Selection", selection)
+  // const selection = useSelector(userDetails)
+  // console.log("Selection", selection)
 
 
   return (

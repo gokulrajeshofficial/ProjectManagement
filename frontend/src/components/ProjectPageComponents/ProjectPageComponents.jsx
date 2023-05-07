@@ -6,14 +6,19 @@ import Modal from '../Modal/Modal'
 import AddPeopleToProj from './Modals/AddPeopleToProj'
 import { useEffect } from 'react'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
-function ProjectPageComponents({setSelectedProject}) {
-    const axiosPrivate = useAxiosPrivate()
+import usePrivateAxiosAPI from '../../api/usePrivateAxiosAPI'
 
+function ProjectPageComponents({setSelectedProject}) {
+    // const axiosPrivate = useAxiosPrivate()
+    const axiosPrivate = usePrivateAxiosAPI()
     const [showAddPoject, setShowAddPoject] = useState(false)
     const [showAddPeople, setShowAddPeople] = useState(false)
     const [render, setRender] = useState(false)
     const [projectList, setProjectList] = useState([])
 
+    const refreshPage = ()=>{
+        setRender(!render)
+    }
 
     const handleCreateProject = () => {
         setShowAddPoject(true)
@@ -37,21 +42,19 @@ function ProjectPageComponents({setSelectedProject}) {
 
     useEffect(() => {
         fetchProjects()
-    }, [])
+    }, [render])
 
     const fetchProjects = async () => {
-        try {
-            const response = await axiosPrivate.get('/api/project/getAllProjects')
-            console.log(response)
 
+        try {
+
+            const response = await axiosPrivate.getAllProjects()
             setProjectList(response.data)
+
 
         } catch (error) {
             console.log("error reached project page ", error)
         }
-
-
-
 
     }
     return (
@@ -123,7 +126,7 @@ function ProjectPageComponents({setSelectedProject}) {
 
 
             <Modal isVisible={showAddPoject} setShowModal={setShowAddPoject}>
-                <CreateProjectModel />
+                <CreateProjectModel refreshPage={refreshPage}/>
             </Modal>
 
             <Modal isVisible={showAddPeople} setShowModal={setShowAddPeople}>

@@ -9,10 +9,11 @@ const userRepository = (repository : ReturnType<typeOfUserRepositoryMongoDb>)=>{
 
     const findById = (id : string )=>{return repository.findById(id)}
 
+    const updateUserDetails = (userDetails : UserInterface )=>{return repository.updateUserDetails(userDetails)}
 
 
 
-    return {findByEmail, addUser , findById}
+    return {findByEmail, addUser , findById , updateUserDetails }
 }
 export default userRepository
 

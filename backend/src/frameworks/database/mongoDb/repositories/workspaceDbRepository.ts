@@ -87,10 +87,18 @@ export default function workspaceDbRepository() {
 
         return response
     }
+    const deleteWorkspace = async(id : string)=>{  
+        const workspaceId = new mongoose.Types.ObjectId(id)
+
+        const response = workspaceModel.findByIdAndDelete(id)
+
+        return response
+
+    }
 
 
     return {
-        createWorkspace, getUserWorkspaces, getWorkspaceById, getSharedWorkspaces , inviteUser, updateSharedUser, getworkspaceMembers
+        createWorkspace, getUserWorkspaces, getWorkspaceById, getSharedWorkspaces , inviteUser, updateSharedUser, getworkspaceMembers , deleteWorkspace
     }
 
 }

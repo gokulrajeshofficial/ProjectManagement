@@ -19,7 +19,9 @@ const workspaceRepository = (repository : ReturnType<typeOfWorkspaceDbRepository
 
     const getworkspaceMembers = async(workspaceId : string ) => { return repository.getworkspaceMembers(workspaceId)}
 
-    return { createWorkspace , getUserWorkspaces , getSharedWorkspaces , inviteUser , getWorkspaceById , updateSharedUser , getworkspaceMembers}
+    const deleteWorkspace = async(workspaceId : string ) => { return repository.deleteWorkspace(workspaceId)}
+
+    return { createWorkspace , getUserWorkspaces , getSharedWorkspaces , inviteUser , getWorkspaceById , updateSharedUser , getworkspaceMembers , deleteWorkspace}
 }
 
 export default workspaceRepository

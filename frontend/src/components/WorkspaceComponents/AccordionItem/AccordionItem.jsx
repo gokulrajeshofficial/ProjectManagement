@@ -20,10 +20,14 @@ function AccordionItem({ open, toggle, title, body, setSelectedWorkspace }) {
 
       <Collapse className='transition delay-300 duration-300 ease-in-out' isOpened={open}>
         <div className='bg-white px-[50] p-5 py-2 max-h-52 overflow-y-scroll'>
-          <div className='flex justify-between px-5 w-full'>
+          {
+            !body.length? <p className='text-center font-extrabold font-ubuntu'>
+              No Workspace present</p> :  <div className='flex justify-between px-5 w-full'>
             <p className='font-extrabold font-ubuntu text-sm2'>Workspace Name</p>
             <p className='sm:block hidden  font-extrabold font-ubuntu text-sm2'>Created by:</p>
           </div>
+          }
+         
           {
             body.map((data, index) => {
               return (

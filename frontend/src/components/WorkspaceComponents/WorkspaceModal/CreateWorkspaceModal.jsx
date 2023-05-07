@@ -5,12 +5,16 @@ import ValidateEmail from '../../../hooks/emailValidations';
 import useWorkspaceValidation from '../../../hooks/Registration/useWorkspaceValidation'
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import workspaceAPI from '../../../api/workspaceAPI';
+import LogoLoader from '../../Loader/LogoLoader';
+import { useSelector } from 'react-redux';
+import { userDetails } from '../../../store/Slice/userDetails.slice';
 function CreateWorkspaceModal({ handleClose, fetchData }) {
     const privateAxios = useAxiosPrivate() 
-
+    const user = useSelector(userDetails)
+    console.log(user , " console being here")
     const [workspaceCreation, setWorkspaceCreation] = useState({
         workspaceName: "",
-        theme: "#9013FE"
+        theme: "#9013FE" , 
     })
     const { workspaceErrors, workspaceHandleNext } = useWorkspaceValidation(workspaceCreation)
     const [toggleName, setToggleName] = useState("workspace");
@@ -25,7 +29,7 @@ function CreateWorkspaceModal({ handleClose, fetchData }) {
 
 
     //Invite props
-
+    const [loading , setLoading] = useState(false)
     const [mail, setMail] = useState("")
     const [error, setError] = useState("")
     const [render, setRender] = useState(true)
@@ -54,11 +58,12 @@ function CreateWorkspaceModal({ handleClose, fetchData }) {
     }
 
     const handleFinish = async () => {
-
+        setLoading(!loading)
         try {
             console.log("Reached workspace")
             const response = await privateAxios.post('api/workspace/createWorkspace', { inviteList, workspace: workspaceCreation })
             fetchData()
+            setLoading(!loading)
             handleClose()
         } catch (error) {
             console.log(error, "Caught Error")
@@ -160,6 +165,7 @@ function CreateWorkspaceModal({ handleClose, fetchData }) {
 
                 </div>
             </div>
+            <LogoLoader isVisible={loading}/>
         </div>
     )
 }

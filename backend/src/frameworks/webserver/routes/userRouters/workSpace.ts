@@ -5,6 +5,8 @@ import workspaceRepository from '../../../../application/repositories/workspaceR
 import workspaceController from '../../../../adapters/controller/workspaceController'
 import userRepository from '../../../../application/repositories/userDbRepository'
 import userRepositoryMongoDb from '../../../database/mongoDb/repositories/userRepositoryMongoDb'
+import projectRepository from '../../../../application/repositories/projectRepository'
+import projectDbRepository from '../../../database/mongoDb/repositories/projectDbRepository'
 
 
 const router  = express.Router()
@@ -13,7 +15,9 @@ const controller = workspaceController(
     workspaceRepository , 
     workspaceDbRepository , 
     userRepository ,
-    userRepositoryMongoDb
+    userRepositoryMongoDb ,
+    projectRepository , 
+    projectDbRepository
 
 
 )
@@ -37,6 +41,9 @@ router.get('/workspace/:id', controller.getWorkspaceDetails)
 
 //-------------------------------Invite Users ----------------------------------------------//
 router.post('/inviteUsers', controller.inviteUsers)
+
+//------------------------------Delete Workspace -------------------------------------------//
+router.delete('/delete/:workspaceId',controller.deleteWorkspace)
 
 
 export default router

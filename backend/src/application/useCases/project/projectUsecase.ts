@@ -26,9 +26,12 @@ export const projectGetAll = async(userId : string , projectRepo : ReturnType<ty
 
     }
 
-    throw new AppError("User Doesnt exist", HttpStatus.UNAUTHORIZED)
+    throw new AppError("User Doesn't exist", HttpStatus.UNAUTHORIZED)
 }
 
-export const getWorkspaceProjects = async()=>{
+export const getWorkspaceProjects = async( workspaceId : string , projectRepo :   ReturnType<typeofProjectRepository> )=>{
+
+    const workspaceProjects = await projectRepo.workspaceProjects(workspaceId)
+    return workspaceProjects
 
 }

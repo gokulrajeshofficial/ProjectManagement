@@ -19,6 +19,9 @@ const controller = userDetailsController(
 //-------------------------Verify User--------------------------//
 router.post('/verifyEmailId',controller.verifyUserByMail);
 
+//--------------------------Change User Details-----------------//
+router.put('/editProfile', controller.editUserDetails)
+
 
 
 

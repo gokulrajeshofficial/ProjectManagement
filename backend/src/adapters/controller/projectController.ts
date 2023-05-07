@@ -43,7 +43,8 @@ const projectController = (
     const workspaceProjects = asyncHandler(async(req : Request, res : Response)=>{
         const workspaceId : string = req.params.workspaceId
 
-        const response = await getWorkspaceProjects()
+        const response = await getWorkspaceProjects(workspaceId , projectRepo)
+        console.log(response)
         res.json(response)
 
     })

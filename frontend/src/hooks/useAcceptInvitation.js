@@ -14,7 +14,7 @@ function useAcceptInvitation() {
 
   const fetchAPI = async()=>{
     try{
-    const response  = await axiosPrivate.patch('api/workspace/acceptInvitation' , {email , workspaceId})
+    const response  = await axiosPrivate.patch('/api/workspace/acceptInvitation' , {email , workspaceId})
     if(response?.data?.status)
     {
       navigate('/workspace')
@@ -24,6 +24,7 @@ function useAcceptInvitation() {
 
     }catch(error){
       console.log(error)
+  
     }
   }
  

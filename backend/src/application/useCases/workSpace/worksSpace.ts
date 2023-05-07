@@ -11,6 +11,7 @@ import { typeofWorkspaceRepository } from "../../repositories/workspaceRepositor
 import cryptoServiceInterface from "../../services/cryptoServiceInterface";
 import { mailServiceRepo, typeofmailServiceRepo } from "../../services/mailServiceInterface";
 import { response } from "express";
+import { typeofProjectRepository } from "../../repositories/projectRepository";
 
 
 const mailService = mailServiceRepo(mailServiceNodeMailer())
@@ -103,4 +104,14 @@ export const getUserWorkspaces = async (userId: string,  workspaceRepo: ReturnTy
 export const workspaceMembers = async(workspaceId: string,  workspaceRepo: ReturnType<typeofWorkspaceRepository> , userDb: ReturnType<typeOfUserRepository>)=>{
    const members = await workspaceRepo.getworkspaceMembers(workspaceId)
    return members 
+}
+
+
+export const workspaceDeleteUsecase = async(workspaceId : string , userId : string , workspaceRepo: ReturnType<typeofWorkspaceRepository> , userDb: ReturnType<typeOfUserRepository>
+    , projectRepo : ReturnType<typeofProjectRepository>)=>{
+
+   const projectResponse = await projectRepo.deleteWorkspaceProject(workspaceId)
+   
+   const workspaceResponse = await workspaceRepo.deleteWorkspace(workspaceId)
+   return workspaceResponse
 }

@@ -1,3 +1,4 @@
+import mongoose from "mongoose"
 import { UserInterface } from "../../../../types/userInterface"
 import userModel from "../models/userModel"
 
@@ -18,10 +19,26 @@ export default function userRepositoryMongoDb(){
         return user
     }
 
+    const updateUserDetails = async(userDetails : UserInterface)=>{
+        try{
+            console.log(userDetails)
+            const id = new mongoose.Types.ObjectId(userDetails._id)
+            const response = await userModel.findByIdAndUpdate(id , {$set : {...userDetails}} , {new : true})
+            console.log(response)
+            return response
+        }catch(err)
+        {
+             console.log(err)
+        }
+
+
+
+    }
+
 
 
     return {
-        findByEmail , addUser , findById
+        findByEmail , addUser , findById , updateUserDetails
     }
     
 }

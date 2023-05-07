@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { userDetails } from '../../../store/Slice/userDetails.slice';
 import LogoLoader from '../../Loader/LogoLoader'; 
 
-function CreateProjectModel({handleClose}) {
+function CreateProjectModel({handleClose , refreshPage}) {
   const selector = useSelector(userDetails)
   const axiosPrivate = useAxiosPrivate()
   const [loading , setLoading] = useState(false)
@@ -98,6 +98,7 @@ function CreateProjectModel({handleClose}) {
       setLoading(true)
       const response = await axiosPrivate.post('/api/project/createNewProject' , project)
       setLoading(false)
+      refreshPage()
       handleClose()
       
     }catch (error){

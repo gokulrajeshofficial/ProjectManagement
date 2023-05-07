@@ -7,7 +7,6 @@ export default function projectDbRepository() {
 
     const createProject = async (projectDetails: ProjectInterface) => {
         const response = await projectModel.create(projectDetails)
-        console.log(response)
         return response
     }
     const getUserProjects = async (email: string) => {
@@ -20,8 +19,33 @@ export default function projectDbRepository() {
             console.log(error)
         }
     }
+    const workspaceProjects =async(id : string) => {
+      const workspaceId =   new mongoose.Types.ObjectId(id)
 
-    return { createProject, getUserProjects }
+        try{
+            const response  = await projectModel.find({workspace : workspaceId}).populate('workspace').populate('createdBy').exec()
+            return response
+
+        }catch(err)
+        {
+            console.log(err , "error inside project db")
+        }
+        
+    }
+    const deleteWorkspaceProject = async(id : string)=>{
+        const workspaceId =   new mongoose.Types.ObjectId(id)
+        try{
+            const response = await projectModel.deleteMany({ workspace : workspaceId })
+            return response
+
+        }catch(err)
+        {
+            console.log(err , "error inside project db")
+        }
+
+    }
+
+    return { createProject, getUserProjects , workspaceProjects , deleteWorkspaceProject }
 }
 
 export type typeofProjectDbRepository = typeof projectDbRepository

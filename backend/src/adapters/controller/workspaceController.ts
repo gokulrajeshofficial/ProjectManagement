@@ -3,20 +3,25 @@ import { typeOfWorkspaceDbRepository } from "../../frameworks/database/mongoDb/r
 import { typeofWorkspaceRepository } from "../../application/repositories/workspaceRepository"
 import asyncHandler from "express-async-handler"
 import { Request, Response } from "express"
-import {  InviteUsers, acceptInvitationUseCase, getUserWorkspaces, workspaceCreation, workspaceMembers } from "../../application/useCases/workSpace/worksSpace"
+import {  InviteUsers, acceptInvitationUseCase, getUserWorkspaces, workspaceCreation, workspaceDeleteUsecase, workspaceMembers } from "../../application/useCases/workSpace/worksSpace"
 import { WorkspaceInterface } from "../../types/workspaceInterface"
 import { typeOfUserRepositoryMongoDb } from "../../frameworks/database/mongoDb/repositories/userRepositoryMongoDb"
 import { typeOfUserRepository } from "../../application/repositories/userDbRepository"
+import { typeofProjectRepository } from "../../application/repositories/projectRepository"
+import { typeofProjectDbRepository } from "../../frameworks/database/mongoDb/repositories/projectDbRepository"
 
 const workspaceController = (
     workspaceRepository : typeofWorkspaceRepository , 
     workspaceDbRepository : typeOfWorkspaceDbRepository , 
     userRepository: typeOfUserRepository,
     userRepositoryMongoDb: typeOfUserRepositoryMongoDb,
+    projectRepository : typeofProjectRepository, 
+    projectDbRepository: typeofProjectDbRepository
 )=>{
 
     const workSpaceDb  = workspaceRepository(workspaceDbRepository())
     const userDb = userRepository(userRepositoryMongoDb())
+    const projectRepo = projectRepository(projectDbRepository())
 
 
     //---------------------------------Create Workspace Controller ----------------------------------//
@@ -79,15 +84,24 @@ const workspaceController = (
     //------------------------------Get Workspace Members -------------------------------------------//
 
     const getMembers = asyncHandler(async(req : Request , res : Response)=>{
-        console.log("Reached the controller")
         const workspaceId = req.params.workspaceId
-        console.log(workspaceId)
         const members  = await workspaceMembers(workspaceId , workSpaceDb , userDb )
         res.json(members)
 
     })
 
+    //-----------------------------------Delete Workspace --------------------------------------------//
 
-    return{createWorkspace , getWorkspaces , getWorkspaceDetails , acceptInvitation , rejectInvitation , inviteUsers , getMembers}
+    const deleteWorkspace = asyncHandler(async(req : Request , res : Response)=>{
+
+        const workspaceId = req.params.workspaceId
+        const userId = req.body.userId
+        const response = await workspaceDeleteUsecase(workspaceId , userId , workSpaceDb , userDb , projectRepo)
+        res.json(response)
+
+    })
+
+
+    return{createWorkspace , getWorkspaces , getWorkspaceDetails , acceptInvitation , rejectInvitation , inviteUsers , getMembers , deleteWorkspace}
 }
 export default workspaceController

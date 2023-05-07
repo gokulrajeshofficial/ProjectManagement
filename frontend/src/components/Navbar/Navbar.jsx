@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import {  NavLink, useLocation } from 'react-router-dom'
+import {  NavLink, useLocation, useNavigate } from 'react-router-dom'
 
 import {  AiFillHome } from "react-icons/ai";
 import { MdOutlineDashboard } from "react-icons/md";
@@ -10,7 +10,8 @@ import { TbReportAnalytics } from "react-icons/tb";
 import {FaUserCircle} from "react-icons/fa"
 import { AiOutlineUser } from "react-icons/ai";
 import { FiMessageSquare, FiFolder } from "react-icons/fi";
-
+import { unSetDetails } from '../../store/Slice/userDetails.slice';
+import { useDispatch } from 'react-redux';
 const navigation = [
   { name: 'Dashboard', href: '#', current: false },
   { name: 'Team', href: '#', current: false },
@@ -20,11 +21,11 @@ const navigation = [
 const menus = [
   { name: "Home", link: "/home", icon: <AiFillHome className='w-'/>, },
   { name: "Dashboard", link: "/", icon: <MdOutlineDashboard/> },
-  { name: "Messages", link: "/", icon: <FiMessageSquare/> },
+  { name: "Messages", link: "/messages", icon: <FiMessageSquare/> },
   { name: "Projects", link: "/projects", icon: <TbReportAnalytics/>, margin: true },
   { name: "Workspace", link: "/workspace", icon: <FiFolder/> },
-  { name: "User", link: "/", icon: <AiOutlineUser/>, margin: true },
-  { name: "Setting", link: "/", icon: <RiSettings4Line/>, },
+  { name: "User", link: "/user", icon: <AiOutlineUser/>, margin: true },
+  { name: "Setting", link: "/settings", icon: <RiSettings4Line/>, },
 ];
 
 function classNames(...classes) {
@@ -32,8 +33,9 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
+  const navigate = useNavigate()
   const location = useLocation();
-  
+  const dispatch  = useDispatch()
   const [menu, setMenu] = useState({})
 
   useEffect(() => {
@@ -153,7 +155,7 @@ export default function Navbar() {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
+                          <a  onClick={()=>{dispatch(unSetDetails); navigate('/login')}}
                             href="#"
                             className={classNames(active ? 'bg-purple-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >

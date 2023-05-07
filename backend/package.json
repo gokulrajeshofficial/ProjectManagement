@@ -2,7 +2,7 @@
   "name": "project-2",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "start": "node build/app.ts",
     "dev": "nodemon src/app.ts",

@@ -27,7 +27,7 @@ router.post('/createNewProject',controller.createNewProject);
 router.get('/getAllProjects', controller.getAllProjects)
 
 //------------------------Get all Projects ----------------------------//
-router.post('/workspace/:workspaceId',controller.workspaceProjects)
+router.get('/workspace/:workspaceId',controller.workspaceProjects)
 
 
 export default router

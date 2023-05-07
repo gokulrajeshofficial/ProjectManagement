@@ -15,8 +15,8 @@ function SideNavBar() {
     { name: "Messages", link: "/messages", icon: FiMessageSquare },
     { name: "Projects", link: "/projects", icon: TbReportAnalytics, margin: true },
     { name: "Workspace", link: "/workspace", icon: FiFolder },
-    { name: "User", link: "/", icon: AiOutlineUser , margin: true},
-    { name: "Setting", link: "/", icon: RiSettings4Line , },
+    { name: "User", link: "/user", icon: AiOutlineUser , margin: true},
+    { name: "Setting", link: "/settings", icon: RiSettings4Line , },
   ];
   const [open, setOpen] = useState(true);
   return (
