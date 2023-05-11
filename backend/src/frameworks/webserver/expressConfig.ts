@@ -4,7 +4,7 @@ import morgan from 'morgan'
 import express ,{ Application } from 'express'
 import cookieParser from 'cookie-parser'
 const corsOption = {
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173","http://www.pheonixtrek.online" , "https://www.pheonixtrek.online" ],
     methods: ['GET','PUT','PATCH','POST','DELETE'],
     credentials: true
     
