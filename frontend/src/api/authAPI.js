@@ -6,7 +6,7 @@ const authAPI = ()=>{
    const registerAPI = async(sendObject)=>{
       try{
 
-      return  await axiosConfig.post('/auth/register',sendObject)
+      return  await axiosConfig.post('/api/auth/register',sendObject)
       }catch(err){
    
          throw Error(`${err.response.data.message}`)
@@ -15,7 +15,7 @@ const authAPI = ()=>{
 
    const loginApi = async (credentails)=>{
       try{
-        return  await axiosConfig.post('/auth/login',credentails)
+        return  await axiosConfig.post('/api/auth/login',credentails)
         }catch(err)
         {
 
@@ -27,7 +27,7 @@ const authAPI = ()=>{
    const googleLoginApi = async (email)=>{
       try{
          console.log(email)
-        return  await axiosConfig.post('/auth/google/login',email)
+        return  await axiosConfig.post('/api/auth/google/login',email)
         }catch(err)
         {
             throw {err : err.response.data.message}
@@ -37,7 +37,16 @@ const authAPI = ()=>{
    
    const verifyEmailId = async(email)=>{
       try{
-       return await axiosConfig.post('/auth/verifyEmailId',{email})
+       return await axiosConfig.post('/api/auth/verifyEmailId',{email})
+      }catch(err)
+      {
+         throw { err : err.response.data.message}
+      }
+   }
+
+   const requestAccessToken = async(email)=>{
+      try{
+       return await  axiosConfig.post("/api/auth/accessToken")
       }catch(err)
       {
          throw { err : err.response.data.message}
@@ -45,7 +54,7 @@ const authAPI = ()=>{
    }
 
 
-   return {registerAPI , loginApi  , verifyEmailId , googleLoginApi}
+   return {registerAPI , loginApi  , verifyEmailId , googleLoginApi , requestAccessToken}
 }
 
 export default authAPI

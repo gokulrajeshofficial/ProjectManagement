@@ -6,7 +6,7 @@ import userAuthMiddleware from '../middlewares/userAuthMiddleware'
 import projectRouter from './userRouters/projectRouter'
 import taskRouter from './userRouters/taskRouter'
 const routes = (app:Application)=>{
-    app.use('/auth',userAuth)
+    app.use('/api/auth',userAuth)
     app.use('/api/workspace',userAuthMiddleware ,workspace)
     app.use('/api/user',userAuthMiddleware , userDetails  )
     app.use('/api/project', userAuthMiddleware , projectRouter)

@@ -7,6 +7,7 @@ import routes from './frameworks/webserver/routes';
 import serverConfig from './frameworks/webserver/server';
 import AppError from './utils/appError';
 
+
 const app : Application = express()
 
 //connectDB
@@ -15,7 +16,8 @@ dbConnection()
 expressConfig(app)
 
 //Routes for each end point
-routes(app)
+routes(app) 
+
 
 app.use(errorHandlingMidlleware)
 
