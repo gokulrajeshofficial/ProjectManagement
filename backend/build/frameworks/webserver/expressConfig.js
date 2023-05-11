@@ -8,7 +8,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const express_1 = __importDefault(require("express"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const corsOption = {
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "http://www.pheonixtrek.online", "https://www.pheonixtrek.online"],
     methods: ['GET', 'PUT', 'PATCH', 'POST', 'DELETE'],
     credentials: true
 };
