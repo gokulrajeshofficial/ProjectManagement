@@ -16,7 +16,7 @@ function SideNavBar() {
     { name: "Projects", link: "/projects", icon: TbReportAnalytics, margin: true },
     { name: "Workspace", link: "/workspace", icon: FiFolder },
     { name: "User", link: "/user", icon: AiOutlineUser , margin: true},
-    { name: "Setting", link: "/settings", icon: RiSettings4Line , },
+
   ];
   const [open, setOpen] = useState(true);
   return (

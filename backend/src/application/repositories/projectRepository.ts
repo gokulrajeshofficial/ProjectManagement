@@ -12,7 +12,8 @@ export default function projectRepository(repository : ReturnType<typeofProjectD
     
     const deleteWorkspaceProject = (workspaceId : string)=>{return repository.deleteWorkspaceProject(workspaceId)}
 
-    return { createProject , getUserProjects , workspaceProjects , deleteWorkspaceProject}
+    const getProjectMembers = (projectId : string)=>{return repository.getProjectMembers(projectId)}
+    return { createProject , getUserProjects , workspaceProjects , deleteWorkspaceProject , getProjectMembers}
 
 }
 

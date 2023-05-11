@@ -5,7 +5,7 @@ import { typeOfUserRepository } from '../../application/repositories/userDbRepos
 import { typeOfUserRepositoryMongoDb } from '../../frameworks/database/mongoDb/repositories/userRepositoryMongoDb'
 import { typeofProjectDbRepository } from '../../frameworks/database/mongoDb/repositories/projectDbRepository'
 import { typeofProjectRepository } from '../../application/repositories/projectRepository'
-import { getWorkspaceProjects, projectCreation, projectGetAll } from '../../application/useCases/project/projectUsecase'
+import { getAllMembersOfProject, getWorkspaceProjects, projectCreation, projectGetAll } from '../../application/useCases/project/projectUsecase'
 import { ProjectInterface } from '../../types/projectInterface'
 import asyncHandler from 'express-async-handler'
 
@@ -49,7 +49,15 @@ const projectController = (
 
     })
 
-    return {createNewProject , getAllProjects , workspaceProjects}
+    const projectMembers = asyncHandler(async(req : Request, res : Response)=>{
+        const projectId : string = req.params.projectId
+        const response = await getAllMembersOfProject(projectId , projectRepo)
+
+        res.json(response)
+    })
+
+
+    return {createNewProject , getAllProjects , workspaceProjects , projectMembers}
 
 }
 

@@ -35,3 +35,10 @@ export const getWorkspaceProjects = async( workspaceId : string , projectRepo : 
     return workspaceProjects
 
 }
+
+
+export const  getAllMembersOfProject = async(projectId : string , projectRepo :   ReturnType<typeofProjectRepository>)=>{
+
+    const members = await projectRepo.getProjectMembers(projectId)
+    return members 
+}

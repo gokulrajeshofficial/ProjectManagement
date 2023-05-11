@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import Chart from 'chart.js';
+import Chart from 'chart.js/auto';
 
 const DoughnutGraph = (props) => {
   const chartRef = useRef();
@@ -11,15 +11,15 @@ const DoughnutGraph = (props) => {
       data: {
         labels: ['Completed', 'Pending'],
         datasets: [{
-          label: 'My First Dataset',
+          label: 'Projects',
           data: [props.completed, props.pending],
           backgroundColor: [
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
+            'rgb(225, 18, 153)' ,
+            'rgb(245, 198, 236)',
           ],
           borderColor: [
-            'rgba(75, 192, 192, 1)',
-            'rgba(255, 99, 132, 1)',
+            'rgb(154, 32, 140)',
+            'rgb(154, 32, 140)',
           ],
           borderWidth: 1
         }]

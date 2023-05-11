@@ -41,8 +41,8 @@ function UserProfile() {
   }
   return (
     <section className='w-full  overflow-y-scroll h-screen md:p-10 pt-10 pb-44 '>
-      <div className='flex justify-center'>
-      <div className=' xl:max-w-3xl w-full  pb-28'>
+      <div className='flex justify-center  '>
+      <div className=' xl:max-w-3xl w-full pb-28'>
 
         <div className=' flex  justify-center'>
           <div className={`relative inline-block   items-center bg-fuchsia-200 justify-center w-40 h-auto overflow-hidden rounded-full dark:bg-gray-600`}>
@@ -53,7 +53,7 @@ function UserProfile() {
         <div>
         
         </div>
-        <section className='container w-full relative mt-8 rounded-2xl lg:p-14 p-5 pt-14  items-center border-4 border-purple-300'>
+        <section className='container w-full relative mt-8 rounded-2xl lg:p-14 p-5 pt-14  items-center border-4 border-purple-300 bg-white'>
           <p className='absolute right-5 top-2  font-ubuntu hover:scale-105 cursor-pointer hover:underline text-purple-800' onClick={()=>{setEdit(!edit)}}>Edit Details</p>
           <p className='text-center text-l  font-bruno border-b-2 border-purple-600 ' >User Details</p>
           <div className=' mt-5 justify-center flex ' >

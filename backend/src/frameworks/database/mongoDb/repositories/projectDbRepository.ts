@@ -13,39 +13,67 @@ export default function projectDbRepository() {
 
         try {
             const projects = await projectModel.find({ projectMembers: email }).populate('workspace').populate('createdBy').exec()
-            
+
             return projects
         } catch (error) {
             console.log(error)
         }
     }
-    const workspaceProjects =async(id : string) => {
-      const workspaceId =   new mongoose.Types.ObjectId(id)
+    const workspaceProjects = async (id: string) => {
+        const workspaceId = new mongoose.Types.ObjectId(id)
 
-        try{
-            const response  = await projectModel.find({workspace : workspaceId}).populate('workspace').populate('createdBy').exec()
+        try {
+            const response = await projectModel.find({ workspace: workspaceId }).populate('workspace').populate('createdBy').exec()
             return response
 
-        }catch(err)
-        {
-            console.log(err , "error inside project db")
-        }
-        
-    }
-    const deleteWorkspaceProject = async(id : string)=>{
-        const workspaceId =   new mongoose.Types.ObjectId(id)
-        try{
-            const response = await projectModel.deleteMany({ workspace : workspaceId })
-            return response
-
-        }catch(err)
-        {
-            console.log(err , "error inside project db")
+        } catch (err) {
+            console.log(err, "error inside project db")
         }
 
     }
+    const deleteWorkspaceProject = async (id: string) => {
+        const workspaceId = new mongoose.Types.ObjectId(id)
+        try {
+            const response = await projectModel.deleteMany({ workspace: workspaceId })
+            return response
 
-    return { createProject, getUserProjects , workspaceProjects , deleteWorkspaceProject }
+        } catch (err) {
+            console.log(err, "error inside project db")
+        }
+
+    }
+    const getProjectMembers = async (id: string) => {
+        const projectId = new mongoose.Types.ObjectId(id)
+        const response = await projectModel.aggregate([
+            {
+                $match: {
+                    _id: projectId
+                }
+            }, {
+                $unwind: "$projectMembers"
+            }, 
+            {
+                $lookup: {
+                    from: "userdetails",
+                    foreignField: "email",
+                    localField: "projectMembers",
+                    as: "projectMembers"
+                }
+            },
+            {
+                $project: {
+                    projectMembers:  { $arrayElemAt: [ "$projectMembers", 0 ] }
+                }
+            }
+        ])
+
+        console.log(response)
+
+        return response
+
+    }
+
+    return { createProject, getUserProjects, workspaceProjects, deleteWorkspaceProject, getProjectMembers }
 }
 
 export type typeofProjectDbRepository = typeof projectDbRepository

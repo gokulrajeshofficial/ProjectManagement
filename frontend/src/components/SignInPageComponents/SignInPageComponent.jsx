@@ -26,6 +26,7 @@ function SignInPageComponent() {
         let { name, value } = e.target
         value = value.trim()
         setCredentials((prev) => ({ ...prev, [name]: value }))
+
         validation(name, value)
       }
       const ToastifyOptions = {

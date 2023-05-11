@@ -13,11 +13,23 @@ function usePrivateAxiosAPI() {
 
             throw { err: err.response.data?.message }
         }
+    }
 
+    const projectMembers = async( projectId)=>{
+
+        try {
+
+            return await axiosPrivate.get('/api/project/getAllMembers/'+projectId)
+        } catch (err) {
+
+            throw { err: err.response.data?.message }
+        }
 
     }
 
-    return { getAllProjects}
+ 
+
+    return { getAllProjects , projectMembers }
 }
 
 export default usePrivateAxiosAPI

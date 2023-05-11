@@ -9,7 +9,7 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import usePrivateAxiosAPI from '../../api/usePrivateAxiosAPI'
 
 function ProjectPageComponents({setSelectedProject}) {
-    // const axiosPrivate = useAxiosPrivate()
+
     const axiosPrivate = usePrivateAxiosAPI()
     const [showAddPoject, setShowAddPoject] = useState(false)
     const [showAddPeople, setShowAddPeople] = useState(false)

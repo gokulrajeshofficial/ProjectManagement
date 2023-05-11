@@ -5,6 +5,7 @@ const authAPI = ()=>{
 
    const registerAPI = async(sendObject)=>{
       try{
+
       return  await axiosConfig.post('/auth/register',sendObject)
       }catch(err){
    

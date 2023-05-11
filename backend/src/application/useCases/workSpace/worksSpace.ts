@@ -44,7 +44,7 @@ export const acceptInvitationUseCase = async (workspaceId: string, encryptedEmai
    }
 
    const decryptedEmail = await cryService.decryption(encryptedEmail)
-
+   console.log(decryptedEmail , "Descrypted email : ")
    if (workspace.invitedUsers.includes(decryptedEmail)) {
       
       const updatedWorkspace = await workspaceRepo.updateSharedUser(decryptedEmail, workspaceId)

@@ -29,6 +29,9 @@ router.get('/getAllProjects', controller.getAllProjects)
 //------------------------Get all Projects ----------------------------//
 router.get('/workspace/:workspaceId',controller.workspaceProjects)
 
+//------------------------Get all Members in Project ----------------------------//
+router.get('/getAllMembers/:projectId',controller.projectMembers)
+
 
 export default router
 

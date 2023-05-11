@@ -15,7 +15,7 @@ const workspaceSchema = new mongoose.Schema({
     },
     Date : {
         type : Date ,
-        default : Date.now
+        default :  Date.now
     },
     sharedUsers : {
         type : [String] 
