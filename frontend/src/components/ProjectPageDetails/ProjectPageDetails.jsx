@@ -25,7 +25,7 @@ function ProjectPageDetails({ project, setProject }) {
     fetchData()
     return () => {
       dispatch(unsetProject())
-    }
+    } 
   }, [])
 
   const fetchData = async () => {

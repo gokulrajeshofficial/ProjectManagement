@@ -7,4 +7,5 @@ export default defineConfig({
   //   port: 3030
   // },
   plugins: [react()],
+  esbuild :{target:'es2020'},
 })

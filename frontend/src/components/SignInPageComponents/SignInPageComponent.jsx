@@ -52,7 +52,7 @@ function SignInPageComponent() {
             navigate('/home')
           } catch (error) {
     
-            toast(error.err.toString(), ToastifyOptions)
+            toast(error.err, ToastifyOptions)
           }
         }
       } 
