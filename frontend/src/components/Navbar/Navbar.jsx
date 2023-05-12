@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import {  NavLink, useLocation, useNavigate } from 'react-router-dom'
+import {GrMenu} from 'react-icons/gr'
+import {BsBell} from 'react-icons/bs'
+import {  AiFillHome , AiOutlineClose } from "react-icons/ai";
 
-import {  AiFillHome } from "react-icons/ai";
+import {  NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { MdOutlineDashboard } from "react-icons/md";
 import { RiSettings4Line } from "react-icons/ri";
 import { TbReportAnalytics } from "react-icons/tb";
@@ -67,9 +68,9 @@ export default function Navbar() {
                 <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-purple-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
-                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                    <AiOutlineClose className="block h-6 w-6" aria-hidden="true" />
                   ) : (
-                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                    < GrMenu className="block h-6 w-6" aria-hidden="true" />
                   )}
                 </Disclosure.Button>
               </div>
@@ -107,7 +108,8 @@ export default function Navbar() {
                   className="rounded-full bg-purple-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+
+                  <BsBell className="h-6 w-6" aria-hidden="true" />
                 </button>
 
                 {/* Profile dropdown */}
