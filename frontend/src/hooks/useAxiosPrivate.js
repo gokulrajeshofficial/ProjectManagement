@@ -12,7 +12,7 @@ function useAxiosPrivate() {
     const accessToken = useSelector(userDetails)?.accessToken
 
     const axiosPrivate = axios.create({
-        baseURL : "http://localhost:3000",
+        baseURL : import.meta.env.VITE_BASEURL ,
         withCredentials : true
     })
 
