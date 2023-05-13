@@ -9,39 +9,72 @@ import LogoLoader from '../Loader/LogoLoader'
 import { AiOutlinePlusSquare } from 'react-icons/ai'
 import CreateTaskModal from '../CreateTaskModal/CreateTaskModal'
 import useTaskAPI from '../../api/useTaskAPI'
-
+import moment from 'moment/moment'
+import { FcHighPriority, FcLowPriority, FcMediumPriority } from 'react-icons/fc'
+import TaskModal from '../TaskModal/TaskModal'
 function ProjectPageDetails({ project, setProject }) {
   const axiosPrivate = usePrivateAxiosAPI()
-  const  {getAllTasks}  = useTaskAPI()
+  const { getAllTasks } = useTaskAPI()
   const [completedCount, setCompletedCount] = useState(1);
-  const [createTask , setCreateTask ] = useState(false)
+  const [createTask, setCreateTask] = useState(false)
   const [pendingCount, setPendingCount] = useState(1);
   const [members, setMembers] = useState([])
+  const [taskList, setTaskList] = useState([])
+  const [showTask , setShowTask ] = useState(false)
   const [searchMembers, setSearchMembers] = useState("")
   const [toggle, setToggle] = useState("details")
+  const [render , setRender ] = useState(false)
+  const [selectedTaskId , setSelectedTaskId] = useState("")
   const dispatch = useDispatch()
 
   useEffect(() => {
     fetchData()
     return () => {
       dispatch(unsetProject())
-    } 
+    }
   }, [])
+  useEffect(() => {
+    fetchTask()
+  }, [render])
 
   const fetchData = async () => {
     let projectId = project._id
     const responseMembers = await axiosPrivate.projectMembers(projectId)
-    const responseTasks = await getAllTasks(projectId)
     setMembers(responseMembers.data)
+  }
+
+  const fetchTask= async()=>{
+    let projectId = project._id
+    const responseTasks = await getAllTasks(projectId)
+    console.log(responseTasks)
+    setTaskList(responseTasks.data)
   }
 
   const handleChangeMembers = (e) => {
     setSearchMembers(e.target.value)
   }
 
-  const handleCreateButton = ()=>{
+  const handleCreateButton = () => {
     setCreateTask(!createTask)
   }
+
+  const priorityLevel = [
+    { priority: "High", icon: <FcHighPriority className='w-full h-auto' /> },
+    { priority: "Medium", icon: <FcMediumPriority className='w-full h-auto' /> },
+    { priority: "Low", icon: <FcLowPriority className='w-full h-auto' /> },
+  ]
+
+  const selectFlag = (priority)=>{
+    const selectedPriority = priorityLevel.find((elem) => elem.priority === priority);
+    return selectedPriority ? selectedPriority.icon : null;
+  }
+
+  const handleTaskSelection = (id)=>{
+    setSelectedTaskId(id)
+    setShowTask(true)
+
+  }
+
 
 
   return (
@@ -189,7 +222,7 @@ function ProjectPageDetails({ project, setProject }) {
 
         <div className={`mt-3 md:p-5 ${toggle == "tasks" ? "block" : "hidden"}`}>
           <header>
-   
+
             <div className='flex flex-wrap '>
               <button onClick={handleCreateButton} className='p-3 ml-auto rounded-md text-white bg-purple-600 hover:bg-fuchsia-700' ><span className='inline-block relative top-0.5 left-1 mr-2'> <AiOutlinePlusSquare /></span> Create New Task </button>
 
@@ -198,15 +231,39 @@ function ProjectPageDetails({ project, setProject }) {
 
           <section className='flex flex-col mb-5 w-full'>
             <div>
-              <h1 className='font-bruno font-extrabold mt-10 text-xl text-purple-700 underline ' >Task List</h1>
-           
+              <h1 className='font-bruno font-extrabold  mb-3 text-xl text-purple-700 underline ' >Task List</h1>
+              <div className='flex-col flex gap-1'>
+
+                {
+                  taskList.map((elem, index) => {
+                    return <div key={index} onClick={()=>handleTaskSelection(elem._id)} className=' p-3 cursor-pointer  hover:bg-purple-200 grid grid-cols-5  w-full shadow-md border rounded-lg'>
+                      <div className='col-span-2 flex'>
+                        <p className='inline-block font-ubuntu'>{elem.title}</p>
+                        
+                      </div>
+                      <div className='col-span-2 sm:block hidden'>
+                      <p className='font-lily  inline relative' >Priority : <span className='font-sans'><div className='w-7 inline-block absolute -right-8 -top-1'>{selectFlag(elem.priority)}</div> {elem.priority.toUpperCase()}</span></p>
+                      </div>
+                      <div className=' sm:col-span-1 col-span-3'>
+                      <p className=''>Due Date : { moment(elem.dueDate).format('MMMM Do YYYY')}</p>
+                      </div>
+
+
+                    </div>
+
+                  })
+                }
+
+              </div>
+
             </div>
           </section>
         </div>
 
 
       </div>
-      <CreateTaskModal isVisible={createTask} setShowModal={setCreateTask} project={project} />
+      <CreateTaskModal isVisible={createTask} setShowModal={setCreateTask} project={project} setRender={setRender} />
+      {showTask && <TaskModal taskId = {selectedTaskId} setShowModal={setShowTask} />}
     </section>
   )
 }

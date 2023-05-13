@@ -12,14 +12,26 @@ const taskDbRepository = ()=>{
         return response
     }
 
-    const getAllTask  = async() => {
-        const response = await taskModel.find({})
-        return 
+    const getAllTask  = async(projectId : string) => {
+  
+        const response = await taskModel.find({ projectId : projectId }).populate('projectId').exec()
+        console.log(response)
+        return response
+    }
+    const getTaskById = async(taskId : string)=>{
+
+        const response = await taskModel.findOne({ _id : taskId }).populate('projectId').populate({
+            path: 'projectId',
+            populate: {
+              path: 'workspace'
+            }
+          }).populate('createdBy').exec()
+        console.log(response)
+        return response
+
     }
 
-
-
-    return { createTask , getAllTask }
+    return { createTask , getAllTask , getTaskById}
 
 }
 

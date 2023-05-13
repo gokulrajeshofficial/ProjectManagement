@@ -12,6 +12,7 @@ function UserRouter() {
             <Route exact path='/' element={<LandingPage />} />
             <Route exact path='/login' element={<SignInPage />} />
             <Route exact path='/register' element={<RegisterEmailPage />} />
+            <Route exact path='/home' element={<HomePage />} />
         </Routes>
     )
 }

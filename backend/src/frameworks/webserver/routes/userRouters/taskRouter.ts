@@ -11,12 +11,10 @@ const controller = taskController(
 )
 
 router.post('/createTask' , controller.createTask)
-router.post('/getAllTasks/:projectId' , controller.getAllTasks)
 
-router
+router.get('/getAllTasks/:projectId' , controller.getAllTasks)
 
-
-
+router.get('/getTask/:taskId', controller.getTask)
 
 
 

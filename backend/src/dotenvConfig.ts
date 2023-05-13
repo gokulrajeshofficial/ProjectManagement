@@ -14,8 +14,9 @@ const dotenvConfig = {
     nodemailer_pass : process.env.NODE_MAILER_PASSWORD as string ,
 
 
-    crypto_secret : process.env.CRYPTO_SECRET_KEY as string
+    crypto_secret : process.env.CRYPTO_SECRET_KEY as string,
 
+    client_base_url : process.env.CLIENT_BASE_URL as string
 
 }
 

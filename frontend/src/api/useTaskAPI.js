@@ -22,8 +22,26 @@ const useTaskAPI = ()=>{
             throw { err: err.response.data?.message }
         }
     }
+    const getTask = async(taskId)=>{
+        try{
+            return await axiosPrivate.get('/api/task/getTask/'+taskId)
 
-    return {taskCreation ,  getAllTasks}
+        }catch(err){
+            throw { err: err.response.data?.message }
+        }
+
+    }
+
+    const taskUpdate = async(taskId)=>{
+        try{
+            return await axiosPrivate.get('/api/task/updateTask/'+taskId)
+
+        }catch(err){
+            throw { err: err.response.data?.message }
+        }
+    }
+
+    return {taskCreation ,  getAllTasks , getTask , taskUpdate}
 }
 
 export default useTaskAPI

@@ -4,6 +4,7 @@ import dotenvConfig from '../../dotenvConfig';
 import fs from 'fs'
 import ejs from 'ejs'; // import EJS library
 import { UserInterface } from '../../types/userInterface';
+
 let transporter = nodemailer.createTransport({
   host: dotenvConfig.nodemailer_host,
   port: 465,
@@ -14,12 +15,12 @@ let transporter = nodemailer.createTransport({
   },
 });
 
-
+const base_url = dotenvConfig.client_base_url
 
 
 export const mailServiceNodeMailer = () => {
   
-  const sendInviteLink = async(email: string , workspaceOwner: UserInterface , encryptedEmail : string , workspaceId : string ) => {
+  const sendInviteLink = async(email: string , workspaceOwner: UserInterface , encryptedEmail : string , workspaceId : string  ) => {
     try {
       const template = fs.readFileSync('./src/frameworks/service/mails/inviteLink.ejs', 'utf8');
       const html = ejs.render(template, { workspaceOwner , email , encryptedEmail , workspaceId }); 

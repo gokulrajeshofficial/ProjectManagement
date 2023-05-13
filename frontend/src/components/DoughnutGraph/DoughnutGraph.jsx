@@ -3,10 +3,16 @@ import Chart from 'chart.js/auto';
 
 const DoughnutGraph = (props) => {
   const chartRef = useRef();
+  const chartInstanceRef = useRef();
 
   useEffect(() => {
     const myChartRef = chartRef.current.getContext("2d");
-    new Chart(myChartRef, {
+
+    if (chartInstanceRef.current) {
+      chartInstanceRef.current.destroy();
+    }
+
+    chartInstanceRef.current = new Chart(myChartRef, {
       type: 'doughnut',
       data: {
         labels: ['Completed', 'Pending'],
@@ -29,6 +35,12 @@ const DoughnutGraph = (props) => {
         maintainAspectRatio: false
       }
     });
+
+    return () => {
+      if (chartInstanceRef.current) {
+        chartInstanceRef.current.destroy();
+      }
+    };
   }, [props.completed, props.pending]);
 
   return (

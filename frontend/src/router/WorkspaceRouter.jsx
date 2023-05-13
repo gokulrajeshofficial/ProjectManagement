@@ -11,7 +11,7 @@ function WorkspaceRouter() {
     return (
         <Routes>
 
-            <Route exact path='/home' element={<HomePage />} />
+ 
             <Route exact path='/workspace' element={<WorkspacePage />} />
             <Route exact path='/workspace/acceptInvite/:email/:workspaceId' Component={useAcceptInvitation} />
             <Route exact path='/workspace/rejectInvite/:email/:workspaceId' Component={useAcceptInvitation} />
