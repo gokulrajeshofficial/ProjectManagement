@@ -15,3 +15,10 @@ export const getTaskDetails = async(taskRepo : ReturnType<typeOfTaskRepository> 
     const response = await taskRepo.getTaskById(taskId)
     return response
 }
+
+export const getAllTaskUser = async(taskRepo : ReturnType<typeOfTaskRepository> , email : string )=>{
+
+    const response = await taskRepo.getTaskUser(email)
+    return response
+
+}

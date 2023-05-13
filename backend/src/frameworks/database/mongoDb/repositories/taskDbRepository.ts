@@ -30,8 +30,13 @@ const taskDbRepository = ()=>{
         return response
 
     }
+    const getTaskUser = async(email : string)=>{
+        const response = await taskModel.find({assginees : email })
+        console.log(response)
+        return response
+    }
 
-    return { createTask , getAllTask , getTaskById}
+    return { createTask , getAllTask , getTaskById , getTaskUser}
 
 }
 

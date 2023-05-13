@@ -74,7 +74,7 @@ function WorkspaceComponents({ setSelectedWorkspace}) {
         <div className='p-10 w-full overflow-y-scroll pb-44 h-screen '>
             <header>
                 <h1 className='font-bruno font-extrabold text-xl text-purple-700' >Workspace Options</h1>
-                <hr className='border-purple-400 mt-3 border-2 '></hr>
+                <hr className='border-purple-300 mt-3 border-2 '></hr>
                 <div className='flex flex-wrap'>
                     <button onClick={handleCreateButton} className='p-3 m-3 rounded-md text-white bg-purple-600 hover:bg-fuchsia-700' ><span className='inline-block relative top-0.5 left-1 mr-2'> <AiOutlinePlusSquare /></span> New Workspace </button>
                     <button onClick={handleInviteButton} className='p-3 m-3 rounded-md text-white bg-purple-600 hover:bg-fuchsia-700' ><span className='inline-block relative top-0.5 left-1 mr-2'> <ImUserPlus /></span> Invite People </button>
@@ -84,7 +84,7 @@ function WorkspaceComponents({ setSelectedWorkspace}) {
             <section className='flex flex-col mb-5 w-full'>
                 <div>
                     <h1 className='font-bruno font-extrabold mt-10 text-xl text-purple-700' >Workspace List</h1>
-                    <hr className='border-purple-400 mt-3 border-2 '></hr>
+                    <hr className='border-purple-300 mt-3 border-2 '></hr>
                 </div>
             
                 <section className='mt-5 w-full ml-3 '>

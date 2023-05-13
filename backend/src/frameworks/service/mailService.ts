@@ -20,10 +20,10 @@ const base_url = dotenvConfig.client_base_url
 
 export const mailServiceNodeMailer = () => {
   
-  const sendInviteLink = async(email: string , workspaceOwner: UserInterface , encryptedEmail : string , workspaceId : string  ) => {
+  const sendInviteLink = async(email: string , workspaceOwner: UserInterface , encryptedEmail : string , workspaceId : string ,   ) => {
     try {
       const template = fs.readFileSync('./src/frameworks/service/mails/inviteLink.ejs', 'utf8');
-      const html = ejs.render(template, { workspaceOwner , email , encryptedEmail , workspaceId }); 
+      const html = ejs.render(template, { workspaceOwner , email , encryptedEmail , workspaceId , base_url }); 
 
       const response  =  await transporter.sendMail({
         from: dotenvConfig.nodemailer_user, // sender address
@@ -48,4 +48,4 @@ export const mailServiceNodeMailer = () => {
 
 }
 
-export type typeOfMailService = typeof mailServiceNodeMailer
+export type typeOfMailService = typeof mailServiceNodeMailer  

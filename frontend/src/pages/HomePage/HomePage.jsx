@@ -14,10 +14,10 @@ function HomePage() {
 
 
   return (
-    <div className='flex overflow-hidden w-full '>
+    <div className='flex overflow-hidden w-full h-screen'>
       <SideNavBar />
       <MobNav/>
-      <div className='w-full flex-col'>
+      <div className='w-full flex-col '>
         <Navbar />
       <HomePageComponents/>
       </div>

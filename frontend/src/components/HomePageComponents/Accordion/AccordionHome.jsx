@@ -1,14 +1,13 @@
 import React from 'react'
 import { Collapse } from 'react-collapse'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
-import { useSelector } from 'react-redux'
-import { userDetails } from '../../../store/Slice/userDetails.slice'
-import { useNavigate } from 'react-router-dom'
 
-function AccordionItem({ open, toggle, title, body, setSelectedWorkspace }) {
-  const navigate = useNavigate()
+
+function AccordionHome({ open, toggle, title, body }) {
+
+
   return (
-    <div className='pt-[10px] '>
+    <div className='mb-2 '>
       <div className=' bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white rounded-md  px-5 py-3 flex justify-between items-center cursor-pointer'
         onClick={toggle}>
         <p className='text-[18px] font-semibold font-ubuntu'>{title}</p>
@@ -20,19 +19,19 @@ function AccordionItem({ open, toggle, title, body, setSelectedWorkspace }) {
 
 
       <Collapse className='transition delay-300 duration-300 ease-in-out' isOpened={open}>
-        <div className='bg-white px-[50] p-5 py-2 max-h-52 overflow-y-scroll'>
+        <div className='bg-white  px-[50] p-5 py-2 max-h-52 overflow-y-auto'>
           {
             !body.length? <p className='text-center font-extrabold font-ubuntu'>
-              No Workspace present</p> :  <div className='flex justify-between px-5 w-full'>
-            <p className='font-extrabold font-ubuntu text-sm2'>Workspace Name</p>
+              No Task present</p> :  <div className='flex justify-between px-5 w-full'>
+            <p className='font-extrabold font-ubuntu text-sm2'>Task Name</p>
             <p className='sm:block hidden  font-extrabold font-ubuntu text-sm2'>Created by:</p>
           </div>
           }
-         
+{/*          
           {
             body.map((data, index) => {
               return (
-                <div className="flex cursor-pointer rounded-md px-5  hover:bg-purple-200 items-center space-x-4 p-3" key={index} onClick={()=>{setSelectedWorkspace(data)}} >
+                <div className="flex cursor-pointer rounded-md px-5  hover:bg-purple-200 items-center space-x-4 p-3" key={index}  >
 
                   <div style={{backgroundColor : `${data.theme}`}} className={`relative inline-flex items-center justify-center w-10 h-10 overflow-hidden rounded-full dark:bg-gray-600`}>
                     <span className="font-medium text-base text-dark dark:text-gray-300">{data.workspaceName[0].toUpperCase()}</span>
@@ -53,7 +52,7 @@ function AccordionItem({ open, toggle, title, body, setSelectedWorkspace }) {
               )
 
             })
-          }
+          } */}
         </div>
 
       </Collapse>
@@ -61,4 +60,4 @@ function AccordionItem({ open, toggle, title, body, setSelectedWorkspace }) {
   )
 }
 
-export default AccordionItem
+export default AccordionHome

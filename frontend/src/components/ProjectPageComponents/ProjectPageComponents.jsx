@@ -62,7 +62,7 @@ function ProjectPageComponents({setSelectedProject}) {
 
             <header>
                 <h1 className='font-bruno font-extrabold text-xl text-purple-700' >Project Management Options</h1>
-                <hr className='border-purple-400 mt-3 border-2 '></hr>
+                <hr className='border-purple-300 mt-3 border-2 '></hr>
                 <div className='flex flex-wrap'>
                     <button onClick={handleCreateProject} className='p-3 m-3 rounded-md text-white bg-purple-600 hover:bg-fuchsia-700' ><span className='inline-block relative top-0.5 left-1 mr-2'> <ImFolderPlus /></span> New Project</button>
                     <button onClick={handleInviteButton} className='p-3 m-3 rounded-md text-white bg-purple-600 hover:bg-fuchsia-700' ><span className='inline-block relative top-0.5 left-1 mr-2'> <ImUserPlus /></span> Add People to Project </button>
@@ -71,7 +71,7 @@ function ProjectPageComponents({setSelectedProject}) {
             <section className='flex flex-col mb-5 w-full'>
                 <div>
                     <h1 className='font-bruno font-extrabold mt-10 text-xl text-purple-700' >All Projects</h1>
-                    <hr className='border-purple-400 mt-3 border-2 '></hr>
+                    <hr className='border-purple-300 mt-3 border-2 '></hr>
                 </div>
 
                 <section className='mt-5 w-full sm:ml-2 '>

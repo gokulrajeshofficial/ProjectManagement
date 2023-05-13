@@ -7,14 +7,17 @@ const router = Router()
 const controller = taskController(
     taskRepository  , 
     taskDbRepository
-
 )
-
+//--------------------Create  Task-------------------------//
 router.post('/createTask' , controller.createTask)
 
+//--------------Get All Task based on project ID--------------------//
 router.get('/getAllTasks/:projectId' , controller.getAllTasks)
 
-router.get('/getTask/:taskId', controller.getTask)
+//------------------Get User Task-------------------------//
+router.get('/getUserTasks/:email', controller.getUserTasks)
+
+
 
 
 

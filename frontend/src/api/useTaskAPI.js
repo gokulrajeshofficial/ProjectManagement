@@ -10,8 +10,6 @@ const useTaskAPI = ()=>{
 
             throw { err: err.response.data?.message }
         }
-
-
     }
 
     const getAllTasks = async(projectId)=>{
@@ -41,7 +39,17 @@ const useTaskAPI = ()=>{
         }
     }
 
-    return {taskCreation ,  getAllTasks , getTask , taskUpdate}
+    const getAllTaskUser = async(email)=>{
+        try{
+            return await axiosPrivate.get('/api/task/getUserTasks/'+email)
+
+        }catch(err){
+            throw { err: err.response.data?.message }
+        }
+
+    }
+
+    return {taskCreation ,  getAllTasks , getTask , taskUpdate , getAllTaskUser}
 }
 
 export default useTaskAPI

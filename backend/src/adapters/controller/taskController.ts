@@ -3,7 +3,7 @@ import { typeOfTaskRepository } from "../../application/repositories/taskReposit
 import { typeOftaskDbRepository } from "../../frameworks/database/mongoDb/repositories/taskDbRepository"
 import asyncHandler from "express-async-handler"
 import { taskInterface } from "../../types/taskInterface"
-import { getAllTaskUsecase, getTaskDetails, taskCreation } from "../../application/useCases/task/taskUsecase"
+import { getAllTaskUsecase, getAllTaskUser, getTaskDetails, taskCreation } from "../../application/useCases/task/taskUsecase"
 
 
 const taskController = (
@@ -37,11 +37,18 @@ const taskController = (
         const taskId = req.params.taskId;
         const response = await getTaskDetails(taskRepo , taskId)
         res.json(response)
+    })
+
+    const getUserTasks = asyncHandler(async(req : Request ,res : Response)=>{
+        const email = req.params.email
+        const response = await getAllTaskUser(taskRepo , email)
+        res.json(response)
 
     })
 
 
-    return { createTask , getAllTasks , getTask}
+
+    return { createTask , getAllTasks , getTask , getUserTasks}
 
 
 }
