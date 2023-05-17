@@ -20,12 +20,14 @@
     "react-color": "^2.19.3",
     "react-countup": "^6.4.2",
     "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
     "react-icons": "^4.8.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.9.0",
     "react-tailwindcss-datepicker": "^1.6.0",
     "react-toastify": "^9.1.2",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "sweetalert2": "^11.7.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

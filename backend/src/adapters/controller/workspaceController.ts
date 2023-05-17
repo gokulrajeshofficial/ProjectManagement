@@ -40,6 +40,7 @@ const workspaceController = (
     const acceptInvitation = asyncHandler(async(req ,res )=>{
         const workspaceId = req.body.workspaceId 
         const email = req.body.email ;
+        console.log(workspaceId , "WorkspaceId")
         const response = await acceptInvitationUseCase(workspaceId , email ,workSpaceDb ,userDb )
         console.log(response)
         res.status(200).json(response )

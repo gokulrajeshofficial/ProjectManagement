@@ -15,7 +15,7 @@ let transporter = nodemailer.createTransport({
   },
 });
 
-const base_url = dotenvConfig.client_base_url
+const baseUrl = dotenvConfig.client_base_url
 
 
 export const mailServiceNodeMailer = () => {
@@ -23,7 +23,7 @@ export const mailServiceNodeMailer = () => {
   const sendInviteLink = async(email: string , workspaceOwner: UserInterface , encryptedEmail : string , workspaceId : string ,   ) => {
     try {
       const template = fs.readFileSync('./src/frameworks/service/mails/inviteLink.ejs', 'utf8');
-      const html = ejs.render(template, { workspaceOwner , email , encryptedEmail , workspaceId , base_url }); 
+      const html = ejs.render(template, { workspaceOwner , email , encryptedEmail , workspaceId , baseUrl }); 
 
       const response  =  await transporter.sendMail({
         from: dotenvConfig.nodemailer_user, // sender address
@@ -35,7 +35,7 @@ export const mailServiceNodeMailer = () => {
 
       return  "Email has been sent Successfully"
     } catch (err) {
-      console.log(err)
+      console.log(err , " Error inside the mail service" , baseUrl)
       throw { err }
     }
   }    

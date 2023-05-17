@@ -4,7 +4,8 @@ import { FcHighPriority, FcLowPriority, FcMediumPriority } from 'react-icons/fc'
 import { AiFillCloseCircle, AiOutlineUserAdd } from 'react-icons/ai'
 import usePrivateAxiosAPI from '../../api/usePrivateAxiosAPI'
 import useTaskAPI from '../../api/useTaskAPI'
-
+import { taskErrorToast } from '../../config/toastifyConfig'
+import { ToastContainer } from 'react-toastify'
 
 const priorityLevel = [
   { priority: "High", icon: <FcHighPriority className='w-full h-auto' /> },
@@ -29,6 +30,46 @@ function CreateTaskModal({ isVisible, setShowModal, project , setRender }) {
     assginees: [] ,
     projectId : project._id
   })
+
+  const [error , setError] = useState({
+    title: null ,
+    description: null ,
+  })
+
+  const validation = ()=>{
+    let flag = 0
+    let valError = {}
+    if(!task?.title?.trim().length)
+    {
+      valError.title = "Task Name is required "
+      flag = 1
+    }
+    if(!task?.description?.trim().length)
+    {
+      valError.description = "Task description is required "
+      flag = 1
+    }
+    if(!task?.assginees.length)
+    {
+      taskErrorToast("Choose an assignee")
+      flag = 1
+    }
+    if(task.dueDate == null)
+    {
+      taskErrorToast("Select a Due date")
+      flag = 1
+    }
+    setError({...valError})
+
+    if(flag == 0 )
+    {
+      return true
+    }else{
+      return false
+    }
+
+  }
+
   const [priorityOptions, setPriorityOptions] = useState(false)
   const [showMembers, setShowMembers] = useState(false)
   const handlePriorityOptions = (elem) => {
@@ -49,6 +90,7 @@ function CreateTaskModal({ isVisible, setShowModal, project , setRender }) {
   const handleChange = (e)=>{
     const {name , value } = e.target 
     setTask({...task , [name] : value})
+    setError({...error , [name] : null})
   }
 
   const removeFromAssignee = (index)=>{
@@ -59,12 +101,15 @@ function CreateTaskModal({ isVisible, setShowModal, project , setRender }) {
 
     const handleCreateTask = async()=>{
       try{
+        if(validation())
+        {
         const response  = await taskCreation(task)
         if(response.data)
         {
           setRender((prev)=>{!prev})
           handleClose()
         }
+      }
       }catch(err)
       {
         console.log(err)
@@ -129,16 +174,18 @@ function CreateTaskModal({ isVisible, setShowModal, project , setRender }) {
 
 
             <div className='col-span-3 md:p-5  overflow-y-auto h-[90%]'>
-              <div className=''>
+              <div className='mb-'>
                 <p className='font-ubuntu'>Task Name </p>
                 <input onChange={handleChange} name='title' type='text' className='border-2 px-2  w-full lg:w-[80%] rounded-md' placeholder='Task Title / Name' />
+                <p className='ml-3 h-8 text-sm text-red-600'>{error.title}</p>
               </div>
-              <div className='mt-3'>
+              <div className=' '>
                 <p className='font-ubuntu'>Task Description </p>
                 <textarea onChange={handleChange} name='description' type='text' className='border-2 px-2 lg:w-[80%] w-full rounded-md' placeholder='Explain the instruction in this' />
+                <p className='ml-3 h-8 text-sm text-red-600'>{error.description}</p>
               </div>
 
-              <div className='mt-3'>
+              <div className=''>
                 <p className='font-ubuntu'>Uploaded Documents</p>
               
               </div>
@@ -225,7 +272,7 @@ function CreateTaskModal({ isVisible, setShowModal, project , setRender }) {
           </div>
         </div>
       </div>
-
+      <ToastContainer/>
     </div>
   )
 }

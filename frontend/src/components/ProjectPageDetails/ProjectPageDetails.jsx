@@ -20,11 +20,11 @@ function ProjectPageDetails({ project, setProject }) {
   const [pendingCount, setPendingCount] = useState(1);
   const [members, setMembers] = useState([])
   const [taskList, setTaskList] = useState([])
-  const [showTask , setShowTask ] = useState(false)
+  const [showTask, setShowTask] = useState(false)
   const [searchMembers, setSearchMembers] = useState("")
   const [toggle, setToggle] = useState("details")
-  const [render , setRender ] = useState(false)
-  const [selectedTaskId , setSelectedTaskId] = useState("")
+  const [render, setRender] = useState(false)
+  const [selectedTaskId, setSelectedTaskId] = useState("")
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -41,13 +41,16 @@ function ProjectPageDetails({ project, setProject }) {
     let projectId = project._id
     const responseMembers = await axiosPrivate.projectMembers(projectId)
     setMembers(responseMembers.data)
+    
   }
 
-  const fetchTask= async()=>{
+  const fetchTask = async () => {
     let projectId = project._id
     const responseTasks = await getAllTasks(projectId)
     console.log(responseTasks)
     setTaskList(responseTasks.data)
+    setCompletedCount(responseTasks.data?.filter((val) => val.status === true)?.length)
+    setPendingCount(responseTasks.data.filter((val) => val.status === false).length)
   }
 
   const handleChangeMembers = (e) => {
@@ -64,12 +67,12 @@ function ProjectPageDetails({ project, setProject }) {
     { priority: "Low", icon: <FcLowPriority className='w-full h-auto' /> },
   ]
 
-  const selectFlag = (priority)=>{
+  const selectFlag = (priority) => {
     const selectedPriority = priorityLevel.find((elem) => elem.priority === priority);
     return selectedPriority ? selectedPriority.icon : null;
   }
 
-  const handleTaskSelection = (id)=>{
+  const handleTaskSelection = (id) => {
     setSelectedTaskId(id)
     setShowTask(true)
 
@@ -107,22 +110,22 @@ function ProjectPageDetails({ project, setProject }) {
           <h2 className='font-ubuntu text-purple-700 mb-2 md:text-l base'>Project Description</h2>
           <h2>{project.description}</h2>
           <div>
-            <div className='md:grid grid-cols-2 md:space-y-0 space-y-5 mt-16' >
+            <div className='md:grid flex flex-col-reverse grid-cols-2 md:space-y-0 space-y-5 md:mt-16' >
 
 
               <div className=''>
                 <div className='px-1 flex justify-between gap-x-2'>
                   <div className='w-full shadow-lg shadow-gray-400 border-gray-300 rounded-lg border py-1'>
                     <p className='text-center block font-ubuntu t'>Total tasks</p>
-                    <p className='text-center text-green-700 font-extrabold text-l'><CountUp end={10} /></p>
+                    <p className='text-center text-green-700 font-extrabold text-l'><CountUp end={taskList.length} /></p>
                   </div>
                   <div className='w-full shadow-lg shadow-gray-400 border-gray-300 rounded-lg border py-1'>
                     <p className='text-center block font-ubuntu '>Ongoing</p>
-                    <p className='text-center text-red-700 font-extrabold text-l'><CountUp end={10} /></p>
+                    <p className='text-center text-red-700 font-extrabold text-l'><CountUp end={pendingCount} /></p>
                   </div>
                   <div className='w-full shadow-lg shadow-gray-400 border-gray-300 rounded-lg border py-1'>
                     <p className='text-center block font-ubuntu '>Completed</p>
-                    <p className='text-center text-blue-500 font-extrabold text-l'><CountUp end={10} /></p>
+                    <p className='text-center text-blue-500 font-extrabold text-l'><CountUp end={completedCount} /></p>
                   </div>
                 </div>
                 <div className='  w-full mt-10 shadow-2xl p-2 rounded-2xl'>
@@ -168,9 +171,9 @@ function ProjectPageDetails({ project, setProject }) {
                 </div>
               </div>
 
-              <div>
+              <div className='pb-5'>
                 <DoughnutGraph completed={completedCount} pending={pendingCount} />
-                <div className='  w-full mt-10 shadow-2xl p-2 rounded-2xl'>
+                {/* <div className='  w-full mt-10 shadow-2xl p-2 rounded-2xl'>
                   <h3 className='font-bruno border-2 border-purple-400 rounded-lg mb-5 font-extrabold  text-center text-purple-700 p-4'>Project Members </h3>
                   <div className="flex items-center border-b  border-purple-500 py-2 lg:w-[80%] lg:ml-auto mb-10 w-full ">
                     <input value={searchMembers} onChange={handleChangeMembers} className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="email" placeholder="Jane Doe" aria-label="Full name" />
@@ -210,7 +213,7 @@ function ProjectPageDetails({ project, setProject }) {
 
                     })
                   }
-                </div>
+                </div> */}
               </div>
 
             </div>
@@ -230,22 +233,61 @@ function ProjectPageDetails({ project, setProject }) {
           </header>
 
           <section className='flex flex-col mb-5 w-full'>
-            <div>
-              <h1 className='font-bruno font-extrabold  mb-3 text-xl text-purple-700 underline ' >Task List</h1>
-              <div className='flex-col flex gap-1'>
+            <div className='mb-8'>
+              <h1 className='font-bruno font-extrabold  mb-3 text-xl text-purple-700 underline ' >Ongoing Tasks</h1>
+              <div className='flex-col flex gap-1 border-2 rounded-xl w-full'>
 
-                {
-                  taskList.map((elem, index) => {
-                    return <div key={index} onClick={()=>handleTaskSelection(elem._id)} className=' p-3 cursor-pointer  hover:bg-purple-200 grid grid-cols-5  w-full shadow-md border rounded-lg'>
-                      <div className='col-span-2 flex'>
-                        <p className='inline-block font-ubuntu'>{elem.title}</p>
-                        
+                {taskList.filter((val) => val.status === false).length == 0 ? <p className='text-center p-3 font-ubuntu'>No Tasks </p> :
+                  taskList.filter((val) => {
+
+                    if (val.status == false) return val
+
+                  }).map((elem, index) => {
+
+                    return <div key={index} onClick={() => handleTaskSelection(elem._id)} className=' p-3 cursor-pointer  hover:bg-purple-200 grid grid-cols-5  w-full shadow-md border rounded-lg'>
+                      <div className='col-span-2 flex items-center'>
+                        <p className='inline-block truncate font-ubuntu mr-2'>{elem.title}</p>
+
                       </div>
-                      <div className='col-span-2 sm:block hidden'>
-                      <p className='font-lily  inline relative' >Priority : <span className='font-sans'><div className='w-7 inline-block absolute -right-8 -top-1'>{selectFlag(elem.priority)}</div> {elem.priority.toUpperCase()}</span></p>
+                      <div className='col-span-2 sm:flex hidden  items-center'>
+                        <p className='font-ubuntu  inline relative' >Priority : <span className='font-sans'><div className='w-7 inline-block absolute -right-8 -top-1'>{selectFlag(elem.priority)}</div> {elem.priority.toUpperCase()}</span></p>
                       </div>
                       <div className=' sm:col-span-1 col-span-3'>
-                      <p className=''>Due Date : { moment(elem.dueDate).format('MMMM Do YYYY')}</p>
+                        <p className=''>Due on {moment(elem.dueDate).format('MMMM Do YYYY')}</p>
+                      </div>
+
+
+                    </div>
+
+                  })
+                }
+
+              </div>
+
+            </div>
+
+            {/* Pending Tasks */}
+            <div>
+              <h1 className='font-bruno font-extrabold  mb-3 text-xl text-purple-700 underline ' >Completed Tasks</h1>
+              <div className='flex-col flex gap-1 border-2 rounded-xl w-full'>
+
+                {taskList.filter((val) => val.status === true).length == 0 ? <p className='text-center p-3 font-ubuntu'>No Tasks </p> :
+                  taskList.filter((val) => {
+
+                    if (val.status == true ) return val
+
+                  }).map((elem, index) => {
+
+                    return <div key={index} onClick={() => handleTaskSelection(elem._id)} className=' p-3 cursor-pointer  hover:bg-purple-200 grid grid-cols-5  w-full shadow-md border rounded-lg'>
+                      <div className='col-span-2 flex'>
+                        <p className=' inline-block truncate font-ubuntu mr-2'>{elem.title}</p>
+
+                      </div>
+                      <div className='col-span-2 sm:block hidden'>
+                        <p className='font-ubuntu  inline relative' >Priority : <span className='font-sans'><div className='w-7 inline-block absolute -right-8 -top-1'>{selectFlag(elem.priority)}</div> {elem.priority.toUpperCase()}</span></p>
+                      </div>
+                      <div className=' sm:col-span-1 col-span-3'>
+                        <p className=''>Due on {moment(elem.dueDate).format('MMMM Do YYYY')}</p>
                       </div>
 
 
@@ -263,7 +305,7 @@ function ProjectPageDetails({ project, setProject }) {
 
       </div>
       <CreateTaskModal isVisible={createTask} setShowModal={setCreateTask} project={project} setRender={setRender} />
-      {showTask && <TaskModal taskId = {selectedTaskId} setShowModal={setShowTask} />}
+      {showTask && <TaskModal taskId={selectedTaskId} setShowModal={setShowTask} setRender={()=>{setRender(prev => !prev)}}  />}
     </section>
   )
 }

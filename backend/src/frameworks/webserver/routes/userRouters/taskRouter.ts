@@ -14,10 +14,17 @@ router.post('/createTask' , controller.createTask)
 //--------------Get All Task based on project ID--------------------//
 router.get('/getAllTasks/:projectId' , controller.getAllTasks)
 
-//------------------Get User Task-------------------------//
+//------------------Get User Tasks-------------------------//
 router.get('/getUserTasks/:email', controller.getUserTasks)
 
+//------------------Get  Task-------------------------//
+router.get('/getTask/:taskId', controller.getTask)
 
+//-------------------Task Update------------------------//
+router.patch('/updateTask' , controller.updateTask)
+
+//-------------------Task delete------------------------//
+router.delete('/deleteTask/:taskId' , controller.deleteTask)
 
 
 

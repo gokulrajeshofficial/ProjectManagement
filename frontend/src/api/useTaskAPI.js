@@ -30,9 +30,9 @@ const useTaskAPI = ()=>{
 
     }
 
-    const taskUpdate = async(taskId)=>{
+    const taskUpdate = async(task)=>{
         try{
-            return await axiosPrivate.get('/api/task/updateTask/'+taskId)
+            return await axiosPrivate.patch('/api/task/updateTask/', {task})
 
         }catch(err){
             throw { err: err.response.data?.message }
@@ -48,8 +48,16 @@ const useTaskAPI = ()=>{
         }
 
     }
+    const deleteTaskAPI = async(taskId)=>{
+        try{
+            return await axiosPrivate.delete('/api/task/deleteTask/'+taskId)
+        }catch(err){
+            throw { err: err.response.data?.message }
+        }
 
-    return {taskCreation ,  getAllTasks , getTask , taskUpdate , getAllTaskUser}
+    }
+
+    return {taskCreation ,  getAllTasks , getTask , taskUpdate , getAllTaskUser , deleteTaskAPI}
 }
 
 export default useTaskAPI

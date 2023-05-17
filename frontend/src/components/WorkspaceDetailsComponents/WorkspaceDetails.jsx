@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userDetails } from '../../store/Slice/userDetails.slice';
 import { setProject } from '../../store/Slice/projectDetails.slice';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 function WorkspaceDetails({ selectedWorkspace, setSelectedWorkspace }) {
@@ -47,10 +48,34 @@ function WorkspaceDetails({ selectedWorkspace, setSelectedWorkspace }) {
   }
   const handleDeleteButton = async () => {
 
-    const response = await axiosPrivate.delete(`/api/workspace/delete/${selectedWorkspace._id}`)
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You are about to delete this workspace!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(async(result) => {
+      if (result.isConfirmed) {
 
-    console.log(response)
-    setSelectedWorkspace(null)
+        const response = await axiosPrivate.delete(`/api/workspace/delete/${selectedWorkspace._id}`)
+
+        console.log(response)
+     
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        ).then(()=>{
+          setSelectedWorkspace(null)
+        })
+    
+        
+      }
+    })
+
+
 
 
   }
@@ -113,10 +138,10 @@ function WorkspaceDetails({ selectedWorkspace, setSelectedWorkspace }) {
             <p className='text-center block font-ubuntu text-fuchsia-800'>Total Projects</p>
             <p className='text-center text-green-700 font-extrabold text-l'><CountUp end={projects.length} /></p>
           </div>
-          <div className='w-full shadow-lg shadow-purple-400 border-purple-300 rounded-lg border py-1'>
+          {/* <div className='w-full shadow-lg shadow-purple-400 border-purple-300 rounded-lg border py-1'>
             <p className='text-center block font-ubuntu text-fuchsia-800'>Ongoing</p>
             <p className='text-center text-red-700 font-extrabold text-l'><CountUp end={10} /></p>
-          </div>
+          </div> */}
           <div className='w-full shadow-lg shadow-purple-400 border-purple-300 rounded-lg border py-1'>
             <p className='text-center block font-ubuntu text-fuchsia-800'>Total Members</p>
             <p className='text-center text-blue-500 font-extrabold text-l'><CountUp end={members.length} /></p>

@@ -38,7 +38,7 @@ export const workspaceCreation = async (workspaceDetails: WorkspaceInterface, us
 export const acceptInvitationUseCase = async (workspaceId: string, encryptedEmail: string, workspaceRepo: ReturnType<typeofWorkspaceRepository>, userDb: ReturnType<typeOfUserRepository>) => {
    console.log("Reached accept Invitation")
    const workspace = await workspaceRepo.getWorkspaceById(workspaceId)
-
+   console.log(workspace)
    if (!workspace) {
       throw new AppError("Workspace does not exist ", HttpStatus.NOT_FOUND)
    }

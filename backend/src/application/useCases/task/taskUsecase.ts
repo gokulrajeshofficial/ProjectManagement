@@ -22,3 +22,19 @@ export const getAllTaskUser = async(taskRepo : ReturnType<typeOfTaskRepository> 
     return response
 
 }
+
+export const  taskUpdation = async(taskRepo: ReturnType<typeOfTaskRepository>  , taskupt : taskInterface )=>{
+
+    console.log("Reached taskUpdation" )
+    console.log(taskupt)
+
+    const response = await taskRepo.updateTask(taskupt)
+    return response
+
+}
+
+export const taskDeletion = async(taskRepo :  ReturnType<typeOfTaskRepository> , taskId : string)=>{
+    const response  = await taskRepo.deleteTask(taskId)
+    console.log(response)
+    return response
+}

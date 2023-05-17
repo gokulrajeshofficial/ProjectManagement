@@ -34,6 +34,11 @@ const taskSchema = new mongoose.Schema({
     },
     assginees : {
         type : [String] , 
+    },
+    status : {
+        type : Boolean,
+        default : false,
+        required : true
     }
  
     

@@ -31,12 +31,34 @@ const taskDbRepository = ()=>{
 
     }
     const getTaskUser = async(email : string)=>{
-        const response = await taskModel.find({assginees : email })
+        const response = await taskModel.find({assginees : email , status : false }).populate('projectId').populate('createdBy').exec()
         console.log(response)
         return response
     }
+    const updateTask = async(taskupt : taskInterface)=>{
 
-    return { createTask , getAllTask , getTaskById , getTaskUser}
+        const response = await taskModel.findOneAndUpdate({_id : taskupt._id} , { 
+            $set : {
+                title: taskupt.title,
+                description: taskupt.description,
+                priority: taskupt.priority,
+                dueDate: taskupt.dueDate,
+                assginees : taskupt.assginees ,
+                status : taskupt.status
+                
+            }
+        } , {new : true})
+        // console.log(response)
+        return response
+    }
+
+    const deleteTask = async(id : string)=>{
+        console.log(id , "TaskID ")
+        const response =  await taskModel.deleteOne({_id : id})
+        return response
+    }
+
+    return { createTask , getAllTask , getTaskById , getTaskUser , updateTask , deleteTask}
 
 }
 

@@ -11,7 +11,7 @@ import { Link, NavLink } from "react-router-dom";
 function SideNavBar() {
   const menus = [
     { name: "Home", link: "/home", icon: AiFillHome, },
-    { name: "Dashboard", link: "/dashboard", icon: MdOutlineDashboard },
+    // { name: "Dashboard", link: "/dashboard", icon: MdOutlineDashboard },
     { name: "Messages", link: "/messages", icon: FiMessageSquare },
     { name: "Projects", link: "/projects", icon: TbReportAnalytics, margin: true },
     { name: "Workspace", link: "/workspace", icon: FiFolder },
@@ -45,7 +45,7 @@ function SideNavBar() {
           </div>
         </div>
         <div className=" flex justify-center items-center ">
-        <ul className="pt-16">
+        <ul className="mt-24">
           {menus.map((menu, index) => (
             <li  key={index} >
               <hr className={`${menu.margin ? "my-5 " : "hidden"} `}></hr>

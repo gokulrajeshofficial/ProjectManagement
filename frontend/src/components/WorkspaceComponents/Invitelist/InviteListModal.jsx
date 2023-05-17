@@ -87,7 +87,7 @@ function InviteListModal({ handleClose, ownWorkspace }) {
                                     {
 
                                         ownWorkspace.map((workspaces, index) => {
-                                            return (<option key={index} value={workspaces.id}>{workspaces.workspaceName}</option>)
+                                            return (<option key={index} value={workspaces._id}>{workspaces.workspaceName}</option>)
                                         })
 
                                     }
