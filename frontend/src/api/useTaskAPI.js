@@ -5,7 +5,16 @@ const useTaskAPI = ()=>{
     const taskCreation =  async(task)=>{
         try {
 
-            return await axiosPrivate.post('/api/task/createTask' , {task : task})
+            return await axiosPrivate.post('/api/task/createTask' ,{ task : task })
+        } catch (err) {
+
+            throw { err: err.response.data?.message }
+        }
+    }
+    const taskFileUpload =  async(files)=>{
+        try {
+
+            return await axiosPrivate.post('/api/task/uploadFiles' , files )
         } catch (err) {
 
             throw { err: err.response.data?.message }
@@ -56,8 +65,17 @@ const useTaskAPI = ()=>{
         }
 
     }
+    const getFiles = async(attachments)=>{
+        try{
+            return await axiosPrivate.post('/api/task/downloadFiles',{attachments :  attachments})
+        }catch(err){
+            throw { err: err.response.data?.message }
+        }
 
-    return {taskCreation ,  getAllTasks , getTask , taskUpdate , getAllTaskUser , deleteTaskAPI}
+
+    }
+
+    return {taskCreation , taskFileUpload , getFiles,  getAllTasks , getTask , taskUpdate , getAllTaskUser , deleteTaskAPI}
 }
 
 export default useTaskAPI

@@ -12,9 +12,11 @@ import useTaskAPI from '../../api/useTaskAPI'
 import moment from 'moment/moment'
 import { FcHighPriority, FcLowPriority, FcMediumPriority } from 'react-icons/fc'
 import TaskModal from '../TaskModal/TaskModal'
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
+
 function ProjectPageDetails({ project, setProject }) {
   const axiosPrivate = usePrivateAxiosAPI()
-  const { getAllTasks } = useTaskAPI()
+  const { getAllTasks , taskUpdate } = useTaskAPI()
   const [completedCount, setCompletedCount] = useState(1);
   const [createTask, setCreateTask] = useState(false)
   const [pendingCount, setPendingCount] = useState(1);
@@ -41,7 +43,7 @@ function ProjectPageDetails({ project, setProject }) {
     let projectId = project._id
     const responseMembers = await axiosPrivate.projectMembers(projectId)
     setMembers(responseMembers.data)
-    
+
   }
 
   const fetchTask = async () => {
@@ -75,6 +77,28 @@ function ProjectPageDetails({ project, setProject }) {
   const handleTaskSelection = (id) => {
     setSelectedTaskId(id)
     setShowTask(true)
+
+  }
+
+
+  const onDragEnd = async(results)=>{
+    const {source ,destination , draggableId } = results
+    console.log(results)
+    if(!destination)return;
+
+    if(destination.droppableId === source.droppableId) return
+    
+    if(destination.droppableId == "Ongoing"   )
+    {
+      const response = await taskUpdate({_id : draggableId , status: false })
+      setRender(!render)
+
+    }else {
+      console.log("Completed")
+      const response = await taskUpdate({_id : draggableId , status: true })
+      setRender(!render)
+    }
+
 
   }
 
@@ -173,47 +197,7 @@ function ProjectPageDetails({ project, setProject }) {
 
               <div className='pb-5'>
                 <DoughnutGraph completed={completedCount} pending={pendingCount} />
-                {/* <div className='  w-full mt-10 shadow-2xl p-2 rounded-2xl'>
-                  <h3 className='font-bruno border-2 border-purple-400 rounded-lg mb-5 font-extrabold  text-center text-purple-700 p-4'>Project Members </h3>
-                  <div className="flex items-center border-b  border-purple-500 py-2 lg:w-[80%] lg:ml-auto mb-10 w-full ">
-                    <input value={searchMembers} onChange={handleChangeMembers} className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="email" placeholder="Jane Doe" aria-label="Full name" />
-                    <button className="flex-shrink-0 relative right-2 bg-purple-500 hover:bg-purple-700 border-purple-500 hover:border-purple-700 text-sm border-4 text-white py-1 px-2 rounded" type="button">
-                      Search
-                    </button>
-                  </div>
-
-                  {
-                    members.filter((val) => {
-
-                      if (searchMembers == "") {
-                        return val
-                      } else if (val.projectMembers.email.toLowerCase().includes(searchMembers.toLowerCase())) {
-                        return val
-                      }
-
-                    }).map((user, index) => {
-                      return <div className="flex cursor-pointer rounded-md px-5  hover:bg-purple-200 items-center space-x-4 p-3" key={index}  >
-
-                        <div style={{ backgroundColor: `${project.projectColor}` }} className={`relative inline-flex  items-center justify-center w-10 h-10 overflow-hidden rounded-full dark:bg-gray-600`}>
-                          <span className="font-medium text-base  text-dark dark:text-gray-300">{user.projectMembers.fname[0].toUpperCase() + user.projectMembers.lname[0].toUpperCase()}</span>
-                        </div>
-
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                            {user.projectMembers.fname + " " + user.projectMembers.lname}
-                          </p>
-                          <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                            {user.projectMembers.phone}
-                          </p>
-                        </div>
-                        <div className="sm:block hidden items-center text-sm2 font-semibold text-gray-900 dark:text-white">
-                          {user.projectMembers.email}
-                        </div>
-                      </div>
-
-                    })
-                  }
-                </div> */}
+         
               </div>
 
             </div>
@@ -222,90 +206,104 @@ function ProjectPageDetails({ project, setProject }) {
         </div>
 
         {/* Tasks */}
+        <DragDropContext onDragEnd={onDragEnd}>
+          <div className={`mt-3 md:p-5 ${toggle == "tasks" ? "block" : "hidden"}`}>
+            <header>
 
-        <div className={`mt-3 md:p-5 ${toggle == "tasks" ? "block" : "hidden"}`}>
-          <header>
-
-            <div className='flex flex-wrap '>
-              <button onClick={handleCreateButton} className='p-3 ml-auto rounded-md text-white bg-purple-600 hover:bg-fuchsia-700' ><span className='inline-block relative top-0.5 left-1 mr-2'> <AiOutlinePlusSquare /></span> Create New Task </button>
-
-            </div>
-          </header>
-
-          <section className='flex flex-col mb-5 w-full'>
-            <div className='mb-8'>
-              <h1 className='font-bruno font-extrabold  mb-3 text-xl text-purple-700 underline ' >Ongoing Tasks</h1>
-              <div className='flex-col flex gap-1 border-2 rounded-xl w-full'>
-
-                {taskList.filter((val) => val.status === false).length == 0 ? <p className='text-center p-3 font-ubuntu'>No Tasks </p> :
-                  taskList.filter((val) => {
-
-                    if (val.status == false) return val
-
-                  }).map((elem, index) => {
-
-                    return <div key={index} onClick={() => handleTaskSelection(elem._id)} className=' p-3 cursor-pointer  hover:bg-purple-200 grid grid-cols-5  w-full shadow-md border rounded-lg'>
-                      <div className='col-span-2 flex items-center'>
-                        <p className='inline-block truncate font-ubuntu mr-2'>{elem.title}</p>
-
-                      </div>
-                      <div className='col-span-2 sm:flex hidden  items-center'>
-                        <p className='font-ubuntu  inline relative' >Priority : <span className='font-sans'><div className='w-7 inline-block absolute -right-8 -top-1'>{selectFlag(elem.priority)}</div> {elem.priority.toUpperCase()}</span></p>
-                      </div>
-                      <div className=' sm:col-span-1 col-span-3'>
-                        <p className=''>Due on {moment(elem.dueDate).format('MMMM Do YYYY')}</p>
-                      </div>
-
-
-                    </div>
-
-                  })
-                }
+              <div className='flex flex-wrap '>
+                <button onClick={handleCreateButton} className='p-3 ml-auto rounded-md text-white bg-purple-600 hover:bg-fuchsia-700' ><span className='inline-block relative top-0.5 left-1 mr-2'> <AiOutlinePlusSquare /></span> Create New Task </button>
 
               </div>
+            </header>
 
-            </div>
+            <section className='flex flex-col mb-5 w-full'>
+              {/* Pending Tasks */}
+              <Droppable droppableId='Ongoing'>
+                {(provided) => (<div ref={provided.innerRef} {...provided.droppableProps} className='mb-8'>
+                  <h1 className='font-bruno font-extrabold  mb-3 text-xl text-purple-700 underline ' >Ongoing Tasks</h1>
+                  <div className='flex-col flex gap-1 border-2 rounded-xl w-full'>
 
-            {/* Pending Tasks */}
-            <div>
-              <h1 className='font-bruno font-extrabold  mb-3 text-xl text-purple-700 underline ' >Completed Tasks</h1>
-              <div className='flex-col flex gap-1 border-2 rounded-xl w-full'>
+                    {taskList.filter((val) => val.status === false).length == 0 ? <p className='text-center p-3 font-ubuntu'>No Tasks </p> :
+                      taskList.filter((val) => {
 
-                {taskList.filter((val) => val.status === true).length == 0 ? <p className='text-center p-3 font-ubuntu'>No Tasks </p> :
-                  taskList.filter((val) => {
+                        if (val.status == false) return val
 
-                    if (val.status == true ) return val
+                      }).map((elem, index) => {
 
-                  }).map((elem, index) => {
+                        return <Draggable draggableId={elem?._id?.toString()} index={index} key={elem?._id}> 
+                        {(provided)=>(<div onClick={() => handleTaskSelection(elem._id)} {...provided.draggableProps} {...provided.dragHandleProps} 
+                        ref={provided.innerRef} className=' p-3 bg-white cursor-pointer  hover:bg-purple-200 grid grid-cols-5  w-full shadow-md border rounded-lg'>
+                          <div className='col-span-2 flex items-center'>
+                            <p className='inline-block truncate font-ubuntu mr-2'>{elem.title}</p>
 
-                    return <div key={index} onClick={() => handleTaskSelection(elem._id)} className=' p-3 cursor-pointer  hover:bg-purple-200 grid grid-cols-5  w-full shadow-md border rounded-lg'>
-                      <div className='col-span-2 flex'>
-                        <p className=' inline-block truncate font-ubuntu mr-2'>{elem.title}</p>
-
-                      </div>
-                      <div className='col-span-2 sm:block hidden'>
-                        <p className='font-ubuntu  inline relative' >Priority : <span className='font-sans'><div className='w-7 inline-block absolute -right-8 -top-1'>{selectFlag(elem.priority)}</div> {elem.priority.toUpperCase()}</span></p>
-                      </div>
-                      <div className=' sm:col-span-1 col-span-3'>
-                        <p className=''>Due on {moment(elem.dueDate).format('MMMM Do YYYY')}</p>
-                      </div>
+                          </div>
+                          <div className='col-span-2 sm:flex hidden  items-center'>
+                            <p className='font-ubuntu  inline relative' >Priority : <span className='font-sans'><div className='w-7 inline-block absolute -right-8 -top-1'>{selectFlag(elem.priority)}</div> {elem.priority.toUpperCase()}</span></p>
+                          </div>
+                          <div className=' sm:col-span-1 col-span-3'>
+                            <p className=''>Due on {moment(elem.dueDate).format('MMMM Do YYYY')}</p>
+                          </div>
 
 
-                    </div>
+                        </div>)}
+                        </Draggable>
 
-                  })
-                }
+                      })
+                    }
+                    {provided.placeholder}
 
-              </div>
+                  </div>
 
-            </div>
-          </section>
-        </div>
+                </div>)}
+              </Droppable>
+              {/* Completed Tasks */}
+              <Droppable droppableId='completed'>
+                {(provided) => (<div ref={provided.innerRef} {...provided.droppableProps} >
+                  <h1 className='font-bruno font-extrabold  mb-3 text-xl text-purple-700 underline ' >Completed Tasks</h1>
+                  <div className='flex-col flex gap-1 border-2 rounded-xl w-full'>
+
+                    {taskList.filter((val) => val.status === true).length == 0 ? <p className='text-center p-3 font-ubuntu'>No Tasks </p> :
+                      taskList.filter((val) => {
+
+                        if (val.status == true) return val
+
+                      }).map((elem, index) => {
+
+                        return <Draggable draggableId={elem?._id?.toString()} index={index} key={elem?._id}>
+                         {(provided)=>( <div onClick={() => handleTaskSelection(elem._id)} {...provided.draggableProps} {...provided.dragHandleProps} 
+                        ref={provided.innerRef} className=' p-3 bg-white cursor-pointer  hover:bg-purple-200 grid grid-cols-5  w-full shadow-md border rounded-lg'>
+                            <div className='col-span-2 flex'>
+                              <p className=' inline-block truncate font-ubuntu mr-2'>{elem.title}</p>
+
+                            </div>
+                            <div className='col-span-2 sm:block hidden'>
+                              <p className='font-ubuntu  inline relative' >Priority : <span className='font-sans'><div className='w-7 inline-block absolute -right-8 -top-1'>{selectFlag(elem.priority)}</div> {elem.priority.toUpperCase()}</span></p>
+                            </div>
+                            <div className=' sm:col-span-1 col-span-3'>
+                              <p className=''>Due on {moment(elem.dueDate).format('MMMM Do YYYY')}</p>
+                            </div>
+
+
+                          </div>)}
+                        </Draggable>
+
+                      })
+                    }
+                       {provided.placeholder}
+
+                  </div>
+
+                </div>)}
+
+              </Droppable>
+            </section>
+          </div>
+        </DragDropContext>
 
 
       </div>
       <CreateTaskModal isVisible={createTask} setShowModal={setCreateTask} project={project} setRender={setRender} />
-      {showTask && <TaskModal taskId={selectedTaskId} setShowModal={setShowTask} setRender={()=>{setRender(prev => !prev)}}  />}
+      {showTask && <TaskModal taskId={selectedTaskId} setShowModal={setShowTask} setRender={() => { setRender(prev => !prev) }} />}
     </section>
   )
 }

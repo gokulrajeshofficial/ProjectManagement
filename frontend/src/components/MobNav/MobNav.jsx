@@ -13,7 +13,7 @@ function MobNav() {
         { name: "Messages", link: "/messages", icon: FiMessageSquare },
         { name: "Projects", link: "/projects", icon: TbReportAnalytics, margin: true },
         { name: "Workspace", link: "/workspace", icon: FiFolder },
-        { name: "User", link: "/", icon: AiOutlineUser , margin: true},
+        { name: "User", link: "/user  ", icon: AiOutlineUser , margin: true},
       ];
       menus
   return (

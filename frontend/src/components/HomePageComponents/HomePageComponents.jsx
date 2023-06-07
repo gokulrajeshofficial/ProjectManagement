@@ -34,9 +34,7 @@ function HomePageComponents() {
     let futureTasks = [];
     
     response.data.forEach(task => {
-      const momentDate = moment.utc(task.dueDate);
-      console.log('Respective date and time:', task);
-    
+      const momentDate = moment.utc(task.dueDate)
       if (momentDate.isBefore(today)) {
         pastTasks.push(task);
       } else if (momentDate.isSame(today, 'day')) {
@@ -54,7 +52,6 @@ function HomePageComponents() {
 
     
   }
-  console.log(tasks)
 
 
   const accordionData = [

@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { IoMdClose } from 'react-icons/io'
 import { FcHighPriority, FcLowPriority, FcMediumPriority } from 'react-icons/fc'
-import { AiFillCloseCircle, AiOutlineUserAdd } from 'react-icons/ai'
-import usePrivateAxiosAPI from '../../api/usePrivateAxiosAPI'
+import { AiFillCloseCircle, AiOutlineUserAdd , AiOutlineClose} from 'react-icons/ai'
 import useTaskAPI from '../../api/useTaskAPI'
 import { taskErrorToast } from '../../config/toastifyConfig'
 import { ToastContainer } from 'react-toastify'
@@ -13,10 +12,10 @@ const priorityLevel = [
   { priority: "Low", icon: <FcLowPriority className='w-full h-auto' /> },
 ]
 
-function CreateTaskModal({ isVisible, setShowModal, project , setRender }) {
+function CreateTaskModal({ isVisible, setShowModal, project, setRender }) {
   if (!isVisible) return null
 
-  const {taskCreation} =  useTaskAPI()
+  const { taskCreation , taskFileUpload } = useTaskAPI()
 
   const handleClose = () => {
     setShowModal(false)
@@ -27,44 +26,40 @@ function CreateTaskModal({ isVisible, setShowModal, project , setRender }) {
     description: "",
     priority: "Low",
     dueDate: null,
-    assginees: [] ,
-    projectId : project._id
+    assginees: [],
+    projectId: project._id ,
+    attachments : []
   })
 
-  const [error , setError] = useState({
-    title: null ,
-    description: null ,
+  const [error, setError] = useState({
+    title: null,
+    description: null,
   })
 
-  const validation = ()=>{
+  const validation = () => {
     let flag = 0
     let valError = {}
-    if(!task?.title?.trim().length)
-    {
+    if (!task?.title?.trim().length) {
       valError.title = "Task Name is required "
       flag = 1
     }
-    if(!task?.description?.trim().length)
-    {
+    if (!task?.description?.trim().length) {
       valError.description = "Task description is required "
       flag = 1
     }
-    if(!task?.assginees.length)
-    {
+    if (!task?.assginees.length) {
       taskErrorToast("Choose an assignee")
       flag = 1
     }
-    if(task.dueDate == null)
-    {
+    if (task.dueDate == null) {
       taskErrorToast("Select a Due date")
       flag = 1
     }
-    setError({...valError})
+    setError({ ...valError })
 
-    if(flag == 0 )
-    {
+    if (flag == 0) {
       return true
-    }else{
+    } else {
       return false
     }
 
@@ -76,6 +71,7 @@ function CreateTaskModal({ isVisible, setShowModal, project , setRender }) {
     setTask({ ...task, priority: elem.priority, })
     setPriorityOptions(false)
   }
+  const [selectedFiles, setSelectedFiles] = useState([])
 
   const handleAssign = (email) => {
 
@@ -87,35 +83,58 @@ function CreateTaskModal({ isVisible, setShowModal, project , setRender }) {
     }
     setShowMembers(false)
   }
-  const handleChange = (e)=>{
-    const {name , value } = e.target 
-    setTask({...task , [name] : value})
-    setError({...error , [name] : null})
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setTask({ ...task, [name]: value })
+    setError({ ...error, [name]: null })
   }
 
-  const removeFromAssignee = (index)=>{
+  const removeFromAssignee = (index) => {
     const arrayList = task.assginees
     arrayList.splice(index, 1)
-    setTask({...task , assginees : arrayList})
-    }
+    setTask({ ...task, assginees: arrayList })
+  }
 
-    const handleCreateTask = async()=>{
-      try{
-        if(validation())
-        {
-        const response  = await taskCreation(task)
-        if(response.data)
-        {
-          setRender((prev)=>{!prev})
-          handleClose()
+
+   const handleCreateTask = async () => {
+    try {
+      if (validation()) {
+        const formData = new FormData();
+  
+        for (let i = 0; i < selectedFiles.length; i++) {
+          formData.append('taskFiles', selectedFiles[i]);
+        }
+
+        const fileResponse = await taskFileUpload(formData);
+        console.log(fileResponse.data , "Keyss are the following")
+        let attachments = fileResponse.data ? fileResponse.data : null
+        const response = await taskCreation({...task , attachments : attachments});
+        if (response.data) {
+          setRender((prev) => !prev);
+          handleClose();
         }
       }
-      }catch(err)
-      {
-        console.log(err)
-      }
+    } catch (err) {
+      console.log(err);
     }
+  };
+  
 
+  const handleFileUpload = (e) => {
+    const formData = new FormData();
+
+    const fileInputs = e.target.files
+    console.log(fileInputs)
+    setSelectedFiles([...selectedFiles, ...fileInputs]);
+
+  }
+
+  const removeFromFiles = (index)=>{
+    console.log(index)
+    const arrayList = selectedFiles
+    arrayList.splice(index, 1)
+    setSelectedFiles([...arrayList])
+  }
 
 
 
@@ -186,8 +205,17 @@ function CreateTaskModal({ isVisible, setShowModal, project , setRender }) {
               </div>
 
               <div className=''>
-                <p className='font-ubuntu'>Uploaded Documents</p>
-              
+                <p className='font-ubuntu'>Selected Documents</p>
+                <div className='flex flex-wrap mt-2'>
+                  <ul>
+                  {selectedFiles.map((file, index) => (
+                    <li key={index} className=' rounded-md mb-2 bg-purple-600 text-white relative  px-3 p-2 pr-8'>
+                    <p className='inline'>  {file.name} </p><span className='inline-block cursor-pointer absolute right-2  top-3 '> <AiOutlineClose onClick={()=>{removeFromFiles(index)}} /> </span>
+                    </li>
+                  ))}
+                  </ul>
+                </div>
+
               </div>
 
 
@@ -205,17 +233,17 @@ function CreateTaskModal({ isVisible, setShowModal, project , setRender }) {
                 <div className='relative'>
                   <p className='inline'>Assign for :  </p>
                   <div onClick={() => { setShowMembers(!showMembers) }} className={`relative inline-flex items-center border-2 justify-center w-10 h-10 overflow-hidden rounded-full dark:bg-gray-600`}>
-                    <span className="font-medium text-base text-dark dark:text-gray-300"><AiOutlineUserAdd/></span>
+                    <span className="font-medium text-base text-dark dark:text-gray-300"><AiOutlineUserAdd /></span>
 
-                  </div>  
+                  </div>
                   {
                     task.assginees.map((email, index) => {
 
-                    return <div key={index} style={{ backgroundColor: `${project.projectColor}` }} className={`relative -top-1 inline-flex items-center justify-center w-8 h-8  rounded-full dark:bg-gray-600`}>
-                      <div className='overflow-hidden'>
-                        <span className="font-medium text-sm2 text-dark dark:text-gray-300">{email[0].toUpperCase()}</span>
+                      return <div key={index} style={{ backgroundColor: `${project.projectColor}` }} className={`relative -top-1 inline-flex items-center justify-center w-8 h-8  rounded-full dark:bg-gray-600`}>
+                        <div className='overflow-hidden'>
+                          <span className="font-medium text-sm2 text-dark dark:text-gray-300">{email[0].toUpperCase()}</span>
                         </div>
-                        <AiFillCloseCircle onClick={()=>removeFromAssignee(index)} className='absolute -top-1 right-0 text-black bg-white rounded-full'/>
+                        <AiFillCloseCircle onClick={() => removeFromAssignee(index)} className='absolute -top-1 right-0 text-black bg-white rounded-full' />
                       </div>
 
                     })
@@ -245,8 +273,8 @@ function CreateTaskModal({ isVisible, setShowModal, project , setRender }) {
                     </ul>
                   </div>
                 </div>
-      
-                </div>
+
+              </div>
 
               <div className="flex items-center justify-center w-full  mt-14 lg:w-[80%]">
                 <label for="dropzone-file" className="flex flex-col items-center justify-center w-full h-44 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
@@ -255,15 +283,15 @@ function CreateTaskModal({ isVisible, setShowModal, project , setRender }) {
                     <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                   </div>
-                  <input id="dropzone-file" type="file" className="hidden" />
+                  <input onChange={handleFileUpload} id="dropzone-file" type="file" className="hidden" />
                 </label>
               </div>
 
-          
+
 
             </div>
 
-            
+
 
           </div>
 
@@ -272,7 +300,7 @@ function CreateTaskModal({ isVisible, setShowModal, project , setRender }) {
           </div>
         </div>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   )
 }

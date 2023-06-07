@@ -22,7 +22,7 @@ const userDetailsSlice = createSlice({
       return state;
     },
     unSetDetails: (state, action) => {
-      state = null;
+      state = null
       return state;
     }
   }

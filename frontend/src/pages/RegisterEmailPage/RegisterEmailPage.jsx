@@ -38,12 +38,12 @@ function RegisterEmailPage() {
         setEmail(e.target.value)
         setError("")
     }
-    const googleLogin = async(userInfo) => {
+    const googleLogin = async (userInfo) => {
 
         try {
             const verification = await verifyEmailId(userInfo.email);
             console.log(verification.data)
-            verification.data == true ?  setProceed(verification.data) : ""
+            verification.data == true ? setProceed(verification.data) : ""
             setEmail(userInfo.email)
 
         } catch (error) {
@@ -75,7 +75,9 @@ function RegisterEmailPage() {
                                         </span> </h2>
 
                                 </div>
-                                <div className='lg:grid grid-cols-2  mt-10 bg-white items-center  rounded-3xl shadow-2xl shadow-purple-500'>
+                                <div data-aos="flip-left"
+     data-aos-easing="ease-out-cubic"
+     data-aos-duration="500" className='lg:grid grid-cols-2  mt-10 bg-white items-center  rounded-3xl shadow-2xl shadow-purple-500'>
                                     <div className=' lg:block hidden'>
 
                                         <img src="./LoginPageGif.gif" className='w-full h-full' />
@@ -104,8 +106,7 @@ function RegisterEmailPage() {
                                                     <input
                                                         type="text"
                                                         placeholder='E-mail' onChange={handleOnChange}
-                                                        className="block w-full px-4 py-2 mt-2 text-white bg-purple-800
-                   border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                                                        className="block w-full px-4 py-2 mt-2 text-white bg-purple-800 border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                                     />
                                                     <p className=' text-yellow-400 bg-transparent  px-2 mt-1 ml-2   font-bold inline-block'>{error}</p>
                                                 </div>

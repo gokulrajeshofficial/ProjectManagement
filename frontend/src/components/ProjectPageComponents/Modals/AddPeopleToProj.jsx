@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import { ImUserPlus } from 'react-icons/im'
+import useAxiosPrivate from '../../../hooks/useAxiosPrivate'
 
 function AddPeopleToProj() {
+  const axiosPrivate = useAxiosPrivate()
   const [search, setSearch] = useState("")
   const handleChange = (e) => {
     setSearch(e.target.value)
@@ -25,8 +27,8 @@ function AddPeopleToProj() {
   }
 
   useEffect(() => {
-    // fetchMembers()
-  }, [memberFetching])
+    fetchMembers()
+  }, [])
 
 
   const removeFromList = (index) => {
@@ -49,12 +51,26 @@ function AddPeopleToProj() {
 
 
   return (
-    <div>
-                 <div className="container flex-col justify-">
+    <div className='p-5'>
+                 <div className="container flex-col justify-center">
                 <h2 className='font-ubuntu text-transparent tracking-wide 
  lg:text-xl text-center  text-l bg-clip-text bg-gradient-to-l from-purple-600 to-pink-600 '><span><ImUserPlus className='text-fuchsia-600 inline-block w-auto h-10 relative right-2 -top-1 ' /></span>Add People </h2>
                 <div className="flex justify-center">
                   <div className="max-w-7xl container lg:mt-14">
+                    <div className=' justify-center flex-col flex items-center mb-10'>
+                      
+                        <p className='text-center font'>Select The Project</p>
+                        <select id="countries" class="bg-gray-50 border border-gray-300 p-3 md:w-[80%] w-full">
+  <option selected>Choose a country</option>
+  <option value="US">United States</option>
+  <option value="CA">Canada</option>
+  <option value="FR">France</option>
+  <option value="DE">Germany</option>
+</select>
+                      </div>
+                    
+                 
+                  
                     <div className='md:grid grid-cols-2 '>
 
                       <div className=''>
@@ -109,7 +125,7 @@ function AddPeopleToProj() {
                         <div>
                           <ul className='lg:p-3 list-disc' >
                             {
-                              projectMembers.map((elem, index) => {
+                              projectMembers?.map((elem, index) => {
                                 return (<li key={index} className="inline-block  p-1 px-2 rounded-md bg-purple-500 text-white ml-5 mb-1" >{elem}<span className='inline-block ml-2 relative z-10 top-0.5 cursor-pointer' onClick={() => { removeFromList(index) }}><AiOutlineClose /></span></li>)
                               })
 

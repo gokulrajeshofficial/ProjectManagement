@@ -11,7 +11,6 @@ import { Link, NavLink } from "react-router-dom";
 function SideNavBar() {
   const menus = [
     { name: "Home", link: "/home", icon: AiFillHome, },
-    // { name: "Dashboard", link: "/dashboard", icon: MdOutlineDashboard },
     { name: "Messages", link: "/messages", icon: FiMessageSquare },
     { name: "Projects", link: "/projects", icon: TbReportAnalytics, margin: true },
     { name: "Workspace", link: "/workspace", icon: FiFolder },
@@ -49,7 +48,7 @@ function SideNavBar() {
           {menus.map((menu, index) => (
             <li  key={index} >
               <hr className={`${menu.margin ? "my-5 " : "hidden"} `}></hr>
-            <NavLink to={menu.link}
+            <NavLink  to={menu.link}
              
               className={ ({ isActive }) =>
               isActive ? `flex mt-1 px-4 p-2 cursor-pointer  text-white font-semibold rounded-md  text-sm2 items-center gap-x-4 border-2  border-white

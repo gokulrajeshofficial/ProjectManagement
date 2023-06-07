@@ -87,14 +87,16 @@ function SignInPageComponent() {
                   </div>
                   <div className='text-left'>
                     <h1 className='font-extrabold font-logo leading-10 text-transparent tracking-wide 
-                  text-2xl bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600'>Phoenix  </h1>
+                  text-2xl bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600'>Pheonix  </h1>
                     <h1 className='text-black font-logo text-l leading-3'>Trek</h1>
                   </div>
                 </div>
               </span> </h2>
 
           </div>
-          <div className='lg:grid grid-cols-2  mt-10 bg-white items-center  rounded-3xl shadow-2xl shadow-purple-500'>
+          <div data-aos="flip-left"
+     data-aos-easing="ease-out-cubic"
+     data-aos-duration="5000" className='lg:grid grid-cols-2  mt-10 bg-white items-center  rounded-3xl shadow-2xl shadow-purple-500'>
             <div className=' lg:block hidden'>
 
               <img src="./LoginPageGif.gif" className='w-full h-full' />

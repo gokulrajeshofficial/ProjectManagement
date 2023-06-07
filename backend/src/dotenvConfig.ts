@@ -16,7 +16,14 @@ const dotenvConfig = {
 
     crypto_secret : process.env.CRYPTO_SECRET_KEY as string,
 
-    client_base_url : process.env.CLIENT_BASE_URL as string
+    client_base_url : process.env.CLIENT_BASE_URL as string,
+
+    awsBucketRegion : process.env.AWS_BUCKET_REGION as string,
+    awsAccessKey : process.env.AWS_ACCESS_KEY as string ,
+    awsSecretAccessKey : process.env.AWS_SECRET_KEY as  string,
+    awsBucketName   : process.env.AWS_BUCKET_NAME as string
+
+
 
 }
 

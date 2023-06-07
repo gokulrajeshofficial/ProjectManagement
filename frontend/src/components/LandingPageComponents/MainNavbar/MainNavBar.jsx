@@ -10,7 +10,7 @@ function MainNavBar({loginHandle , registerHandle}) {
                         <img src="/LOGO.png" width={60} />
                         <div className='mt-4 mx-1'>
                             <h1 className='font-extrabold leading-5 font-logo text-transparent tracking-wide 
-                 text-xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600'>Phoenix  </h1>
+                 text-xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600'>Pheonix  </h1>
                             <h1 className='text-white font-logo'>Trek</h1>
                         </div>
                     </div>

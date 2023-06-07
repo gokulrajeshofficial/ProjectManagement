@@ -4,7 +4,7 @@ import ProjectPage from '../pages/ProjectPage/ProjectPage'
 import { useSelector } from 'react-redux'
 import { userDetails } from '../store/Slice/userDetails.slice'
 import MessagePage from '../pages/MessagesPage/MessagePage'
-function ProjectRouter() {
+function MessageRouter() {
   const user = useSelector(userDetails)
   const navigate = useNavigate()
   useEffect(()=>{
@@ -13,10 +13,10 @@ function ProjectRouter() {
 })
   return (
     <Routes>
-      <Route exact path='/' element={<ProjectPage />} />
-      <Route exact path='/messages' element={<MessagePage/>} />
+
+      <Route exact path='/' element={<MessagePage/>} />
     </Routes>
   )
 }
 
-export default ProjectRouter
+export default MessageRouter

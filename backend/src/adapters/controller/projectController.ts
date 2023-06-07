@@ -1,4 +1,4 @@
-import express, { Request, Response, response } from 'express'
+import express, { Request, Response } from 'express'
 import { typeofWorkspaceRepository } from '../../application/repositories/workspaceRepository'
 import { typeOfWorkspaceDbRepository } from '../../frameworks/database/mongoDb/repositories/workspaceDbRepository'
 import { typeOfUserRepository } from '../../application/repositories/userDbRepository'

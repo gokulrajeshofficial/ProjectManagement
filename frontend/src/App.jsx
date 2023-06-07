@@ -1,22 +1,21 @@
-
 import './App.css'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import UserRouter from './router/AuthRouter'
 import WorkspaceRouter from './router/WorkspaceRouter'
 import ProjectRouter from './router/ProjectRouter'
-import OtherRouter from './router/OtherRouter'
-import { useSelector } from 'react-redux'
-import { userDetails } from './store/Slice/userDetails.slice'
-import { Navigate } from 'react-router-dom'
+import MessageRouter from './router/MessageRouter'
+
 function App() {
 
   return (
     <div className="App">
       <BrowserRouter>
-        <UserRouter />
-        <WorkspaceRouter />
-        <ProjectRouter />
-        <OtherRouter />
+        <Routes>
+          <Route path="/*" element={<UserRouter />} />
+          <Route path="/workspace/*" element={<WorkspaceRouter />} />
+          <Route path="/projects/*" element={<ProjectRouter />} />
+          <Route path="/messages/*" element={<MessageRouter />} />
+        </Routes>
       </BrowserRouter>
     </div>
   )

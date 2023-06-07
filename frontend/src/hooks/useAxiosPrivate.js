@@ -6,7 +6,7 @@ import { useEffect } from "react"
 import useRefreshToken from "./useRefreshToken"
 
 function useAxiosPrivate() {
-  console.log("Reached useAxiosPrivate")
+  // console.log("Reached useAxiosPrivate")
   const refresh = useRefreshToken()
 
     const accessToken = useSelector(userDetails)?.accessToken

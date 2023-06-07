@@ -8,5 +8,10 @@ export interface taskInterface{
     createdDate? : Date ,
     createdBy? : string ,
     assginees? : [string] ,
+    attachments? : [
+        {
+         location : string , name : string
+        }
+    ]
     status : Boolean
 }
